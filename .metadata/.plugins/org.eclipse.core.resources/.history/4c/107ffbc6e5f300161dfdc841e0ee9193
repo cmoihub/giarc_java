@@ -1,0 +1,16 @@
+package math;
+
+import java.util.Random;
+
+public class Buffon_Needle {
+	public static void main(String[] args){
+		Random r = new Random();
+		int y;
+		int o;
+		int a;
+		int b;
+		System.out.print("Y = " + " ");
+		System.out.println("Angle = ");
+	}
+
+}

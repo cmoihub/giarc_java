@@ -1,0 +1,71 @@
+#!/usr/bin/python
+
+
+# infinite loop to ease testing
+def main():
+    availableCombos = [[]]
+    numberOfNodes = raw_input("How many nodes?")
+    numberOfChannels = raw_input("How many channels?")
+    index = 0
+    setOfChannels = [numberOfChannels]
+    while (True):
+        generate(numberOfNodes, setOfChannels,
+                 index, numberOfNodes, availableCombos)
+        total_assignments(availableCombos, numberOfNodes)
+
+
+# The base case is the last channel
+# Set the channel to have the value of nodes
+# currentChannel should be set to 0
+# as this is the base that lists in java work with
+# it is incremented with every call so as to fill up next channel
+# remaining nodes helps to keep track of nodes
+# to put into channels based on nodes in previous channels
+# As arrays are filled they are copied into the list of available combinations
+def generate(nodes, combo, currentChannel, remainingNodes, availableCombos):
+    if(currentChannel < len(combo) - 1):
+        if(currentChannel != 0):
+            remainingNodes -= combo[currentChannel - 1]
+        for i in range(0, remainingNodes):
+            combo[currentChannel] = i
+            generate(nodes - i, combo, currentChannel + 1, remainingNodes)
+# base case
+    if(currentChannel == len(combo) - 1):
+        combo[currentChannel] = nodes
+        channelSet = range(len(combo))
+        for i in range(0, len(combo)):
+            channelSet[i] = combo[i]
+        availableCombos.append(channelSet)
+
+
+# computes the total number of combos
+# and displays sets of channels that were generated
+def total_assignments(combos, nodes):
+    totalCombos = long(0)
+    for combo in combos:
+        totalCombos += count_combos(combo, nodes, 0)
+        print('{}{}{}'.format(count_combos(combo, nodes, 0),
+                        " sets with occupancies: ", combo))
+    print('{}{}'.format("Total number of assignments: ", totalCombos))
+
+
+# uses the binomial coefficient to
+# determine how many times a combo should appear
+def count_combos(combo, nodes, current_channel):
+    if(current_channel < len(combo)):
+        return binomial(nodes, combo[current_channel]) * 
+                        count_combos(combo, int(nodes) - 
+                        int(combo[current_channel]),, current_channel + 1)
+    else:
+        return long(1)
+
+
+# continually gets the binomial of a
+# decremented n & k plus the binomial of only a decremented n
+def binomial(n, k):
+    if(k == n or k == 0):
+        return long(1)
+    result = binomial(n - 1, k - 1) + binomial(n - 1, k)
+    return result
+
+main()

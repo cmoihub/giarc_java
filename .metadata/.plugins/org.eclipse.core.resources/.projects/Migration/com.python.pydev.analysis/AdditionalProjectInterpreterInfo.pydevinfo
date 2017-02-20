@@ -1,0 +1,23 @@
+-- VERSION_4
+-- START DISKCACHE_2
+/Users/CraigBook/Java/.metadata/.plugins/org.eclipse.core.resources/.projects/Migration/com.python.pydev.analysis/v2_indexcache
+Buffon|1487214168000000000|/Users/CraigBook/Python/Buffon.py
+ConfigCount|1486824455000000000|/Users/CraigBook/Python/ConfigCount.py
+hello|1486673073000000000|/Users/CraigBook/Python/hello.py
+-- END DISKCACHE
+-- START DICTIONARY
+2
+2=Buffon
+1=ConfigCount
+-- END DICTIONARY
+-- START TREE 1
+5
+bin|1|binomial!10@
+cou|1|count_combos!10@
+gen|1|generate!10@
+mai|2|main!18@main!10@
+tot|1|total_assignments!10@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="GitImportWizard">
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="/Users/CraigBook/Java/SYSC4005/.git">
+			<item value="false"/>
+			<item value="Craig Isesele &lt;cmoisesele@live.com&gt;"/>
+			<item value="Lab 2 involves translating MATLAB code from lab 1 to Java, professor provided some code"/>
+			<item value="Craig Isesele &lt;cmoisesele@live.com&gt;"/>
+			<item value="0000000000000000000000000000000000000000"/>
+		</list>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item value="200,200" key="STAGING_SASH_FORM_WEIGHT"/>
+		<item value="false" key="sortItemState"/>
+		<item value="200,200" key="HORIZONTAL_SASH_FORM_WEIGHT"/>
+	</section>
+</section>

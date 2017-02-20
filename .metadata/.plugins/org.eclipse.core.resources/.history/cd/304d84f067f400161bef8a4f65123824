@@ -1,0 +1,31 @@
+package lab2;
+
+import java.io.*; 
+import java.util.*;
+
+public class mySystem {
+	private final int MAX_DEPARTURES = 100000;
+	
+	private Server server;
+	private ArrayList<Event> eventList; 
+	private double clock;
+
+	public mySystem() {
+		this.server = new Server(); 
+		this.eventList = new ArrayList<Event>(); 
+		this.clock = 0;
+		}
+	
+	public void run(){
+		initialize();
+		// while there is a next event
+		while(!eventList.isEmpty()){  
+		// take the first "future event"
+		// take the first 
+		 // progress clock
+		Event e = eventList.get(0);
+		clock = e.getTime();
+		/* more code to be added here */
+		}
+	}
+}

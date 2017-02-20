@@ -1,0 +1,120 @@
+package lab2;
+
+import java.io.*; 
+import java.util.*;
+
+public class mySystem {
+	private final int MAX_DEPARTURES = 100000;
+	
+	private Server server;
+	private ArrayList<Event> eventList; 
+	private double clock;
+
+	private int qSize;
+
+	private int departures;
+
+	public mySystem() {
+		this.server = new Server(); 
+		this.eventList = new ArrayList<Event>(); 
+		this.clock = 0;
+		}
+	
+	public static void main (String args[]){
+		mySystem m = new mySystem();
+		m.run();		
+	}
+	
+	public void run(){
+		initialize();
+		// while there is a next event
+		while(!eventList.isEmpty()){  
+			// take the first "future event"
+			Event e = eventList.get(0);
+			// take the first future event 
+			// progress clock
+			clock = e.getTime();
+		/* more code to be added here */
+			if(e.getType().equals("arrival")) // if the event is an
+				arrive();
+				
+			
+			else if (e.getType().equals("departure"))
+				depart();
+				
+			eventList.remove(0);
+			}
+		}
+	
+	private void arrive(){
+		qSize++;
+		
+		//if server is idle
+		if(!server.isBusy()){  
+			//set server busy
+			server.setBusy(true);  
+			// create new departure event
+			Event ev = new Event("departure",server.getServiceTime()+clock);  
+			int pos=-1;
+			
+			// insert new departure event in the approriate position
+			for(Event event : eventList){ 
+				if(event.getTime() < ev.getTime()) 
+					pos = eventList.indexOf(event); 
+				}
+			eventList.add(pos+1,ev); 
+			}
+		// generate next arrival
+		Event ev = new Event("arrival", getIATime()+clock);
+		
+		// if maximum number of arrivals is not reached, 
+		//place the new arrival in the appropriate position in the event list
+		if(ev.getTime()-clock > 0){
+			int pos = -1;
+			for(Event event : eventList){
+				if(event.getTime() < ev.getTime())
+					pos = eventList.indexOf(event);
+				}
+			eventList.add(pos+1,ev); 
+			}
+	}
+	
+	private void depart(){
+		qSize--;
+		departures++;
+		//verify end of program
+		if(departures == MAX_DEPARTURES){
+			stop();
+			return;
+		}
+		
+		server.setBusy(false);
+		if(qSize>0){
+			Event ev = new Event("departure", server.getServiceTime()+clock);
+			server.setBusy(true);
+			int pos = -1;
+			
+			for (Event event: eventList){
+				if(event.getTime()<ev.getTime())
+					pos = eventList.indexOf(event);
+			}
+			eventList.add(pos+1, ev);
+			}
+	}
+	
+		
+	private void stop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private double getIATime() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private void initialize() {
+			// TODO Auto-generated method stub
+			
+	}
+}

@@ -1,0 +1,28 @@
+'''
+Created on Feb 15, 2017
+
+@author: CraigBook
+'''
+from math import sin
+from scipy.stats.vonmises_cython import numpy
+import random as r
+
+def main():
+    a = 1
+    b = 1
+    n = 0
+    N = 10
+    for i in range (0, N):
+        y_ = "Y = "
+        y = r.uniform(0, a)
+        o_ = " Angle = "
+        o = r.uniform(0, numpy.pi)
+        limit = b * sin(o)
+        print("{}{}{}{}".format(y_, y, o_, o))
+        if(y < limit):
+            n += 1
+    print n
+    print (2 * b * N) / (a * n)
+
+
+main()

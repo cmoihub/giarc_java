@@ -1,0 +1,27 @@
+'''
+Created on Feb 15, 2017
+
+@author: CraigBook
+'''
+from math import sin
+from scipy.stats.vonmises_cython import numpy
+import random as r
+
+def main():
+    a = 4
+    b = numpy.pi
+    o = r.uniform(0, numpy.pi)
+    limit = b * sin(o)
+    y = r.uniform(0, a)
+    count = 0
+    for i in range (0, 50):
+        print(y)
+        print(o)
+        print(i)
+        if(y < limit):
+            count += 1
+            print count
+
+
+
+main()
