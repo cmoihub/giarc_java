@@ -1,8 +1,0 @@
-package math;
-
-public class Buffon_Needle {
-	public static void main(String[] args){
-		
-	}
-
-}

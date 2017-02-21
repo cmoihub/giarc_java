@@ -1,0 +1,22 @@
+package Assignment2;
+
+//inner class, bad idea maybe?
+class Node {
+	Object nodeContent;
+	Node nextNode;
+	//most likely head node
+	Node(Object data) {this(data, null);}
+	//given you know which node to point to
+	Node (Object data, Node nextNode){
+		setNodeContents(data);
+		setNextNode(nextNode);
+	}
+	
+	/*
+	 * The following methods are getters and setters for the Class' variables
+	 */
+	Object getNodeContent(){return nodeContent;}
+	void setNodeContents(Object newData){nodeContent = newData;}
+	Node getNextNode(){return nextNode;}
+	void setNextNode(Node next){nextNode = next;}
+}

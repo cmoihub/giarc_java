@@ -1,0 +1,74 @@
+package Assignment3;
+
+import java.util.*;
+
+import Assignment2.CMOILinkedList;
+import Assignment2.Node;
+
+public class StackReferenceBased<T> {
+
+	private T top;
+	private T [] items;
+	private CMOILinkedList <T> cll;
+	
+	public StackReferenceBased (int max){
+		createStack();
+	}
+	
+	//create new linkedlist implemented stack
+	void createStack(){
+		top = null;
+		items = new T [];
+		cll = new CMOILinkedList<>();
+		//top = cll.getFirst();
+	}
+	
+	//remove all items in the stack
+	void popAll(){
+		cll.removeAll();
+	}
+	
+	//check if stack is empty
+	boolean isEmpty(){
+		return cll.isEmpty();
+//		return top == null;
+	}
+	
+	//put item on top of stack
+	void push(T item){
+		items.add(items.indexOf((Object) top),item);
+		//cll.addFirst(item);
+//		if(top==null) top = new Node <T> (item);
+//		else top = new Node <T> (item,top);
+		
+	}
+	
+	//remove most recently added item
+	T pop(){
+		T temp = top;
+		return temp; 
+		//return cll.removeFirst();
+//		T oldTop = top.getData();
+//		top = top.getNext();
+//		return oldTop;
+	}
+	
+	//check most recently added item
+	T peek(){
+		T temp = pop();
+		push(temp);
+		return temp;
+//		//System.out.println(temp);
+//		return top.getData();
+	}
+	
+	public String toString(){
+		return cll.toString();
+	}
+	
+	public static void main (String [] args){
+		StackReferenceBased <String> srb = new StackReferenceBased <>(); 
+		srb.push("1");
+		srb.peek();
+	}
+}

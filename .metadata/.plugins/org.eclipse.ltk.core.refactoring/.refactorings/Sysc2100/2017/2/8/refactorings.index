@@ -1,0 +1,18 @@
+1487595092223	Move compilation unit
+1487595122781	Move compilation units
+1487596608886	Delete element
+1487597548497	Infer generic type arguments
+1487602975152	Rename method 'addFirst'
+1487610667241	Rename type 'LinkedList'
+1487612187303	Rename local variable 'newFirst'
+1487613415082	Encapsulate field 'first'
+1487616091184	Rename field 'stack'
+1487632207868	Rename method 'convertStringToArraylist'
+1487638924257	Infer generic type arguments
+1487639169707	Rename local variable 'list'
+1487639877524	Rename local variable 'op'
+1487639886128	Rename local variable 'op1'
+1487639907847	Rename local variable 'op2'
+1487641473218	Rename local variable 'srb'
+1487641794445	Rename local variable 'expression'
+1487644823040	Rename local variable 'operandStack'

@@ -1,0 +1,17 @@
+package Assignment2;
+
+public class Node {
+	private final T data;
+    private Node<T> next;
+
+    public Node(T data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return data.toString();
+    }
+
+
+}

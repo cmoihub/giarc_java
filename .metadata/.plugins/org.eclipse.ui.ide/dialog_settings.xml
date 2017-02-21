@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/CraigBook/Programming/giarc_java/EsePrecious"/>
+		<item value="/Users/CraigBook/Programming/giarc_python"/>
+		<item value="/Users/CraigBook/Programming/giarc_java/SYSC4005"/>
+		<item value="/Users/CraigBook/Programming/giarc_java/Sysc2100Assignments"/>
+		<item value="/Users/CraigBook/Programming/giarc_java/Ideaverse"/>
+		<item value="/Users/CraigBook/Programming/giarc_java/BoardGame"/>
 		<item value="/Users/CraigBook/Python"/>
 	</list>
 	<section name="ExternalProjectImportWizard">

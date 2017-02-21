@@ -1,0 +1,9 @@
+package Assignment2;
+
+public class NodeData {
+	public Object nodeContent;
+	public Node nextNode;
+
+	public NodeData() {
+	}
+}
