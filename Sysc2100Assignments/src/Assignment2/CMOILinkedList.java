@@ -50,14 +50,38 @@ public class CMOILinkedList <T> {
         return oldFirst.data;
     }
     
-    public void remove(int position){
-    	
-    }
-    
     public void removeAll(){
     	first = null;
     }
     
+  //return the element at the specified position of the list
+//  	 public T get(int position){
+//  		//iteration
+//  		Node <T> curr = first;
+//  		if(first!=null){
+//  			curr = first.next;
+//  			for(int i = 0; i<position; i++){
+//  				if(curr.next == null) 
+//  					return null;
+//  				curr = curr.next;
+//  			}
+//  			return curr.data;
+//  		}
+//  		return curr.data;
+//  	}
+//  	 
+  	 public T get(int index)
+  	 {
+  		int count = 0;
+  		Node<T> curr = first;
+    	while(curr!=null){
+    		if(count == index)
+        		return curr.data;
+    		count ++;
+    		curr = curr.next;
+    	}
+		return null;
+  	 }
     private int size(){
     	int count = 0;
     	for (Node<T> curr = first; curr != null; curr = curr.next){

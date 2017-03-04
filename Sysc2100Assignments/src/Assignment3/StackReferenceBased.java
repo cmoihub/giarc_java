@@ -1,12 +1,13 @@
 package Assignment3;
 
 import Assignment2.CMOILinkedList;
-import Assignment2.Node;
+//import Assignment2.TestListReferenceBased;
 
 public class StackReferenceBased<T> {
 
 	//private Node <T> top;
 	//private Object items;
+	//private TestListReferenceBased <T> tldr;
 	private CMOILinkedList <T> cll;
 	
 	public StackReferenceBased (){
@@ -16,22 +17,26 @@ public class StackReferenceBased<T> {
 	//create new linkedlist implemented stack
 	void createStack(){
 		cll = new CMOILinkedList<>();
+		//tldr = new TestListReferenceBased <> ();
 		//top = cll.getFirst();
 	}
 	
 	//remove all items in the stack
 	void popAll(){
 		cll.removeAll();
+		//tldr.removeAll();
 	}
 	
 	//check if stack is empty
 	boolean isEmpty(){
 		return cll.isEmpty();
+		//return tldr.isEmpty();
 //		return top == null;
 	}
 	
 	//put item on top of stack
 	void push(T item){
+		//tldr.add(item, 0);
 		cll.addFirst(item);
 //		if(top==null) top = new Node <T> (item);
 //		else top = new Node <T> (item,top);
@@ -40,6 +45,9 @@ public class StackReferenceBased<T> {
 	//remove most recently added item
 	T pop(){
 		return cll.removeFirst();
+//		T item = tldr.get(0);
+//		tldr.remove(0);
+//		return item;
 //		T oldTop = top.getData();
 //		top = top.getNext();
 //		return oldTop;
@@ -47,9 +55,7 @@ public class StackReferenceBased<T> {
 	
 	//check most recently added item
 	T peek(){
-		T temp = pop();
-		push(temp);
-		return temp;
+		return cll.get(0);
 //		//System.out.println(temp);
 //		return top.getData();
 	}
@@ -61,6 +67,6 @@ public class StackReferenceBased<T> {
 	public static void main (String [] args){
 		StackReferenceBased <String> srb = new StackReferenceBased <>(); 
 		srb.push("1");
-		srb.peek();
+		System.out.println(srb);
 	}
 }

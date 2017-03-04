@@ -1,12 +1,14 @@
 package Assignment2;
 import java.util.Random;
 
-public class TestListReferenceBased {
+//import Assignment2.CMOILinkedList.Node;
+
+public class TestListReferenceBased <T> {
 	private int nodeCount;//size of linked list or number of nodes
-	private Node head;//first node
-	private Node curr;
+	private Node <T> head;//first node
+	//private Node curr;
 	public static void main(String[] args) {
-		TestListReferenceBased tldr = new TestListReferenceBased();
+		TestListReferenceBased <Object> tldr = new TestListReferenceBased <> ();
 		
 		System.out.println("test add");
 		tldr.add("Greg");
@@ -23,121 +25,119 @@ public class TestListReferenceBased {
 		tldr.removeAll();
 		if(tldr.isEmpty()) tldr.display();
 		
-		System.out.println("retesting add");
-		tldr.generateRandomValues();
-		tldr.display();
+//		System.out.println("retesting add");
+//		tldr.generateRandomValues();
+//		tldr.display();
 		
 		System.out.println("test add at a given position");
 		tldr.add("TA", 1);
 		tldr.display();
 	}
 	
-	public TestListReferenceBased(){
+	/*public TestListReferenceBased <T> (){
 		removeAll();
-		}
+		}*/
 	int size(){return nodeCount;}
-	private void increaseSize(){nodeCount++;}
-	private void decreaseSize(){nodeCount--;} 
-	public boolean isEmpty(){return nodeCount==0;}
-	
+	//private void increaseSize(){nodeCount++;}
+	//private void decreaseSize(){nodeCount--;} 
+	//public boolean isEmpty(){return nodeCount==0;}
+	public boolean isEmpty(){return head == null;}
 	/*
 	 * this method traverses to the end of the list 
 	 * and adds a new node containing data
 	 * In the case that there is no head, 
 	 * head will contain the data
 	 */
-	void add(Object data) {
-		if (head == null) head = new Node(data);
+	void add(T data) {
+		if (head == null) head = new Node <T> (data);
 		
-		Node newNode = new Node(data);
-		Node curr = head;
+		Node <T> newNode = new Node <T> (data);
+		Node <T> curr = head;
 		if (curr != null) {
 			// iterate to the end of the list and then create element after last node
-			while (curr.getNextNode() != null) {
-				curr = curr.getNextNode();
+			while (curr.next != null) {
+				curr = curr.next;
 			}
 			// the last node's "next" reference is set to our new node
-			curr.setNextNode(newNode);
+			curr.next = newNode;
 		}
-		increaseSize();
+		//increaseSize();
 	}
 	
 	//method for testing add
-	void generateRandomValues(){
-		Random rand = new Random ();
-		for (int i = 0; i < rand.nextInt(30); i++){
-			this.add(rand.nextInt(10));
-		}
-	}
+//	void generateRandomValues(){
+//		Random rand = new Random ();
+//		for (int i = 0; i < rand.nextInt(30); i++){
+//			this.add(rand.nextInt(10));
+//		}
+//	}
 	
 	/*
 	 * this traverses to the indicated position
 	 * then it adds a node at that place
 	 */
-	void add (Object data, int position){
-		Node newNode = new Node(data);
-		Node curr = head;
+	public void add (T data, int position){
+		if(head == null) {
+    		head = new Node<T>(data);
+    	}
+		Node <T> newNode = new Node <T> (data);
+		Node <T> curr = head;
 		if(curr!=null)
-			for(int i = 0; i<position && curr.getNextNode() == null; i++){
-				curr = curr.getNextNode();
+			for(int i = 0; i<position && curr.next == null; i++){
+				curr = curr.next;
 			}
-		newNode.setNextNode(curr.getNextNode());
-		curr.setNextNode(newNode);
-		increaseSize();
+		newNode.next = curr.next;
+		curr.next = newNode;
+		//increaseSize();
 	}
 	
 	//clear up the contents of the current linked list
 	public void removeAll(){
-		head = new Node(null);
+		head = new Node <T> (null);
 		nodeCount = 0;
 	}
 	
 	//remove element at specified position of list
-	void remove(int position){
+	public void remove(int position){
 		//out of range case
 		if(position<0||position>size())
 			System.out.println("no such position, "
 					+ "index is out of range");
 		//iteration
-		Node curr = head;
+		Node <T> curr = head;
 		if(head!=null){
 			for(int i = 0; i < position; i++){
-				if(curr.getNextNode() == null) 
+				if(curr.next == null) 
 					return;
-				curr = curr.getNextNode();
+				curr = curr.next;
 			}
-			curr.setNextNode(curr.getNextNode().getNextNode());
-			decreaseSize();
+			curr.next = curr.next.next;
+			//curr.setNextNode(curr.getNextNode().getNextNode());
+			//decreaseSize();
 		}
 	}
 	
 	//return the element at the specified position of the list
-	 public Object get(int position){
-		//invalid position case
-		if(position<0||position>size()) {
-			System.out.println("no such position, "
-					+ "index is out of range");
-			return null;
-		}
+	 public T get(int position){
 		//iteration
-		Node curr = null;
+		Node <T> curr = head;
 		if(head!=null){
-			curr = head.getNextNode();
+			curr = head.next;
 			for(int i = 0; i<position; i++){
-				if(curr.getNextNode() == null) 
+				if(curr.next == null) 
 					return null;
-				curr = curr.getNextNode();
+				curr = curr.next;
 			}
-			return curr.getNodeContent();
+			return curr.data;
 		}
-		return curr;
+		return curr.data;
 	}
 	 
 	 public void displayList() {
-		    Node current = head;
+		    Node <T> current = head;
 		    while (current != null) {
 		        //current.displayNode();
-		        current = current.getNextNode();
+		        current = current.next;
 		    }
 		}
 	
@@ -152,28 +152,21 @@ public class TestListReferenceBased {
 	
 	public void display(){System.out.println(this);}
 	
-	//inner class, bad idea maybe?
-	private static class Node {
-		Object nodeContent;
-		Node nextNode;
-		//most likely head node
-		Node(Object data) {this(data, null);}
-		//given you know which node to point to
-		Node (Object data, Node nextNode){
-			setNodeContents(data);
-			setNextNode(nextNode);
-		}
-		
-		Object displayNode(){
-			return nextNode;
-		}
-		
-		/*
-		 * The following methods are getters and setters for the Class' variables
-		 */
-		Object getNodeContent(){return nodeContent;}
-		void setNodeContents(Object newData){nodeContent = newData;}
-		Node getNextNode(){return nextNode;}
-		void setNextNode(Node next){nextNode = next;}
-	}
+	private static class Node<T> {
+
+        final T data;
+        public Node<T> next;
+
+        public Node (T data) {this(data, null);}
+
+		public Node(T data_, Node <T> next_) {
+        	next = next_;
+            data = data_;
+        }
+
+        @Override
+        public String toString() {
+            return data.toString();
+        }
+        }
 }

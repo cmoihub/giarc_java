@@ -1,0 +1,8 @@
+package Submissions;
+
+public class CMOIStackData {
+	public CMOILinkedList<T> cll;
+
+	public CMOIStackData() {
+	}
+}

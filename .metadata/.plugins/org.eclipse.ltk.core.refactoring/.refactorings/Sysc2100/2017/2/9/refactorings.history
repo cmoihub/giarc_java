@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;operand&apos; in &apos;Assignment3.TestInfix2PostfixConverter.getPostfix(...)&apos; to &apos;op&apos;&#x0A;- Original project: &apos;Sysc2100&apos;&#x0A;- Original element: &apos;Assignment3.TestInfix2PostfixConverter.getPostfix(String).operand&apos;&#x0A;- Renamed element: &apos;operand&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;operand&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;Assignment3{TestInfix2PostfixConverter.java[TestInfix2PostfixConverter~getPostfix~QString;@operand!2274!2298!2281!2287!QString;!0!false" name="op" references="true" stamp="1488087055403" version="1.0"/>
+</session>
