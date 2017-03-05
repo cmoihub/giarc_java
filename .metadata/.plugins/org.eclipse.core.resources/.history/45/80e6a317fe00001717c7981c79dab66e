@@ -1,0 +1,13 @@
+package ass4;
+
+public class BSTDictionary<K,V> {
+
+//	public BSTDictionary() {
+//	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

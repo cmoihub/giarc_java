@@ -1,4 +1,4 @@
-package Assignment2;
+package ass2;
 import java.util.Random;
 
 //import Assignment2.CMOILinkedList.Node;

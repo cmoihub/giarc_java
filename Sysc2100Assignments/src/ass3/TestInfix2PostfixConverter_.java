@@ -1,4 +1,4 @@
-package Assignment3;
+package ass3;
 
 import java.util.*;
 import java.util.regex.*;

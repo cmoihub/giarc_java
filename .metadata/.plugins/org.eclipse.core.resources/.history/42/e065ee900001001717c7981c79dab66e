@@ -1,0 +1,33 @@
+package ass4;
+
+public class AVLDictionary <E,K extends Sortable> implements Dictionary<E, K>{
+
+//	public AVLDictionary() {
+//	}
+
+	public void insert(SortableString sortableString, String string) {
+	
+		
+	}
+
+	public void printTree() {
+	
+		
+	}
+
+	public int depth() {
+	
+		return null;
+	}
+
+	public void delete(SortableString sortableString) {
+	
+		
+	}
+
+	public Object search(SortableString sortableString) {
+	
+		return null;
+	}
+
+}

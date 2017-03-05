@@ -1,0 +1,13 @@
+package ass4;
+
+public class AVLDictionary <A,B> {
+
+//	public AVLDictionary() {
+//	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

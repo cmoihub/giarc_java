@@ -1,4 +1,4 @@
-package Assignment2;
+package ass2;
 import java.io.*;
 import java.util.*;
 //Assignment 2b

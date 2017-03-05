@@ -1,4 +1,4 @@
-package Assignment2;
+package ass2;
 
 public class CMOILinkedList <T> {
 	private Node<T> first = null;

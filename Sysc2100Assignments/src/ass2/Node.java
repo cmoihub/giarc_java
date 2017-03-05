@@ -1,4 +1,4 @@
-package Assignment2;
+package ass2;
 
 public class Node <T> {
 	private T data;
