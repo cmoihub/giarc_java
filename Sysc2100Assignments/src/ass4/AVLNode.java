@@ -2,19 +2,14 @@ package ass4;
 // The "AVLNode" class.
 public class AVLNode<E, K extends Sortable> {
 	// Public constants.
-	public static final int MORE_LEFT = 1;
-
-	public static final int EVEN = 2;
-
-	public static final int MORE_RIGHT = 3;
+	public static final int MORE_LEFT = 1;//left-heavy
+	public static final int EVEN = 2;//balanced
+	public static final int MORE_RIGHT = 3;//right-heavy
 
 	// Instance variables.
 	protected K key;
-
 	protected E element;
-
 	protected AVLNode<E, K> left, right;
-
 	protected int balance; // One of MORE_LEFT, EVEN, or MORE_RIGHT.
 
 	public AVLNode(K key, E element, AVLNode<E, K> left, AVLNode<E, K> right,

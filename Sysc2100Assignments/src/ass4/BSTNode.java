@@ -2,9 +2,7 @@ package ass4;
 // The "BSTNode" class.
 public class BSTNode<E, K extends Sortable> {
 	protected K key;
-
 	protected E element;
-
 	protected BSTNode<E, K> left, right;
 
 	public BSTNode(K key, E element, BSTNode<E, K> left, BSTNode<E, K> right) {

@@ -51,7 +51,7 @@ public class DictionaryTest {
 			} while (entries[e] == null);
 
 			dict1.delete(new SortableString(entries[e]));
-		}
+		}dict1.printTree();
 
 		System.out
 				.println("After deletes, the BST tree has a maximum depth of "

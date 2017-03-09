@@ -1,0 +1,210 @@
+package ass4;
+
+//Sam Roberts
+//100935680
+public class BSTDictionary<E,K extends Sortable> implements Dictionary {
+	BSTNode<String,SortableString> root;
+	BSTNode<String,SortableString> currentnode;
+	
+	/*
+	 * Default constructor Initializes root to null
+	 */
+	public BSTDictionary()
+	{
+		root = null;
+	}
+	/*
+	 * Initializes root to provided node;
+	 */
+	public BSTDictionary(BSTNode<String,SortableString> root)
+	{
+		this.root = root;
+	}
+	/*
+	 * key is the key that is being searched for in the Tree
+	 * The function returns the value of the element found
+	 */
+	public String search(Sortable key)
+	{
+		BSTNode<String,SortableString> tempnode;
+		if(currentnode == null)//gone through whole tree and did not find element
+			{
+			currentnode = root;
+			return null;
+			}
+		
+		if(currentnode.getKey().compareTo(key)==0)//if the key is equal to the key of the current node
+		{
+			tempnode= new BSTNode<String,SortableString>(currentnode.getKey(),currentnode.getElement(),currentnode.getLeft(),currentnode.getRight());//creates copy of currentnode so currentnode can be set back to the value of the root
+			currentnode = root;
+			//System.out.print((String)tempnode.getElement()+" <- was found: "); //If uncommented this print statement will show what element was found at the node
+			return (String)tempnode.getElement();//returns value found at element
+		}
+		else if(key.compareTo(currentnode.getKey())<0)//if the key is less then the value of the key of the currentnode then the currentnode->currentnode.leftnode
+		{
+			currentnode = currentnode.getLeft();
+			return search(key);
+		}
+		else//key value must be greater then the key value at the currentnode so currentnode->currentnode.rightnode
+		{
+			currentnode = currentnode.getRight();
+			return search(key);
+		}
+	}
+
+	/*
+	 *used to insert element in binary tree given the key and element
+	 */
+	public void insert(Sortable key,Object element)
+	{
+		BSTNode<String,SortableString> tempnode = new BSTNode<String,SortableString>((SortableString)key,(String)element,null,null);//creates new node with given key and element
+		
+		if(root==null)//if the root is undefined then the new element becomes the root
+			{
+			root = tempnode;
+			currentnode = root;
+			}
+		else if(currentnode.getKey().compareTo(tempnode.getKey())!=0)// A a key is a unique value so if  compareTo returns 0 it means that two keys are equal which is not allowed so the element is not added
+		{
+			if(tempnode.getKey().compareTo(currentnode.getKey())<0)//if the key is less then the value of the currentnode key
+			{
+				if(currentnode.getLeft()==null)//if the leftnode of the currentnode is empty then the node is to be added
+				{
+					//gets inserted here
+					currentnode.setLeft(tempnode);
+					currentnode = root;
+				}
+				else//the new node key must be compared with the currentnode.leftnode key
+				{
+					currentnode = currentnode.getLeft();
+					insert(key,element);
+				}
+			}
+			else if(tempnode.getKey().compareTo(currentnode.getKey())>0)//if the key is greater then the currentnode key it goes to the right
+			{
+				if(currentnode.getRight()==null)//if the right node is empty the new node is added
+				{
+					//gets inserted here
+					currentnode.setRight(tempnode);
+					currentnode = root;
+				}
+				else//the new node key must be compared with the currentnode.rightnode key
+				{
+					currentnode = currentnode.getRight();
+					insert(key,element);
+				}
+			}
+		}	
+	}
+
+	/*
+	 *key is used to find the node that is to be deleted in the binary tree
+	 */
+	public void delete(Sortable key)
+	{
+		BSTNode<String,SortableString> parent = null;
+		BSTNode<String,SortableString> targ = null;//the target node to be deleted
+		BSTNode<String,SortableString> curr = root;//the currentnode being evaluated
+		if(key!=null)//null check to makesure the key is not a null value
+		{
+			while(curr!=null)//used to find the location of the element
+			{
+				if(key.compareTo(curr.getKey())==0)//key is found target is set to current node
+				{
+					targ = curr;
+					break;
+				}
+				
+				else if(key.compareTo(curr.getKey())<0)//key is less then currentnode key. current node is set so currentnode->currentnode.left
+				{
+					parent = curr;
+					curr=curr.getLeft();
+				}
+				else//key is greater then currentnode key currentnode->currentnode.right
+				{
+					parent=curr;
+					curr = curr.getRight();
+				}
+			}
+			if(targ!=null)//used to make sure target has been found if targ==null element DNE in tree
+			{
+				
+				if(targ.getLeft()!=null&&targ.getRight()!=null)//if the target has two subnodes
+				{
+					BSTNode<String,SortableString> tempnode = findmin(targ.getRight());//finds the minimum value in the right tree
+					//instead of deleting the target node the key/element values are exchanged for the minimum value found in the right subtree
+					targ.key = tempnode.getKey();
+					targ.element = tempnode.getElement();
+					tempnode = null;//sets minimum value from right tree to null(deletes that node)
+					
+				}
+				else if(targ.getLeft()!=null&&targ.getRight()==null)//if node being deleted has only a left child node
+				{
+					//sets the left node of the parentnode(the element to be deleted) to the only childnode of the node to be deleted
+					parent.setLeft(targ.getLeft());
+					targ=null;//deletes the node
+				}
+				else if(targ.getLeft()==null&&targ.getRight()!=null)//if node being deleted only has a right node
+				{
+					//sets the rightnode of the parentnode(the element to be deleted)to the only childnode of the node to be deleted
+					parent.setRight(targ.getRight());
+					targ=null;//deletes the node
+				}
+				else//the node does not have any children
+				{
+					targ = null;//deletes node
+				}
+			}
+			
+		}	
+	}
+
+	/*
+	 * used to printout the tree as determined by the key values
+	 */
+	public void printTree()
+	{
+		System.out.println(preordertraversal(new BSTNode<String,SortableString>(root.getKey(),root.getElement(),root.getLeft(),root.getRight())));
+	}
+
+	/*
+	 * recursively determines the order of the elements in the tree
+	 */
+	public String preordertraversal(BSTNode<String,SortableString> rootnode)
+	{
+		String s = " ";//space is used to create a space between all elements
+		if(rootnode==null)return "";//null check returns null string as node DNE
+		s+=rootnode.getElement();//adds current element to string s
+		s+=preordertraversal(rootnode.getLeft());//goes through all nodes attached to the current leftnode
+		s+=preordertraversal(rootnode.getRight());//goes through all the nodes attached to the current rightnode
+		return s;//returns the nodes
+	}
+	/*
+	 * returns depth of the tree
+	 */
+	public int depth()
+	{
+		return finddepthwithroot(new BSTNode<String,SortableString>(root.getKey(),root.getElement(),root.getLeft(),root.getRight()));
+	}
+	
+	//used to recursively find the depth of the tree
+	public int finddepthwithroot(BSTNode<String,SortableString> rootnode)
+	{
+		if(rootnode == null)return 0;//if the node is null then all the nodes of the current subtree have been visited so return 0
+		return 1+ Math.max(finddepthwithroot(rootnode.getLeft()),finddepthwithroot(rootnode.getRight()));//determines the max between the traversal of the left and right nodes of a given tree.
+	}
+	/*
+	 * used to find the min value of a given tree which is located at the left most element
+	 */
+	public BSTNode<String,SortableString> findmin(BSTNode<String,SortableString> n)
+	{
+		BSTNode<String,SortableString> tempnode = n;
+		while(tempnode.getLeft()!= null)//while it it still possible to go left
+		{
+			tempnode = tempnode.getLeft();//go left
+		}
+		return tempnode;//return leftmost node
+	}
+	
+	
+}

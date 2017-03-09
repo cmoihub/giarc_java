@@ -1,0 +1,151 @@
+package ass4;
+
+//https://www.youtube.com/watch?v=FNeL18KsWPc
+//http://www.algolist.net/Data_structures/Binary_search_tree
+
+public class BSTDictionary<E,K extends Sortable> implements Dictionary<E,K> {
+
+	BSTNode <E, K> root;
+	BSTNode <E, K> curr;
+	
+	public BSTDictionary(){
+		root = null;
+	}//Default constructor
+	
+	public BSTDictionary(BSTNode <E, K> head){
+		root = head;
+	}// construct BST  with given node as root
+	
+	@Override
+	public void insert(K key, E element) {
+		BSTNode<E,K> newNode = new BSTNode<E, K>(key, element,null,null);
+//		BSTNode <E, K> curr = root;
+		if(root == null){
+			root = newNode;
+			curr = root;
+		}//empty tree
+		else /*if (curr.getKey().compareTo(temp.getKey()) != 0)*/{
+			if(curr.getKey().compareTo(newNode.getKey()) == 0){
+				return;//duplicate
+			}
+			else if (curr.getKey().compareTo(newNode.getKey()) < 0){
+				if (curr.getLeft() == null) {
+					curr.setLeft(newNode);
+				}//insert if current node has no left child
+				else{
+					curr = curr.getLeft();//traverse leftwise
+					insert (key,element);//handle left child
+				}
+			}//inserting on the left
+			
+			else if (curr.getKey().compareTo(newNode.getKey()) > 0){
+				if (curr.getRight() == null){
+					curr.setRight(newNode);
+				}//insert if current node has no right child
+				else{
+					curr = curr.getRight();//traverse rightwise
+					insert (key,element);//handle right child
+				}
+			}//inserting on the right
+		}//find a place in the tree to insert it
+	}//insert a key-value pair into the binary search tree
+	
+	@Override
+	public E search(K key) {
+//		BSTNode <E, K> curr = root;
+//		
+//		if(curr == null)
+//		{
+//			curr = root;
+//			return null;
+//		}// key not found
+		//System.out.println(curr.getKey());
+		if(curr == null){
+			curr = root;
+			return null;
+		}
+		else{
+			if(curr.getKey().compareTo(key) == 0){
+				return curr.getElement();
+			}//if key is the one at the current node
+			else if(curr.getKey().compareTo(key) < 0){
+				curr = curr.getLeft();
+				return search(key);
+			}//left child check
+			
+			else if(curr.getKey().compareTo(key) > 0){
+				curr = curr.getRight();
+				return search(key);
+			}//right child check
+			return null;
+		}
+	}//return the entry corresponding to a specified Key k
+
+	@Override
+	public void delete(K key) {
+		//search(key);//overwrite duplicates
+		BSTNode <E,K> curr = root;
+
+		if(key.compareTo(curr.getKey()) == 0){
+            if(curr.getLeft()==null && curr.getRight() == null){
+            	curr=null;
+            }//no children
+            else if(curr.getLeft()!=null && curr.getRight() == null){
+                curr.setRight(null);
+            }//left child
+            else if(curr.getLeft()==null && curr.getRight() != null){
+                curr.setLeft(null);
+            }//right child
+            else if(curr.getLeft()!=null && curr.getRight()!=null){
+                BSTNode <E,K> leftMostNode=leftMost(curr);
+                BSTNode <E,K> oldLeft = curr.getLeft();
+                leftMostNode.setRight(rightMost(curr.getRight()));
+                leftMostNode.setLeft(oldLeft);
+                delete(leftMostNode.getKey());
+            }//2 children
+            delete(curr.getKey());
+          }//current node is the one to be deleted
+        else if(key.compareTo(curr.getKey()) < 0){
+            if(curr.getLeft()!=null)delete(curr.getLeft().getKey());
+        }//need to traverse to the left to find key-value pair to delete
+        else delete(curr.getRight().getKey());//need to traverse to the right to find key-value pair to delete
+        delete(curr.getKey());
+	}//remove the entry in the binary search tree corresponding to key K
+
+	public BSTNode<E,K> leftMost (BSTNode<E,K> node){
+		while(node.getLeft()!=null){//while there is still a left node keep going left
+            node = node.getLeft();
+        }
+        return node;//leftmost node found
+	}//used to find the left most node of the tree
+	
+	public BSTNode<E, K> rightMost(BSTNode<E, K> node) {
+        if(node.getLeft() == null) return node.getRight();
+        else node.setLeft(rightMost(node.getLeft()));
+        return node;
+    }
+	
+	@Override
+	public void printTree() {
+		printRecursive(root);
+	}//print the binary search tree
+	
+	public void printRecursive(BSTNode <E,K> node){
+		if(node!=null){
+            printRecursive(node.getLeft());//go through nodes attached to current left node
+            System.out.println("key: " + node.getKey().toString() + 
+                " element: " + node.getElement().toString());
+            printRecursive(node.getRight());//go through nodes attached to current right node      
+        }
+	}
+
+	@Override
+	public int depth() {
+		return depthRecursive(root);
+	}//return the depth of the binary search tree
+	
+	public int depthRecursive(BSTNode<E,K> node){
+		if (node == null) return 0;//finished traversing
+		return 1 + Math.max(depthRecursive(node.getLeft()), depthRecursive(node.getRight()));
+	}//recursively determine depth of tree by traversing comparing left and right nodes
+}
