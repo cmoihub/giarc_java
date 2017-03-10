@@ -6,3 +6,7 @@
 1489070082387	Rename method 'rotate'
 1489079518347	Rename local variable 'left'
 1489079541890	Rename local variable 'right'
+1489177552570	Rename method 'insert_'
+1489177594705	Rename method 'insert'
+1489177949632	Delete element
+1489180210422	Rename local variable 'target'

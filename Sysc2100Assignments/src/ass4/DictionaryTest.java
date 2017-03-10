@@ -32,7 +32,7 @@ public class DictionaryTest {
 				e = (int) (Math.random() * (26 * 26));
 			} while (entries[e] == null);
 
-			dict1.insert(new SortableString(entries[e]), entries[e]);
+			dict1.insertSam(new SortableString(entries[e]), entries[e]);
 			entries[e] = null;
 		}
 
@@ -65,7 +65,7 @@ public class DictionaryTest {
 				e = (int) (Math.random() * (26 * 26));
 			} while (entries[e] == null);
 
-			dict1.insert(new SortableString(entries[e]), entries[e]);
+			dict1.insertSam(new SortableString(entries[e]), entries[e]);
 		}
 
 		System.out

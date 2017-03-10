@@ -28,7 +28,11 @@
 			<item value="0000000000000000000000000000000000000000"/>
 		</list>
 		<list key="/Users/CraigBook/Programming/giarc_java/.git">
-			<item value="empty"/>
+			<item value="false"/>
+			<item value="Craig Isesele &lt;cmoisesele@live.com&gt;"/>
+			<item value="setting balances"/>
+			<item value="Craig Isesele &lt;cmoisesele@live.com&gt;"/>
+			<item value="d5282e3ffff73a872a9616331dcb09c01c86ad85"/>
 		</list>
 	</section>
 	<section name="org.eclipse.egit.ui.internal.staging.StagingView">

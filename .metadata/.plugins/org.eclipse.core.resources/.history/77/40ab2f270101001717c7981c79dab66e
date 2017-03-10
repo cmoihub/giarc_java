@@ -1,7 +1,0 @@
-package ass4;
-
-public class AVLDictionary <E,K extends Sortable> implements Dictionary<E, K>{
-
-//	public AVLDictionary() {
-//	}
-	}
