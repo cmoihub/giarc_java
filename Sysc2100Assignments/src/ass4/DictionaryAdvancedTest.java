@@ -9,33 +9,34 @@ package ass4;
 // randomly chosen entries in both dictionaries. Obviously,
 // the search result should be the same for both dictionaries.
 public class DictionaryAdvancedTest {
-	protected static String[] entries = new String[8 * 8];
+	static int k = 3;
+	protected static String[] entries = new String[k * k];
 
 	protected static void fill() {
-		// Insert 8 * 8 entries
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 8; j++) {
+		// Insert k * k entries
+		for (int i = 0; i < k; i++)
+			for (int j = 0; j < k; j++) {
 				StringBuffer s = new StringBuffer();
 				s.append((char) ((int) 'A' + i));
 				s.append((char) ((int) 'A' + j));
-				entries[i * 8 + j] = s.toString();
+				entries[i * k + j] = s.toString();
 			}
 	} // fill method
 
 	public static void main(String[] args) {
 		BSTDictionary<String, SortableString> dict1 = new BSTDictionary<String, SortableString>();
 		AVLDictionary<String, SortableString> dict2 = new AVLDictionary<String, SortableString>();
-//		TestBrief<String, SortableString> dict3 = new TestBrief<String, SortableString>();
+//		TestBrief<String, SortableString> dictk = new TestBrief<String, SortableString>();
 
 		// Insert lots of entries
 		fill();
-		for (int i = 0; i < 8 * 8; i++) {
+		for (int i = 0; i < k * k; i++) {
 			int e;
 			do {
-				e = (int) (Math.random() * (8 * 8));
+				e = (int) (Math.random() * (k * k));
 			} while (entries[e] == null);
 
-			dict1.insert(new SortableString(entries[e]), entries[e]);
+			dict1.insertSam(new SortableString(entries[e]), entries[e]);
 			dict2.insert(new SortableString(entries[e]), entries[e]);
 			entries[e] = null;
 		}
@@ -51,10 +52,10 @@ public class DictionaryAdvancedTest {
 
 		// Delete half the entries
 		fill();
-		for (int i = 0; i < 7 * 8; i++) {
+		for (int i = 0; i < 1 * k; i++) {
 			int e;
 			do {
-				e = (int) (Math.random() * (8 * 8));
+				e = (int) (Math.random() * (k * k));
 			} while (entries[e] == null);
 
 			dict1.delete(new SortableString(entries[e]));
@@ -74,13 +75,13 @@ public class DictionaryAdvancedTest {
 
 		// Add a quarter the entries
 		fill();
-		for (int i = 0; i < 6 * 8; i++) {
+		for (int i = 0; i < 2 * k; i++) {
 			int e;
 			do {
-				e = (int) (Math.random() * (8 * 8));
+				e = (int) (Math.random() * (k * k));
 			} while (entries[e] == null);
 
-			dict1.insert(new SortableString(entries[e]), entries[e]);
+			dict1.insertSam(new SortableString(entries[e]), entries[e]);
 			dict2.insert(new SortableString(entries[e]), entries[e]);
 		}
 
@@ -96,10 +97,10 @@ public class DictionaryAdvancedTest {
 
 		// Search for a few random entries
 		fill();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < k; i++) {
 			int e;
 			do {
-				e = (int) (Math.random() * (8 * 8));
+				e = (int) (Math.random() * (k * k));
 			} while (entries[e] == null);
 
 			System.out.print("Searching for " + entries[e] + ": ");

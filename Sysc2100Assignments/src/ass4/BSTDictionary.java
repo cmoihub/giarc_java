@@ -91,9 +91,37 @@ public class BSTDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 		return;
 	}//insert a key-value pair into the binary search tree
 	
-	//curr = root is needed to compile
 	@Override
 	public E search(K key) {
+		BSTNode <E, K> found = getNode(key);
+		if (found == null)
+			return null;
+		else 
+			return found.getElement();
+	}
+	
+	public BSTNode <E, K> getNode(K key){
+		BSTNode<E, K> curr = root;
+		while(curr != null){
+			if(curr.getKey().compareTo(key) == 0)
+				{//if key is the one at the current node
+					return curr;
+					}
+			else if(curr.getKey().compareTo(key) < 0){
+				curr = curr.getLeft();
+			}
+			else{
+				curr = curr.getRight();
+			}
+		}
+		//key not found
+		return null;
+	}
+	
+	
+	//curr = root is needed to compile
+//	@Override
+	public E search_(K key) {
 		if(curr == null)
 		{//unavailable key-value pair
 			curr = root;
@@ -119,58 +147,93 @@ public class BSTDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	}//return the entry corresponding to a specified Key k
 	
 	@Override
-	public void delete(K key) {
-		//curr = root; doesn't work this way for some reason? scoping issue?
-		BSTNode<E, K> parent = null/*useful for special cases*/, 
-				target = null/*node to delete*/,
-				curr = root;
-		//if(key!=null){
-			while(curr!=null){
-				if(key.compareTo(curr.getKey())==0)	{
-					target = curr;
-					break;
-				}//target is current node
-				
-				else if(key.compareTo(curr.getKey())>0) {
-					parent = curr;
-					curr=curr.getLeft();
-				}//check left child
-				
-				else
-				{
-					parent=curr;
-					curr = curr.getRight();
-				}//check right child
-			}//search for element to delete
-			if(target!=null) {
-				if(target.getLeft()!=null&&target.getRight()!=null)
-				{
-					//BSTNode<E,K> newNode = new BSTNode <> (key, element,null,null);
-					 BSTNode<E,K> tempNode = findMin(target.getRight());//finds the minimum value in the right tree
-					target.key = tempNode.getKey();//exchange target node for minimum value in right subtree
-					target.element = tempNode.getElement();
-					tempNode = null;//delete node at minimum value of right subtree
-				}//2 children case
-				else if(target.getLeft()!=null&&target.getRight()==null)
-				{
-					//sets the left node of the parentnode(the element to be deleted) to the only childnode of the node to be deleted
-					parent.setLeft(target.getLeft());
-					target=null;//deletes the node
-				}//left child case
-				else if(target.getLeft()==null&&target.getRight()!=null)
-				{
-					//sets the rightnode of the parentnode(the element to be deleted)to the only childnode of the node to be deleted
-					parent.setRight(target.getRight());
-					target=null;//deletes the node
-				}//right child case
-				else//the node does not have any children
-				{
-					target = null;//deletes node
-				}
-			}//assert that target has been found	
-		//}	
+	public void delete (K key){
+		BSTNode <E, K> parent = root;
+		BSTNode <E, K> curr = root;
+		boolean isLeftChild = false;
+		while (!curr.getKey().equals(key)){
+			parent = curr;
+			if (key.compareTo(curr.getKey())>0){
+				isLeftChild = true;
+				curr = curr.getLeft();
+			}else{
+				isLeftChild = true;
+				curr = curr.getLeft();
+			}
+			if(curr == null){
+				return;
+			}
+		}
+		
+		//No children case
+		if(curr.getLeft() == null && curr.getRight() == null){
+			if(curr == root)
+				root = null;
+			if(isLeftChild)
+				parent.setLeft(null);
+			else
+				parent.setRight(null);
+		}
+		
+		//No right child case
+		else if (curr.getRight() == null){
+			if (curr == root)
+				root = curr.left;
+			else if (isLeftChild)
+				parent.left = curr.getLeft();
+			else
+				parent.right = curr.getLeft();
+		} 
+		
+		//No left child case
+		else if (curr.getLeft() == null){
+			if (curr == root)
+				root = curr.right;
+			else if (isLeftChild)
+				parent.left = curr.getRight();
+			else
+				parent.right = curr.getRight();
+		}
+		
+		//Two children case
+		else if(curr.getLeft() != null && curr.getRight() != null){
+			//work with minimum element in right sub tree
+			BSTNode <E, K> successor = successor (curr);
+			if(curr == root)
+				root = successor;
+			else if (isLeftChild)
+				parent.left = successor;
+			else
+				parent.right = successor;
+			successor.left = curr.getLeft();
+		}
+		return;
 	}
 
+	/**
+	 * @param tempNode node that can be delete
+	 * @return node that will replace tempNode
+	 */
+	private BSTNode <E, K> successor (BSTNode <E, K> tempNode){
+		BSTNode <E, K> success = null;
+		BSTNode <E, K> successParent = null;
+		BSTNode <E, K> curr = tempNode.getRight();
+		
+		while (curr!= null){
+			successParent = success;
+			success = curr;
+			curr = curr.getLeft();
+		}
+		
+		//successor cannot have a left child as it's assumed to be the minimum element
+		if(success != tempNode.getRight()){
+			successParent.left = success.getRight();
+			success.right = tempNode.getRight();
+		}
+		
+		return success;
+	}
+	
 	public BSTNode<E,K> findMin (BSTNode<E,K> node){
 		while(node.getLeft()!=null){//while there is still a left node keep going left
             node = node.getLeft();
@@ -179,9 +242,15 @@ public class BSTDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	}//used to find the left most node of the tree
 	
 	
+	/*
+	 * PRINTING
+	 */
 	@Override
 	public void printTree() {
-		System.out.println("Binary Search Tree");
+		System.out.println("Normal Binary Search Tree");
+		System.out.print("Inorder: ");
+		display(root);
+		System.out.println();
 		int depth = depth();
 		for (int level = 1; level <= depth; level++) {
 	        System.out.print("Level " + (level-1) + ": ");
@@ -189,32 +258,35 @@ public class BSTDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	        System.out.print(levelNodes + "\n");
 	    }
 		System.out.println();
-		//printRecursive(root); harder to read :p
 	}//print the binary search tree
 
+	/**
+	 * 
+	 * @param node starting node that function uses to traverse through binary search tree
+	 * @param level
+	 * @return recursively traverse the binary search tree using a breadth-first approach
+	 */
 	public String printLevels(BSTNode<E,K> node, int level) {
 	    if (node == null) {
 	        return "";
 	    }//empty tree
 	    if (level == 1) {//top most level case ie root
-	        return node.getElement() + " ";
-	    } else /*if (level > 1) */{
+	        return node.getElement() + "|"/* + node.getBalance() + " "*/;
+	    } else {
 	        String leftStr = printLevels(node.left, level - 1);
 	        String rightStr = printLevels(node.right, level - 1);
 	        return leftStr + rightStr;
 	    }
-	    //else // helps to compile
-	      //return "";
-	}//recursively parents then their children until you've reached the leaves
+	}
 	
-//	public void printRecursive(BSTNode <E,K> node){
-//	if(node!=null){
-//        printRecursive(node.getLeft());//go through nodes attached to current left node
-//        System.out.println("key: " + node.getKey().toString() + 
-//            " element: " + node.getElement().toString());
-//        printRecursive(node.getRight());//go through nodes attached to current right node      
-//    }
-//}
+	public void display(BSTNode <E, K> root){
+		if(root!=null){
+			display(root.left);
+			System.out.print(" " + root.getElement());
+			display(root.right);
+		}
+	}
+
 
 
 	@Override

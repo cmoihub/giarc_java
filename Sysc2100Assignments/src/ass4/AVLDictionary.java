@@ -4,6 +4,11 @@ package ass4;
 //https://www.youtube.com/watch?v=FNeL18KsWPc
 //http://www.algolist.net/Data_structures/Binary_search_tree
 //https://appliedgo.net/balancedtree/
+//http://www.mathcs.emory.edu/~cheung/Courses/323/Syllabus/Trees/
+//http://stackoverflow.com/questions/28018362/java-AVL-deletion-how-to-implement-using-existing-rotation-code
+//http://algorithms.tutorialhorizon.com/binary-search-tree-complete-implementation/
+//http://stackoverflow.com/questions/5771827/implementing-an-AVL-tree-in-java
+//https://github.com/phishman3579/java-algorithms-implementation/blob/master/src/com/jwetherell/algorithms/data_structures/BinarySearchTree.java
 
 public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 
@@ -12,14 +17,14 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	int left, balanced, right = 0;
 	
 	public AVLDictionary(){
-		root = null;
+		this(null);
 	}//Default constructor
 	
 	public AVLDictionary(AVLNode <E, K> head){
 		root = head;
 	}// construct AVL  with given node as root
 	
-	public boolean add (K key, E element, AVLNode<E,K> curr){
+	private boolean add (K key, E element, AVLNode<E,K> curr){
 		AVLNode<E,K> newNode = new AVLNode <> (key, element,null,null,AVLNode.EVEN);
 		
 		if (curr.getKey().compareTo(key) == 0)
@@ -33,17 +38,7 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 			if (curr.getLeft() == null)
 			{//create a new node if there's no left child
 				curr.setLeft(newNode);
-				if(curr.getRight() == null)
-				{//no right child, the new node has increased the height of the subtree
-					curr.setBalance(AVLNode.MORE_LEFT);//new left child's only child
-					left++;
-				}else
-				{//if there're 2 children,right child cannot have children
-				//curr would be unbalanced otherwise 
-					curr.setBalance(AVLNode.EVEN);
-					balanced++;
-				}
-				//return true;
+				updateBalanceAfterInsert(curr);
 			}else{
 				if(add(key, element, curr.getLeft())){
 					if (unbalanced(curr.getLeft())){
@@ -54,21 +49,12 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 				}
 			}
 		}
-		
 		//mirrors above case
 		//key > curr.getKey()
 		else if(curr.getKey().compareTo(key) > 0){
 			if (curr.getRight() == null){
 				curr.setRight(newNode);
-				if(curr.getLeft() == null) {
-					curr.setBalance(AVLNode.MORE_RIGHT);//new left child's only child
-					right++;
-				}else{
-					curr.setBalance(AVLNode.EVEN);
-					balanced++;
-				} 
-					
-				//return true;
+				updateBalanceAfterInsert(curr); 
 			}else{
 				if(add(key, element, curr.getRight())){
 					if(unbalanced(curr.getRight())){
@@ -84,6 +70,26 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 		return false;
 		
 	}
+	//update balance after node is added
+	private void updateBalanceAfterInsert(AVLNode <E, K> curr){
+		if(curr.getRight() == null)//left node added
+		{//no right child, the new node has increased the height of the subtree
+			curr.setBalance(AVLNode.MORE_LEFT);//new left child's only child
+			left++;
+		}
+		
+		else if (curr.getLeft() == null)
+		{//right node added
+			curr.setBalance(AVLNode.MORE_RIGHT);//new right child's only child
+			right++;
+		}
+		
+		else//if there're 2 children,right child cannot have children
+		{//curr would be unbalanced otherwise 
+			curr.setBalance(AVLNode.EVEN);
+			balanced++;
+		}
+	}
 	
 	//@Override
 	public void insert(K key, E element) {
@@ -92,96 +98,120 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 			//return true;
 		}else add(key, element, root);
 	}//insert a key-value pair into the binary search tree
-	
-	/*
-	 * this method works based on the fact that the leftmost node has the least significant key
+
+	@Override
+	public void delete (K key){
+		AVLNode <E, K> parent = root;
+		AVLNode <E, K> curr = root;
+		boolean isLeftChild = false;
+		while (!curr.getKey().equals(key)){
+			parent = curr;
+			if (key.compareTo(curr.getKey())>0){
+				isLeftChild = true;
+				curr = curr.getLeft();
+			}else{
+				isLeftChild = false;
+				curr = curr.getRight();
+			}
+			
+			if(curr == null)
+				return;
+		}
+		
+		//No children case
+		if(curr.getLeft() == null && curr.getRight() == null){
+			if(curr == root)
+				root = null;
+			if(isLeftChild)
+				parent.setLeft(null);
+			else
+				parent.setRight(null);
+		}
+		
+		//No right child case
+		else if (curr.getRight() == null){
+			if (curr == root)
+				root = curr.left;
+			else if (isLeftChild)
+				parent.left = curr.getLeft();
+			else
+				parent.right = curr.getLeft();
+		} 
+		
+		//No left child case
+		else if (curr.getLeft() == null){
+			if (curr == root)
+				root = curr.right;
+			else if (isLeftChild)
+				parent.left = curr.getRight();
+			else
+				parent.right = curr.getRight();
+		}
+		
+		//Two children case
+		else if(curr.getLeft() != null && curr.getRight() != null){
+			//work with minimum element in right sub tree
+			AVLNode <E, K> min = successor (curr);
+			if(curr == root)
+				root = min;
+			else if (isLeftChild)
+				parent.left = min;
+			else
+				parent.right = min;
+			min.left = curr.getLeft();
+		}
+		return;
+	}
+
+	/**
+	 * @param tempNode node that can be delete
+	 * @return node that will replace tempNode
 	 */
-	public AVLNode<E, K> minValue(AVLNode<E, K> node){
-		if (node.getLeft() == null){
-			return node;
-		}//
-		else 
-			return minValue (node.getLeft());
-//		return 0;
+	private AVLNode <E, K> successor (AVLNode <E, K> tempNode){
+		AVLNode <E, K> success = null;
+		AVLNode <E, K> successParent = null;
+		AVLNode <E, K> curr = tempNode.getRight();
+		
+		while (curr!= null){
+			successParent = success;
+			success = curr;
+			curr = curr.getLeft();
+		}
+		
+		//successor cannot have a left child as it's assumed to be the minimum element
+		if(success != tempNode.getRight()){
+			successParent.left = success.getRight();
+			success.right = tempNode.getRight();
+		}
+		
+		return success;
 	}
 	
-	public void delete(K key) {
-		//curr = root; doesn't work this way for some reason? scoping issue?
-		AVLNode<E, K> parent = null/*useful for special cases*/, 
-				target = null/*node to delete*/,
-				curr = root;
-		//if(key!=null){
-			while(curr!=null){
-				if(key.compareTo(curr.getKey())==0)	{
-					target = curr;
-					break;
-				}//target is current node
-				
-				else if(key.compareTo(curr.getKey())>0) {
-					parent = curr;
-					curr=curr.getLeft();
-				}//check left child
-				
-				else
-				{
-					parent=curr;
-					curr = curr.getRight();
-				}//check right child
-			}//search for element to delete
-			if(target!=null) {
-				if(target.getLeft()!=null&&target.getRight()!=null)
-				{
-					//AVLNode<E,K> newNode = new AVLNode <> (key, element,null,null);
-					 AVLNode<E,K> tempNode = findMin(target.getRight());//finds the minimum value in the right tree
-					target.key = tempNode.getKey();//exchange target node for minimum value in right subtree
-					target.element = tempNode.getElement();
-					tempNode = null;//delete node at minimum value of right subtree
-				}//2 children case
-				else if(target.getLeft()!=null && target.getRight()==null)
-				{
-					//sets the left node of the parentnode(the element to be deleted) to the only childnode of the node to be deleted
-					parent.setLeft(target.getLeft());
-					target=null;//deletes the node
-				}//left child case
-				else if(target.getLeft()==null && target.getRight()!=null)
-				{
-					//sets the rightnode of the parentnode(the element to be deleted)to the only childnode of the node to be deleted
-					parent.setRight(target.getRight());
-					target=null;//deletes the node
-				}//right child case
-				else//the node does not have any children
-				{
-					target = null;//deletes node
-				}
-			}//assert that target has been found	
-		//}	
+	private AVLNode <E, K> getParent(AVLNode <E, K> root, AVLNode<E, K> node){
+		AVLNode<E, K> lh = null, rh = null;
+	    if (null == root)
+	        return null;
+
+	    if (root.getLeft() == node || root.getRight() == node)
+	        return root;
+
+	    lh = getParent(root.getLeft(), node);
+	    rh = getParent(root.getRight(), node);
+
+	    return lh != null ? lh : rh;
 	}
-	
-	public AVLNode<E,K> findMax (AVLNode<E,K> node){
-		while(node.getRight()!=null){//while there is still a left node keep going left
-            node = node.getRight();
-        }
-        return node;//leftmost node found
-	}//used to find the left most node of the tree
-	
-	public AVLNode<E,K> findMin (AVLNode<E,K> node){
-		while(node.getLeft()!=null){//while there is still a left node keep going left
-            node = node.getLeft();
-        }
-        return node;//leftmost node found
-	}//used to find the left most node of the tree
 	
 	/*
 	 * BALANCING
 	 */
-	
-	public boolean unbalanced (AVLNode<E, K> curr){
+	private boolean unbalanced (AVLNode<E, K> curr){
 		if (curr.getBalance() < AVLNode.MORE_LEFT
 							|| curr.getBalance() > AVLNode.MORE_RIGHT)
 			return true;
 		return false;
 	}
-	public void rebalance(AVLNode <E,K> node, AVLNode <E,K> parent){
+	
+	private void rebalance(AVLNode <E,K> node, AVLNode <E,K> parent){
 		//System.out.println("rotate" + node.getElement().toString());
 		if(node.getBalance() < AVLNode.MORE_LEFT && node.getLeft().getBalance() == AVLNode.MORE_LEFT){
 			rotateRight(node, parent);
@@ -200,7 +230,7 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 		}//High right subtree and right child has a left child
 	}
 	
-	public void rotateLeft(AVLNode <E,K> node, AVLNode <E,K> parent){
+	private void rotateLeft(AVLNode <E,K> node, AVLNode <E,K> parent){
 		//System.out.println("rotate left" + node.getElement().toString());
 		AVLNode<E,K> rightChild = node.getRight();
 		node.setRight(rightChild.getLeft());//node's right child’s left subtree gets reassigned to node.
@@ -215,7 +245,7 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 		node.setBalance(AVLNode.EVEN);
 	}
 	
-	public void rotateRight(AVLNode <E,K> node, AVLNode <E,K> parent){
+	private void rotateRight(AVLNode <E,K> node, AVLNode <E,K> parent){
 		//System.out.println("rotate right" + node.getElement().toString());
 		AVLNode<E,K> leftChild = node.getLeft();
 		node.setLeft(leftChild.getRight());//node's left child’s right subtree gets reassigned to node.
@@ -237,7 +267,7 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	 * We therefore have to tweak the balance factors before and after calling rotateRight. 
 	 * If we did not do that, we would not be able to reuse rotateRight and rotateLeft
 	 */
-	public void rotateRightLeft(AVLNode <E,K> node, AVLNode <E,K> parent){
+	private void rotateRightLeft(AVLNode <E,K> node, AVLNode <E,K> parent){
 		node.getRight().getLeft().setBalance(AVLNode.MORE_RIGHT);
 		rotateRight(node.getRight(),node);
 		node.getRight().setBalance(AVLNode.MORE_RIGHT);
@@ -247,36 +277,43 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	/*
 	 * mirrors rotateLeft
 	 */
-	public void rotateLeftRight(AVLNode <E,K> node, AVLNode <E,K> parent){
+	private void rotateLeftRight(AVLNode <E,K> node, AVLNode <E,K> parent){
 		node.getLeft().getRight().setBalance(AVLNode.MORE_LEFT);
 		rotateLeft(node.getLeft(),node);
 		node.getLeft().setBalance(AVLNode.MORE_LEFT);
 		rotateRight(node, parent);
 	}
 	
+	/**
+	 * beginning from the root the method checks if the current node's key matches up to the specified key
+	 * if it doesn't it traverses leftwise or rightwise
+	 */
 	@Override
 	public E search(K key) {
-		//System.out.println(curr.getKey());
-		if(curr == null){
-			curr = root;
+		AVLNode <E, K> found = getNode(key);
+		if (found == null)
 			return null;
-		}//unavailable key-value pair 
-		if(curr.getKey().compareTo(key) == 0){
-			AVLNode<E,K> copy = new AVLNode <> (curr.getKey(), curr.getElement(), curr.getLeft(), curr.getRight(),0);
-			curr = root;
-			return copy.getElement();
-			}//if key is the one at the current node
-		else if(curr.getKey().compareTo(key) < 0){
-			curr = curr.getLeft();
-			return search(key);
-			}//left child check
-
-		else if(curr.getKey().compareTo(key) > 0){
-			curr = curr.getRight();
-			return search(key);
-			}//right child check
+		else 
+			return found.getElement();
+	}
+	
+	private AVLNode <E, K> getNode(K key){
+		AVLNode<E, K> curr = root;
+		while(curr != null){
+			if(curr.getKey().compareTo(key) == 0)
+				{//if key is the one at the current node
+					return curr;
+					}
+			else if(curr.getKey().compareTo(key) < 0){
+				curr = curr.getLeft();
+			}
+			else{
+				curr = curr.getRight();
+			}
+		}
+		//key not found
 		return null;
-	}//return the entry corresponding to a specified Key k
+	}
 	
 	/*
 	 * PRINTING
@@ -284,6 +321,9 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 	@Override
 	public void printTree() {
 		System.out.println("Balanced Binary Search Tree");
+		System.out.print("Inorder: ");
+		display(root);
+		System.out.println();
 		System.out.println(left + " 1s\\left-heavy nodes " 
 				+ balanced + " 2s\\balanced nodes " + right + " 3s\\right-heavy nodes");
 		int depth = depth();
@@ -297,35 +337,29 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 
 	/**
 	 * 
-	 * @param node
+	 * @param node starting node that function uses to traverse through binary search tree
 	 * @param level
 	 * @return recursively traverse the binary search tree using a breadth-first approach
 	 */
-	public String printLevels(AVLNode<E,K> node, int level) {
+	private String printLevels(AVLNode<E,K> node, int level) {
 	    if (node == null) {
 	        return "";
 	    }//empty tree
 	    if (level == 1) {//top most level case ie root
 	        return node.getElement() + "|" + node.getBalance() + " ";
-	    } else /*if (level > 1) */{
+	    } else {
 	        String leftStr = printLevels(node.left, level - 1);
 	        String rightStr = printLevels(node.right, level - 1);
 	        return leftStr + rightStr;
 	    }
-	    //else // helps to compile
-	      //return "";
 	}
 	
-	public String inOrder(AVLNode <E,K> node){
-		String traversed = "";
-		while(node!=null){
-            inOrder(node.getLeft());//go through nodes attached to current left node
-            traversed += node.getElement();
-//            System.out.println("key: " + node.getKey().toString() + 
-//                " element: " + node.getElement().toString());
-            inOrder(node.getRight());//go through nodes attached to current right node      
-        }
-		return traversed;
+	private void display(AVLNode <E, K> root){
+		if(root!=null){
+			display(root.left);
+			System.out.print(" " + root.getElement());
+			display(root.right);
+		}
 	}
 
 	/*
@@ -336,66 +370,9 @@ public class AVLDictionary<E,K extends Sortable> implements Dictionary<E,K> {
 		return depthRecursive(root);
 	}//return the depth of the binary search tree
 	
-	public int depthRecursive(AVLNode<E,K> node){
+	private int depthRecursive(AVLNode<E,K> node){
 		if (node == null) return 0;//finished traversing
 		return 1 + Math.max(depthRecursive(node.getLeft()), depthRecursive(node.getRight()));
 	}//recursively determine depth of tree by traversing comparing left and right nodes
 	
-	/*
-	 * Recreated functions
-	 */
-	public void insertSam(K key, E element) {
-		//nodes are balanced until proven to be unbalanced
-		AVLNode<E,K> newNode = new AVLNode <> (key, element,null,null,AVLNode.EVEN);
-		
-		if(root == null)//empty tree
-		{
-			root = newNode;
-			curr = root;
-			balanced++;
-		}
-		//inserting on the left
-		else if (curr.getKey().compareTo(newNode.getKey()) < 0){
-			//insert if current node has no left child
-			if (curr.getLeft() == null) {
-				curr.setLeft(newNode);
-				if (curr.getRight() == null){
-					curr.setBalance(AVLNode.MORE_LEFT);
-					left++;
-				}
-				else {
-					curr.setBalance(AVLNode.EVEN);
-					balanced++;
-				}
-				curr = root;
-			}
-			else/*compare key with left child's key*/{
-				curr = curr.getLeft();//traverse leftwise
-				insertSam (key,element);//handle left child
-			}
-		}
-		//mirrors previous case
-		//find a place in the tree to insert it
-		else /*if (curr.getKey().compareTo(newNode.getKey()) > 0)*/{
-			//insert if current node has no right child
-			if (curr.getRight() == null){
-				curr.setRight(newNode);
-				if (curr.getLeft() == null){
-					curr.setBalance(AVLNode.MORE_RIGHT);
-					right++;
-				}
-				else {
-					curr.setBalance(AVLNode.EVEN);
-					balanced++;
-				}
-				curr = root;
-			}
-			//inserting on the right
-			else/*compare key with right child's key*/{
-				curr = curr.getRight();//traverse rightwise
-				insertSam (key,element);//handle right child
-				}
-			}
-		//return;
-	}//insert a key-value pair into the binary search tree
-}
+	}

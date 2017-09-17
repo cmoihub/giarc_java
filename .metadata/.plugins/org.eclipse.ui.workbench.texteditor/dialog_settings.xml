@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="148" key="DIALOG_X_ORIGIN"/>
+		<item value="325" key="DIALOG_Y_ORIGIN"/>
+	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="BST" key="selection"/>
+		<item value="Server queue" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="AVL"/>
-			<item value="insert_"/>
-			<item value="insert"/>
-			<item value="max"/>
-			<item value="BST"/>
-			<item value="print"/>
-			<item value="TreeNode"/>
-			<item value="mz"/>
+			<item value="Server queue"/>
+			<item value="system"/>
+			<item value="&lt;K, V&gt;"/>
+			<item value="key"/>
+			<item value="K"/>
+			<item value="E"/>
+			<item value="element"/>
+			<item value="CMOILinked"/>
 		</list>
 		<list key="replacehistory">
-			<item value="BST"/>
-			<item value="insert"/>
-			<item value="AVL"/>
-			<item value="BSTNode"/>
-			<item value="root"/>
-			<item value=""/>
-			<item value="Node"/>
-			<item value="Type"/>
+			<item value=" "/>
+			<item value="item"/>
+			<item value="I"/>
+			<item value="V"/>
+			<item value="value"/>
+			<item value="Array"/>
+			<item value="k"/>
+			<item value="private"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="290" key="DIALOG_WIDTH"/>
 		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText" key="DIALOG_FONT_NAME"/>
 		<item value="409" key="DIALOG_HEIGHT"/>
-		<item value="357" key="DIALOG_X_ORIGIN"/>
-		<item value="201" key="DIALOG_Y_ORIGIN"/>
+		<item value="-202" key="DIALOG_X_ORIGIN"/>
+		<item value="66" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

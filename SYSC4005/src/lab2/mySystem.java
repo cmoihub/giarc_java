@@ -36,7 +36,7 @@ public class mySystem {
 		m.run();		
 	}
 	
-	public void run(){
+	void run(){
 		initialize();
 		// while there is a next event
 		while(!eventList.isEmpty()){  
@@ -134,7 +134,7 @@ public class mySystem {
 		stop();
 	}
 	
-	private void arrive(){
+	void arrive(){
 		qSize++;
 		//if server is idle
 		if(!server.isBusy()){  
@@ -166,7 +166,7 @@ public class mySystem {
 			}
 	}
 	
-	private void depart(){
+	void depart(){
 		if (serverQueue.containsKey(qSize)) {
 			int value = serverQueue.get(qSize)+1;
 			serverQueue.put(qSize, value);
@@ -196,7 +196,7 @@ public class mySystem {
 			}
 	}
 	
-	private void arrive_(){
+	void arrive_(){
 		qSize_++;
 		
 		//if server is idle
@@ -229,7 +229,7 @@ public class mySystem {
 			}
 	}
 	
-	private void depart_(){
+	void depart_(){
 		if (serverQueue2.containsKey(qSize_)) {
 			int value = serverQueue2.get(qSize_)+1;
 			serverQueue2.put(qSize_, value);
@@ -258,7 +258,7 @@ public class mySystem {
 			}
 	}
 		
-	private void stop() {
+	void stop() {
 		System.out.println("Server queue\n" + serverQueue);
 		System.out.println("Server queue2\n" + serverQueue2);
 		
@@ -271,21 +271,21 @@ public class mySystem {
 	}
 	
 
-	private double getIATime() {
+	double getIATime() {
 		if(IATimes.isEmpty())
 			// if there are no more arrivals return -1
 			return -1;  
 		return IATimes.remove(0);
 	}
 	
-	private double getIATime_() {
+	double getIATime_() {
 		if(IATimes_.isEmpty())
 			// if there are no more arrivals return -1
 			return -1;  
 		return IATimes_.remove(0);
 	}
 
-	private void initialize() {
+	void initialize() {
 		importTimes();
 		//the arrival of the first customer is set to 0
 		Event e = new Event("arrival", 0);
@@ -299,7 +299,7 @@ public class mySystem {
 		eventList.add(e3);
 	}
 	
-	private void initialize_(){
+	void initialize_(){
 		importTimes();
 		Event e4 = new Event("arrival_", 0);
 		Event e5 = new Event("print_", 500);
@@ -312,7 +312,7 @@ public class mySystem {
 		eventList.add(e7);
 	}
 
-	private void importTimes() {
+	void importTimes() {
 		Scanner scaS,scaIA, scaS2; 
 		String path = "src/files/";
 		String service = "serviceTimes-100K.txt";
