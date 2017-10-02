@@ -1,0 +1,5 @@
+1505754815390	Extract method 'nextRoom'
+1505755315701	Encapsulate field 'westExit'
+1505755324660	Encapsulate field 'eastExit'
+1505755331209	Encapsulate field 'southExit'
+1505755338218	Encapsulate field 'northExit'

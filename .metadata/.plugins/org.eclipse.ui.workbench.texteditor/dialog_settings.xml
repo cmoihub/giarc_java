@@ -6,20 +6,20 @@
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Server queue" key="selection"/>
+		<item value="print" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="Server queue"/>
-			<item value="system"/>
-			<item value="&lt;K, V&gt;"/>
-			<item value="key"/>
-			<item value="K"/>
-			<item value="E"/>
-			<item value="element"/>
-			<item value="CMOILinked"/>
+			<item value="printc"/>
+			<item value="print"/>
+			<item value="["/>
+			<item value="set"/>
+			<item value="nextRoom"/>
+			<item value="nextroom"/>
+			<item value="northexit"/>
+			<item value="if(currentRoom.northExit != null) {&#x0A;            System.out.print(&quot;north &quot;);&#x0A;        }&#x0A;        if(currentRoom.eastExit != null) {&#x0A;            System.out.print(&quot;east &quot;);&#x0A;        }&#x0A;        if(currentRoom.southExit != null) {&#x0A;            System.out.print(&quot;south &quot;);&#x0A;        }&#x0A;        if(currentRoom.westExit != null) {&#x0A;            System.out.print(&quot;west &quot;);&#x0A;        }"/>
 		</list>
 		<list key="replacehistory">
 			<item value=" "/>
@@ -36,7 +36,7 @@
 		<item value="290" key="DIALOG_WIDTH"/>
 		<item value="1|.SF NS Text|11.0|0|COCOA|1|.SFNSText" key="DIALOG_FONT_NAME"/>
 		<item value="409" key="DIALOG_HEIGHT"/>
-		<item value="-202" key="DIALOG_X_ORIGIN"/>
+		<item value="0" key="DIALOG_X_ORIGIN"/>
 		<item value="66" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

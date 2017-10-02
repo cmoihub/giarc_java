@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/CraigBook/OneDrive/Textbooks/projects/chapter06/zuul-bad"/>
+		<item value="/Users/CraigBook/Programming/arc_java/sysc3110/Lab1"/>
 		<item value="/Users/CraigBook/Programming/giarc_java/EsePrecious"/>
 		<item value="/Users/CraigBook/Programming/giarc_python"/>
 		<item value="/Users/CraigBook/Programming/giarc_java/SYSC4005"/>
