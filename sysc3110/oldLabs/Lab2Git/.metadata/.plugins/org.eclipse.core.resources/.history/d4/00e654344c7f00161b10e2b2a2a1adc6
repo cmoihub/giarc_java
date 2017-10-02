@@ -1,0 +1,22 @@
+
+import java.util.*;
+
+public class AddressBook 
+{
+	public ArrayList<BuddyInfo> ContactList;
+
+	public AddressBook()
+	{
+		ContactList = new ArrayList<BuddyInfo>();
+	}
+	
+	public void AddBuddy()
+	{
+		
+	}
+	
+	public void removeBuddy()
+	{
+		
+	}
+}

@@ -1,0 +1,79 @@
+/** SYSC 2101 - Prof-Student-TA Example
+ * 
+ *
+ */
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Prof
+{
+	private String name;
+	private ArrayList<ICourseListener> courseListeners;
+	private CourseEvent midterm;
+
+	public Prof(String aName) 
+	{
+		this.name = aName;
+		this.courseListeners = new ArrayList<ICourseListener>();
+	}
+
+	public Date getMidterm() 
+	{
+		return midterm.;
+	}
+
+	public String getName() 
+	{
+		return this.name;
+	}
+	
+	public void addCourseListener(ICourseListener c)
+	{
+		
+	}
+	
+	public void removeCourseListener(ICourseListener c)
+	{
+		
+	}
+
+	public void setMidterm(Date date) 
+	{
+		this.midtermDate = date;
+		for(Student s: this.students)
+		{
+			s.study(date);
+		}
+		ta.proctor(date);
+	}
+	
+	public void postponeMidterm(Date date)
+	{
+		this.midtermDate = date;
+		for(Student s: this.students){
+			s.party(date);
+		}
+		ta.postpone(date);
+	}
+
+	public static void main(String[] args) 
+	{
+
+		Prof p = new Prof("Babak");
+		Student s = new Student("Homer");
+		Student s2 = new Student("Bart");
+		TeachingAssistant ta = new TeachingAssistant("Michael");
+	
+	
+		p.addStudent(s);
+		p.addStudent(s2);
+		p.setTA(ta);
+	
+		Date midterm = new Date();
+		p.setMidterm(midterm);
+	
+		p.postponeMidterm(new Date(midterm.getTime() + 1000000000));
+	}
+
+}

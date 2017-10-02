@@ -1,0 +1,7 @@
+
+public interface IElement() 
+{
+	
+	public String getName();
+
+}

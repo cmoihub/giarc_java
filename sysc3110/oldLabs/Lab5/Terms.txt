@@ -1,0 +1,4 @@
+XmlDocument - structure of elements within a root
+root 	- first element
+Element - list of elements
+	- text

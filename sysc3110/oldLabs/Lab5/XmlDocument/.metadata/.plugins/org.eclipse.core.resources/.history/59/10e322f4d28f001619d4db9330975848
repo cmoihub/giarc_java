@@ -1,0 +1,54 @@
+
+public class XmlDocument
+{
+	private IElement root;
+	
+	public XmlDocument(IElement root)
+	{
+		this.root = root;
+	}
+	
+	public XmlDocument()
+	{
+	}
+	
+	public void setRoot(IElement r)
+	{
+		root = r;
+	}
+	
+	public IElement getRoot()
+	{
+		return root;
+	}
+	
+
+	public static void main(String[] args) 
+	{
+		XmlDocument doc = new XmlDocument();
+		ElementLeaf student1 = new ElementLeaf("student");
+		student1.setValue("Michael");
+		ElementLeaf student2 = new ElementLeaf("student");
+		student2.setValue("Alan");
+		ListOfElements classElement = new ListOfElements("class");
+		
+		classElement.addElement(student1);
+		classElement.addElement(student2);
+		ElementLeaf prof = new ElementLeaf("prof");
+		prof.setValue("Babak");
+		ElementLeaf code = new ElementLeaf("code");
+		code.setValue("SYSC3110");
+		
+		ListOfElements course = new ListOfElements("course");
+		course.addElement(code);
+		course.addElement(prof);
+		course.addElement(classElement);
+		doc.setRoot(course);
+		String st = doc.toString();
+		System.out.println(st);
+		
+		
+		
+	}
+
+}

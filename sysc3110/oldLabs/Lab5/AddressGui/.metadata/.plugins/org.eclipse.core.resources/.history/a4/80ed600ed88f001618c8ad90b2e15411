@@ -1,0 +1,30 @@
+import java.awt.event.*;
+import javax.swing.*;
+
+public class GuiBook  extends JFrame implements ActionListener
+{
+
+	public GuiBook()
+	{
+		JFrame jf = new JFrame("AddressBook");
+		jf.setSize(400, 400);
+		JMenuBar bar = new JMenuBar();
+		jf.setJMenuBar(bar);
+
+		JMenu addressBook = new JMenu( "AddressBook" );
+		bar.add( addressBook );
+		JMenuItem item;
+		item = new JMenuItem ( "Create" );
+		item.addActionListener( this );
+
+		item = new JMenuItem ( "Save" );
+		item.addActionListener( this );
+
+		item = new JMenuItem ( "Dsiplay" );
+		item.addActionListener( this );
+
+		
+		jf.setVisible(true);
+	}
+
+}

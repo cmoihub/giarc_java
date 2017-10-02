@@ -1,0 +1,16 @@
+
+public class Helper 
+{
+	public static final String NORTH = "north";
+	public static final String EAST = "east";
+	public static final String SOUTH = "south";
+	public static final String WEST = "west";
+	public static final String UP = "up";
+	public static final String DOWN = "down";
+	
+	public static final String GO = "go";
+	public static final String QUIT = "quit";
+	public static final String LOOK = "look";
+	public static final String HELP = "help";
+	public static final String BACK = "back";
+}

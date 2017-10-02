@@ -1,0 +1,65 @@
+import java.awt.event.*;
+import javax.swing.*;
+
+public class GuiBook  extends JFrame implements ActionListener
+{
+
+	public GuiBook()
+	{
+		JFrame jf = new JFrame("AddressBook");
+		jf.setSize(400, 400);
+		JMenuBar bar = new JMenuBar();
+		jf.setJMenuBar(bar);
+
+		JMenu addressBook = new JMenu( "AddressBook" );
+		bar.add( addressBook );
+		JMenuItem item;
+		item = new JMenuItem ( "Create" );
+		item.addActionListener( this );
+		addressBook.add(item);
+		item = new JMenuItem ( "Save" );
+		item.addActionListener( this );
+		addressBook.add(item);
+		item = new JMenuItem ( "Display" );
+		item.addActionListener( this );
+		addressBook.add(item);
+		
+		JMenu buddyInfo = new JMenu( "BuddyInfo" );
+		bar.add( buddyInfo );
+		item = new JMenuItem ( "Add" );
+		item.addActionListener( this );
+		buddyInfo.add(item);
+		
+		jf.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		System.out.println(arg0.getSource());
+		System.out.println(arg0.getActionCommand());
+		if(arg0.getActionCommand() == "Create")
+		{
+			
+		}
+		else if(arg0.getActionCommand() == "Save")
+		{
+			
+		}
+		else if(arg0.getActionCommand() == "Display")
+		{
+			
+		}
+		else if(arg0.getActionCommand() == "Add")
+		{
+			
+		}
+		else
+		{
+			
+			throw new Exception("Command --" + arg0.getActionCommand() + "-- is not implemented.");
+
+		}
+	}
+
+}

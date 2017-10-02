@@ -1,0 +1,15 @@
+
+public interface ICourseListener 
+{
+
+	public default void midtermAnnounced(CourseEvent e)
+	{}
+
+	public default void midtermPostponed(CourseEvent e)
+	{}
+
+
+	public default void assignmentAnnounced(CourseEvent e)
+	{}
+
+}

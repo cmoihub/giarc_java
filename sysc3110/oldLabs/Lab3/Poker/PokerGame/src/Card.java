@@ -1,0 +1,110 @@
+import java.util.HashMap;
+
+/**
+ * 
+ */
+
+/**
+ * @author JaspreetSanghra
+ * @studentId 100893501
+ */
+public class Card 
+{
+	public static HashMap<String, Integer> AllRanks = new HashMap<String, Integer>();
+	static
+	{
+		AllRanks.put("2", 2);
+		AllRanks.put("3", 3);
+		AllRanks.put("4", 4);
+		AllRanks.put("5", 5);
+		AllRanks.put("6", 6);
+		AllRanks.put("7", 7);
+		AllRanks.put("8", 8);
+		AllRanks.put("9", 9);
+		AllRanks.put("T", 10);
+		AllRanks.put("J", 11);
+		AllRanks.put("Q", 12);
+		AllRanks.put("K", 13);
+		AllRanks.put("A", 14);
+	}
+
+	public static enum ValidSuits
+	{
+		Spade,
+		Heart,
+		Club,
+		Diamond
+	}
+
+	private ValidSuits suit;
+	private int rank;
+
+	public Card(String cardCode)
+	{
+		cardCode = cardCode.trim().replaceAll(" +", "");
+		String[] cardDetails = cardCode.split("");
+		if(cardDetails.length != 2)
+		{
+			throw new IllegalArgumentException("ERROR: Card [" + cardCode + "] is not valid. Should be exactly 2 characters.");
+		}
+		setRank(cardDetails[0]);
+		setSuit(cardDetails[1]);
+	}
+
+	/**
+	 * @return the suit
+	 */
+	public ValidSuits getSuit() 
+	{
+		return suit;
+	}
+
+	/**
+	 * @param suit - the string to map to the ValidSuits enum
+	 */
+	private void setSuit(String suit) 
+	{
+		switch(suit)
+		{
+		case "S":
+		case "s":
+			this.suit = ValidSuits.Spade;
+			break;
+		case "H":
+		case "h":
+			this.suit = ValidSuits.Heart;
+			break;
+		case "C":
+		case "c":
+			this.suit = ValidSuits.Club;
+			break;
+		case "D":
+		case "d":
+			this.suit = ValidSuits.Diamond;
+			break;
+		default:
+			throw new IllegalArgumentException("ERROR: Suit [" + suit + "] is not a vaild suit.");
+		}
+	}
+
+	/**
+	 * @return the rank int value
+	 */
+	public int getRank() 
+	{
+		return rank;
+	}
+
+	/**
+	 * @param rank the rank to set
+	 */
+	private void setRank(String rank) 
+	{
+		if(!AllRanks.containsKey(rank))
+		{
+			throw new IllegalArgumentException("ERROR: Rank [" + rank + "] is not a valid rank.");
+		}
+		this.rank = AllRanks.get(rank);
+	}
+
+}

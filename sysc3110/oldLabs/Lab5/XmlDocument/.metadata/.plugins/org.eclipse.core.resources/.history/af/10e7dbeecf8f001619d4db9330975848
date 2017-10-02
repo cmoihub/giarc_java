@@ -1,0 +1,20 @@
+import java.util.*;
+
+public class ListOfElements implements IElement
+{
+	private String name = "";
+	private List<IElement> list;
+	
+	public ListOfElements(String elementName)
+	{
+		name = elementName;
+		list = new ArrayList<IElement>();
+	}
+
+	@Override
+	public String getName() 
+	{
+		return name;
+	}
+	
+}

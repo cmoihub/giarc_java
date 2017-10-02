@@ -1,0 +1,32 @@
+
+public class XmlDocument
+{
+	private IElement root;
+	
+	public XmlDocument(IElement root)
+	{
+		this.root = root;
+	}
+	
+	public XmlDocument()
+	{
+	}
+	
+	public void setRoot(IElement r)
+	{
+		root = r;
+	}
+	
+	public IElement getRoot()
+	{
+		return root;
+	}
+	
+
+	public static void main(String[] args) 
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+}

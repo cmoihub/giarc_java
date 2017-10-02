@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+
+/**
+ * 
+ */
+
+/**
+ * @author JaspreetSanghra
+ * @studentId 100893501
+ */
+public class Hand 
+{
+	private ArrayList<Card> cards;
+	
+	public Hand(String handCode)
+	{
+		handCode = handCode.trim().replaceAll(" +", " ");
+		String[] cardCodes = handCode.split(" ");
+		if(cardCodes.length != 5)
+		{
+			throw new IllegalArgumentException("ERROR: Please provide a full hand of 5 cards, only [" + cardCodes.length + "] cards found in [" + handCode + "].");
+		}
+		cards = new ArrayList<Card>(5);
+		addCards(cardCodes);
+	}
+
+	private void addCards(String[] cardCodes) 
+	{
+		for (String card : cardCodes) 
+		{
+			addCard(card);
+		}
+	}
+
+	private void addCard(String cardCode) 
+	{
+		cards.add(new Card(cardCode));
+	}
+
+}

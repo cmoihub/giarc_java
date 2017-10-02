@@ -1,0 +1,11 @@
+
+public class BuddyInfo {
+	
+	private String FirstName = "Jas";
+
+	public static void main(String[] args)
+	{
+		System.out.print("Hello " + FirstName);
+	}
+
+}

@@ -1,0 +1,34 @@
+
+public class ElementLeaf implements IElement
+{
+	private String name = "";
+	private String value = "";
+
+	public ElementLeaf(String elementName)
+	{
+		name = elementName;
+	}
+
+	@Override
+	public String getName() 
+	{
+		return name;
+	}
+	
+	public String getValue()
+	{
+		return value;
+	}
+	
+	public void setValue(String val)
+	{
+		value = val;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "<" + getName()  + ">" + getValue() + "</" + getName() + ">";
+	}
+
+}
