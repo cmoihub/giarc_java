@@ -1,42 +1,82 @@
-import java.awt.Component;
 import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.awt.*;
 
 import javax.swing.*;
 
 public class GuiBook  extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private AddressBook book;
 	int id = 0;
-	public GuiBook()
+	private JFrame jf;
+	private JMenuBar bar;
+	private JMenuItem item;
+	JMenu addressBook;
+	JMenu buddyInfo;
+	JPanel jp;
+	public Gui()
 	{
-		JFrame jf = new JFrame("AddressBook");
-		jf.setSize(400, 400);
-		JMenuBar bar = new JMenuBar();
-		jf.setJMenuBar(bar);
-
-		JMenu addressBook = new JMenu( "AddressBook" );
-		bar.add( addressBook );
-		JMenuItem item;
-		item = new JMenuItem ( "Create" );
-		item.addActionListener( this );
-		addressBook.add(item);
-		item = new JMenuItem ( "Save" );
-		item.addActionListener( this );
-		addressBook.add(item);
-		item = new JMenuItem ( "Display" );
-		item.addActionListener( this );
-		addressBook.add(item);
+		jp = new JPanel();
 		
-		JMenu buddyInfo = new JMenu( "BuddyInfo" );
-		bar.add( buddyInfo );
-		item = new JMenuItem ( "Add" );
-		item.addActionListener( this );
-		buddyInfo.add(item);
+		initFrame("AddressBook");
+		initMenuBar();
+		jp.setLayout(new FlowLayout());
+		jf.add(jp);
+
+		addressBook = initMenu("AddressBook");
+			
+		buddyInfo = initMenu("BuddyInfo");
+		
+	}
+	
+	void setupGUI() {
+		setupAddressBook();
+
+		setupBuddyInfo();
 		
 		jf.setVisible(true);
+	}
+	
+	private void setupAddressBook() {
+		addItem("Create", addressBook, this);
+		addItem("Save", addressBook, this);
+		addItem("Display", addressBook, this);
+	}
+	
+	private void setupBuddyInfo() {
+		addItem("Add", buddyInfo, this);
+	}
+
+	
+	private void initFrame(String frameName) {
+		jf = new JFrame(frameName);
+		jf.setSize(400, 400);
+		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+	}
+	
+	private void initMenuBar() {
+		bar = new JMenuBar();
+		jf.setJMenuBar(bar);
+	}
+	
+	private void addItem(String itemName, JMenu menu, Gui gui) {
+		item = new JMenuItem (itemName);
+		item.addActionListener( this );
+		menu.add(item);
+	}
+
+	private JMenu initMenu(String menuName) {
+		if(bar == null) initMenuBar();
+		JMenu menu = new JMenu(menuName);
+		bar.add( menu);
+		return menu;
 	}
 
 	@Override
@@ -53,7 +93,7 @@ public class GuiBook  extends JFrame implements ActionListener
 			System.out.println(s);
 			try 
 			{
-				BufferedWriter out = new BufferedWriter(new FileWriter("M:\\SYSC3110\\Labs\\Lab5\\addressBookText.txt"));
+				BufferedWriter out = new BufferedWriter(new FileWriter("M:\\SYSC3110\\Lab4\\addressBookText.txt"));
 				out.write(s);
 				out.flush();
 				out.close();
@@ -65,15 +105,15 @@ public class GuiBook  extends JFrame implements ActionListener
 		}
 		else if(arg0.getActionCommand() == "Display")
 		{
-			JTextArea textArea = new JTextArea(5, 20);
+			JTextArea textArea = new JTextArea(5, 5);
 			JScrollPane scrollPane = new JScrollPane(textArea); 
-			
 			textArea.setEditable(false);
-			textArea.append(book.toString());
-			scrollPane.setVisible(true);
-			textArea.setVisible(true);
 			
-
+			textArea.append(book.toString());
+			textArea.setVisible(true);
+			scrollPane.setVisible(true);
+			jp.add(textArea);
+			jf.setVisible(true);
 		}
 		else if(arg0.getActionCommand() == "Add")
 		{
