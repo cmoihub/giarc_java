@@ -3,12 +3,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 
- */
-
-/**
- * @author JaspreetSanghra
- * @studentId 100893501
+ * @author Craig Isesele
+ * @studentId 100950074
  */
 public class Hand 
 {
@@ -24,36 +20,76 @@ public class Hand
 		FOUR_OF_A_KIND, 
 		STRAIGHT_FLUSH
 	}
+
+	private final List<Card> cards;
+
+	private List<Card.Ranks> getRanks() {
+		return ranks;
+	}
+
+	private final List<Card.Ranks> ranks;
+	private static final max_length_with_spaces = 14;
+	private static final min_length = 0;
+
+
+
+
+	/**
+	 * Create hand from a string
+	 * @param hand - string representation of the hand in the form "AC JC KS 2H 3H"
+	 */
+	public Hand (String hand){
+		if (hand.length > max_length_with_spaces) {
+			System.out.println("Invalid string");
+			System.exit(0);
+		}
+
+		cards = new ArrayList<Card>();
+		ranks = new ArrayList<Card.Rank>();
+
+		for (String s : hand.split(" ")) {
+			cards.add(new Card(s));
+		}
+
+		for (Card c : cards) {
+			ranks.add(c.getRank());
+		}
+
+		Collections.sort(ranks);
+	}
+
+
+//	private
 	
-	private Kind HandKind;
+//	private Kind HandKind;
 
-	private ArrayList<Card> cards;
+//	private ArrayList<Card> cards;
 
-	public Hand(String handCode)
-	{
-		handCode = handCode.trim().replaceAll(" +", " ");
-		String[] cardCodes = handCode.split(" ");
-		if(cardCodes.length != 5)
-		{
-			throw new IllegalArgumentException("ERROR: Please provide a full hand of 5 cards, only [" + cardCodes.length + "] cards found in [" + handCode + "].");
-		}
-		cards = new ArrayList<Card>(5);
-		addCards(cardCodes);
-		HandKind = kind();
-	}
+//	public Hand(String handCode)
+//	{
+//		handCode = handCode.trim().replaceAll(" +", " ");
+//		String[] cardCodes = handCode.split(" ");
+//		if(cardCodes.length != 5)
+//		{
+//			throw new IllegalArgumentException("ERROR: Please provide a full hand of 5 cards, only [" + cardCodes.length + "] cards found in [" + handCode + "].");
+//		}
+//		cards = new ArrayList<Card>(5);
+//		addCards(cardCodes);
+//		HandKind = kind();
+//	}
 
-	private void addCards(String[] cardCodes) 
-	{
-		for (String card : cardCodes) 
-		{
-			addCard(card);
-		}
-	}
+//	private void addCards(String[] cardCodes)
+//	{
+//		for (String card : cardCodes)
+//		{
+//			addCard(card);
+//		}
+//	}
 
-	private void addCard(String cardCode) 
-	{
-		cards.add(new Card(cardCode));
-	}
+//	private void addCard(String cardCode)
+//	{
+//		cards.add(new Card(cardCode));
+//	}
 
 	/**
 	 * This method is already implemented and could be useful! 
@@ -118,31 +154,50 @@ public class Hand
 	 */
 	public boolean isStraight() 
 	{
-		ArrayList<Integer> list = handRanks();
-		Collections.sort(list);
-		int i = 0;
-		int prev = -1;
-		
-		//go through first 4 cards
-		for(i = 0; i < 4; i++)
-		{
-			if(prev != -1 && prev + 1 != list.get(i))
-			{
-				//order is not continuous
-				return false;
-			}
-			prev = list.get(i);
-		}
-		//check special case for A,2,3,4,5 straight
-		if(prev == 5 && list.get(i) == Card.AllRanks.get("A"))
-		{
+		Hand lowestStraight = new Hand("AC 2C 3C 4C 5C")
+		if (ranks.equals(lowestStraight.getRanks())){
 			return true;
 		}
-		else
-		{
-			//check last card is continuous
-			return prev + 1 == list.get(i);
-		}
+//		if(this.compareTo(new Hand("AC 2C 3C 4C 5C"))==0){
+//			return true;
+//		}
+//		else if(this.compareTo(new Hand("AD 2D 3D 4D 5D"))==0) {
+//			return true;
+//		}
+//		else if(this.compareTo(new Hand("AH 2H 3H 4H 5H"))==0) {
+//			return true;
+//		}
+//		else if(this.compareTo(new Hand("AS 2S 3S 4S 5S"))==0) {
+//			return true;
+//		}
+//		int i = 0;
+
+
+//		ArrayList<Integer> list = handRanks();
+//		Collections.sort(list);
+//		int i = 0;
+//		int prev = -1;
+		
+		//go through first 4 cards
+//		for(i = 0; i < 4; i++)
+//		{
+//			if(prev != -1 && prev + 1 != list.get(i))
+//			{
+//				//order is not continuous
+//				return false;
+//			}
+//			prev = list.get(i);
+//		}
+		//check special case for A,2,3,4,5 straight
+//		if(prev == 5 && list.get(i) == Card.AllRanks.get("A"))
+//		{
+//			return true;
+//		}
+//		else
+//		{
+//			//check last card is continuous
+//			return prev + 1 == list.get(i);
+//		}
 	}
 
 	/**
@@ -150,25 +205,35 @@ public class Hand
 	 */
 	public boolean isFlush() 
 	{
-		boolean allSameSuit = true;
-		Card.ValidSuits suit = cards.get(0).getSuit();
-		for (Card card : cards)
-		{
-			if(card.getSuit() != suit)
-			{
-				allSameSuit = false;
+		Card.ValidSuits sampleSuit = cards.get(0).getSuit();
+
+		for (int i = cards.length() - 1; i>0; i--){
+			if(cards.get(i).getSuit() != sampleSuit) {
+				return false;
 			}
 		}
-		return allSameSuit;
+
+		return true;
+//
+//
+//		boolean allSameSuit = true;
+//		Card.ValidSuits suit = cards.get(0).getSuit();
+//		for (Card card : cards)
+//		{
+//			if(card.getSuit() != suit)
+//			{
+//				allSameSuit = false;
+//			}
+//		}
+//		return allSameSuit;
 	}
 
-	/*@Override
 	public int compareTo(Hand h)
 	{
 		//hint: delegate!
 		//and don't worry about breaking ties
-		return 0;
-	}*/
+		return this.kind().compareTo(h.kind());
+	}
 
 	private ArrayList<Integer> handRanks()
 	{

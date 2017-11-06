@@ -5,7 +5,7 @@ public class BuddyInfo {
 	public int phoneNo;
 	
 	public BuddyInfo(){
-		
+
 	}
 
 	public static void main(String[] args) {

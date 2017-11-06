@@ -5,8 +5,8 @@ import java.util.HashMap;
  */
 
 /**
- * @author JaspreetSanghra
- * @studentId 100893501
+ * @author Craig Isesele
+ * @studentId 100950074
  */
 public class Card 
 {

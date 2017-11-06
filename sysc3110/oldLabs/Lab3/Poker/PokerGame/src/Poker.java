@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * @author JaspreetSanghra
- * @studentId 100893501
+ * @author Craig Isesele
+ * @studentId 100950074
  */
 public class Poker 
 {
