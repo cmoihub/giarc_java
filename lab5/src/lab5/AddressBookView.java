@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by CraigBook on 2017-11-06.
  */
-public class AddressBookView extends JFrame implements Observer {
+public class AddressBookView extends JFrame{
     private static final long serialVersionUID = -3343910527353248785L;
     private AddressBook book;
     private JList<BuddyInfo> list;
@@ -86,14 +86,5 @@ public class AddressBookView extends JFrame implements Observer {
 
     public DefaultListModel<BuddyInfo> getListModel(){
         return listModel;
-    }
-
-
-
-    @Override
-    public void update(Observable arg0, Object arg1)
-    {
-        System.out.println("UPDATING");
-
     }
 }
