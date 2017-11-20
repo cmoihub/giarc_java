@@ -38,4 +38,8 @@
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="command.Parser"/>
+<fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
+<fullyQualifiedTypeName name="main.CitationFormat"/>
+<fullyQualifiedTypeName name="java.awt.KeyEventDispatcher"/>
+<fullyQualifiedTypeName name="java.awt.KeyboardFocusManager"/>
 </qualifiedTypeNameHistroy>
