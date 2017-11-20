@@ -3,6 +3,7 @@
 	<item value="false" key="delegateUpdating"/>
 	<item value="/Users/CraigBook/Programming/arc_java/sysc3110" key="org.eclipse.jdt.ui.last.external.project"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateSimilarElements"/>
