@@ -1,0 +1,15 @@
+1510523536336	Rename type 'Feature_'
+1510523833784	Rename field 'container'
+1510523873177	Rename field 'top_container'
+1510523880372	Rename field 'training_container'
+1510523916109	Rename field 'topContainer'
+1510523976566	Move compilation unit
+1510524561483	Change method 'setTrainingExamples'
+1510531130170	Move compilation units
+1510531242797	Move compilation units
+1510531489581	Move compilation unit
+1510532978547	Rename type 'Property'
+1510673107336	Delete element
+1510673122122	Delete element
+1510674480365	Rename method 'setupMap'
+1510676080900	Rename method 'checkNearestNeighbours'

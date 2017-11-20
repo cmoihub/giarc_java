@@ -1,0 +1,22 @@
+package Problem;
+
+import java.util.*;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public class Example {
+    protected Set<Feature> features;
+    Example(){
+        features = new HashSet<Feature>();
+    }
+
+    protected void setFeatures(Set<Feature> allowedFeatures){
+        features = allowedFeatures;
+    }
+
+    protected void addFeature(Feature f){
+        features.add(f);
+//        features.add(f);
+    }
+}

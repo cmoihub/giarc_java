@@ -1,0 +1,72 @@
+package Problem;
+
+import static org.junit.Assert.*;
+import java.awt.geom.Point2D;
+
+import java.util.ArrayList;
+
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import Problem.DistanceMetric.*;
+import Problem.Feature.SquareFeet;
+/**
+ * 
+ * @author issahassan
+ *
+ */
+public class DistanceMetricTest {
+
+	private DoubleMetric d1;
+	private DoubleMetric d2;
+
+	private EuclideanMetric e1;
+	private EuclideanMetric e2;
+//	private AgeMetric a;
+	
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {	
+		d1 = new DoubleMetric();
+		d2 = new DoubleMetric();
+
+		e1 = new EuclideanMetric();
+		e2 = new EuclideanMetric();
+//		a = new AgeMetric();
+		
+	}
+	@Test
+	public void testDoubleMetric() {
+		double shouldBe0 = d1.calculateDistance(4.0,4.0);
+		double shouldBe1 = d2.calculateDistance(4.0, 3.0);
+		
+		assertTrue(0==shouldBe0);
+		assertTrue(1==shouldBe1);
+		
+	}
+	
+	@Test
+	public void testEuclideanMetric() {
+		Point2D p1 = new Point2D.Double (11.0,77.0);
+		Point2D p2 = new Point2D.Double (77.0,77.0);
+		
+		Point2D p3 = new Point2D.Double (77.0,77.0);
+		Point2D p4 = new Point2D.Double (77.0,77.0);
+		
+		double shouldBeNum = e1.calculateDistance(p1,p2);
+		double shouldBe0 = e2.calculateDistance(p3, p4);
+
+	}
+
+}

@@ -1,0 +1,703 @@
+package Problem;
+
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 
+ * Main Class for setting up features
+ * 
+ * @author CraigBook
+ *
+ */
+public  class Feature {
+    protected List<Feature> features = new ArrayList<Feature>();
+    protected DistanceMetric metric;
+    protected Object value;
+
+    /**
+     * associate a feature with some other feature
+     *
+     * @param feature
+     */
+    protected void add(Feature feature) {
+        features.add(feature);
+    }
+
+    /**
+     * get the feature's distance calculator
+     *
+     * @return
+     */
+    public DistanceMetric getMetric() {
+        return metric;
+    }
+
+    /**
+     * get the value associated with this feature
+     *
+     * @return
+     */
+    protected Object getValue() {
+        return value;
+    }
+
+    public static class Coordinates extends Feature {
+        private Point2D.Double coords;
+        Latitude lat;
+        Longitude lng;
+
+        /**
+         * main initialization
+         *
+         * @param lat_
+         * @param lng_
+         */
+        public Coordinates(double lat_, double lng_) {
+            metric = new DistanceMetric.EuclideanMetric();
+            lat = new Latitude(lat_);
+            lng = new Longitude(lng_);
+            add(lat);
+            add(lng);
+            setCoords(new Point2D.Double(lat.getVal(), lng.getVal()));
+            setCoords(new Point2D.Double((Double) lat.getValue(), (Double) lng.getValue()));
+        }
+
+        /**
+         * default initialization
+         */
+        public Coordinates() {
+            this(0.0, 0.0);
+        }
+
+        public void setCoords(Point2D.Double coords) {
+            this.coords = coords;
+        }
+
+        public Object getValue() {
+            return coords;
+        }
+
+        public String toString() {
+            return "Coordinates";
+        }
+    }
+
+    public static class Latitude extends Feature {
+        private double lat;
+
+        /**
+         * main initialization
+         *
+         * @param lat
+         */
+        public Latitude(double lat) {
+            metric = new DistanceMetric.DoubleMetric();
+            setLat(lat);
+        }
+
+        /**
+         * default initialization
+         */
+        public Latitude() {
+            this.setLat(0.0);
+        }
+
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
+
+        public Object getValue() {
+            return lat;
+        }
+
+        public String toString() {
+            return "Latitude";
+        }
+
+        public double getVal() {
+            return this.lat;
+        }
+    }
+
+    public static class Longitude extends Feature {
+        private double lng;
+
+        /**
+         * main initialization
+         *
+         * @param lng
+         */
+        public Longitude(double lng) {
+            metric = new DistanceMetric.DoubleMetric();
+            setLng(lng);
+        }
+
+        /**
+         * default initialization
+         */
+        public Longitude() {
+            this(0.0);
+        }
+
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+
+        //        public double getLng() {
+//            return lng;
+//        }
+        public Object getValue() {
+            return lng;
+        }
+
+        public String toString() {
+            return "Longitude";
+        }
+
+        public double getVal() {
+            return this.lng;
+        }
+    }
+
+    public static class Age_ extends Feature {
+
+        private Age age;
+
+        /**
+         * main initalization
+         *
+         * @param newer
+         */
+        public Age_(Age newer) {
+            System.out.println(newer);
+            metric = new DistanceMetric.IntegerMetric();
+            setAge(newer);
+        }
+
+        /**
+         * default initialization
+         */
+        public Age_() {
+            this(Age.empty);
+        }
+
+        public Age getAge() {
+            return age;
+        }
+
+        public void setAge(Age age) {
+            this.age = age;
+        }
+
+        public Object getValue() {
+            return age.ordinal();
+        }
+
+        public String toString() {
+            return "Age";
+        }
+
+    }
+
+    public static class SquareFeet extends Feature {
+        private int sqFt;
+
+        /**
+         * main initialization
+         *
+         * @param sqft
+         */
+        public SquareFeet(int sqft) {
+            metric = new DistanceMetric.IntegerMetric();
+            setSqFt(sqft);
+        }
+
+        /**
+         * default initialization
+         */
+        public SquareFeet() {
+            this(0);
+        }
+
+        public int getSqFt() {
+            return sqFt;
+        }
+
+        public void setSqFt(int sqFt) {
+            this.sqFt = sqFt;
+        }
+
+        public Object getValue() {
+            return sqFt;
+        }
+
+        public String toString() {
+            return "Square Feet";
+        }
+
+        public double getVal() {
+            return this.sqFt;
+        }
+    }
+
+    public static class Price extends Feature {
+        private int price;
+
+        /**
+         * main initialization
+         *
+         * @param price
+         */
+        public Price(int price) {
+            metric = new DistanceMetric.IntegerMetric();
+            setPrice(price);
+        }
+
+        /**
+         * default initialization
+         */
+        public Price() {
+            this(0);
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public Object getValue() {
+            return price;
+        }
+
+        public String toString() {
+            return "Price";
+        }
+
+        public double getVal() {
+            return this.price;
+        }
+    }
+
+    public double getVal() {
+        // TODO Auto-generated method stub
+//		if(this instanceof Price)
+//			return ((Price)this).getPrice();
+        return 0;
+    }
+
+    public static class High extends Feature {
+        private int high;
+
+        public High(int high) {
+            metric = new DistanceMetric.DoubleMetric();
+            setHigh(high);
+        }
+
+        public High() {
+            this(0);
+        }
+
+        public void setHigh(int price) {
+            this.high = price;
+        }
+
+        public int getHigh() {
+            return high;
+        }
+
+        public String toString() {
+            return "high";
+        }
+    }
+
+
+    public static class Low extends Feature {
+        private int low;
+
+        public Low(int low) {
+            metric = new DistanceMetric.DoubleMetric();
+            setLow(low);
+        }
+
+        public Low() {
+            this(0);
+        }
+
+        public void setLow(int low) {
+            this.low = low;
+        }
+
+        public int getLow() {
+            return low;
+        }
+
+        public String toString() {
+            return "low";
+        }
+    }
+
+    public static class openPrice extends Feature {
+        private int open;
+
+        public openPrice(int open) {
+            metric = new DistanceMetric.DoubleMetric();
+            setOpen(open);
+        }
+
+        public openPrice() {
+            this(0);
+        }
+
+        public void setOpen(int open) {
+            this.open = open;
+        }
+
+        public int getOpen() {
+            return open;
+        }
+
+        public String toString() {
+            return "openPrice";
+        }
+    }
+
+    public static class closePrice extends Feature {
+        private int close;
+
+        public closePrice(int close) {
+            metric = new DistanceMetric.DoubleMetric();
+            setClose(close);
+        }
+
+        public closePrice() {
+            this(0);
+        }
+
+        public void setClose(int close) {
+            this.close = close;
+        }
+
+        public int getClose() {
+            return close;
+        }
+
+        public String toString() {
+            return "closePrice";
+        }
+    }
+
+    public static class Volume extends Feature {
+        private int volume;
+
+        public Volume(int volume) {
+            metric = new DistanceMetric.DoubleMetric();
+            setVolume(volume);
+        }
+
+        public Volume() {
+            this(0);
+        }
+
+        public void setVolume(int volume) {
+            this.volume = volume;
+        }
+
+        public int getVolume() {
+            return volume;
+        }
+
+        public String toString() {
+            return "volume";
+        }
+    }
+
+
+    class Open extends Feature {
+        private int open;
+
+        Open(int open) {
+            metric = new DistanceMetric.DoubleMetric();
+            // setPrice(open);
+            this.open = open;
+        }
+    }
+}
+		
+//=======
+//public class Feature {
+//	protected List<Feature> features = new ArrayList<Feature>();
+//	protected DistanceMetric metric;
+//	protected void add (Feature feature){
+//		features.add(feature);
+//	}
+//	public DistanceMetric getMetric(){
+//		return metric;
+//	}
+//
+//
+//	public static class Coordinates extends Feature{
+//		private Point2D.Double coords;
+//		Latitude lat;
+//		Longitude lng;
+//		public Coordinates(double lat_, double lng_){
+//			metric = new DistanceMetric.EuclideanMetric();
+//			lat = new Latitude(lat_);
+//			lng = new Longitude(lng_);
+//			add(lat);
+//			add(lng);
+//			setCoords(new Point2D.Double(lat.getLat(), lng.getLng()));
+//		}
+//		public Coordinates(){
+//			this(0.0,0.0);
+//		}
+//		public void setCoords(Point2D.Double coords) {
+//			this.coords = coords;
+//		}
+//		public String toString(){
+//			return "Coordinates";
+//		}
+//	}
+//
+//	public static class Latitude extends Feature{
+//		private double lat;
+//		public Latitude(double lat){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setLat(lat);
+//		}
+//		Latitude(){
+//			this.setLat(0.0);
+//		}
+//		public void setLat(double lat) {
+//			this.lat = lat;
+//		}
+//		public double getLat() {
+//			return lat;
+//		}
+//		public String toString(){
+//			return "Latitude";
+//		}
+//	}
+//
+//	public static class Longitude extends Feature{
+//		private double lng;
+//		public Longitude(double lng){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setLng(lng);
+//		}
+//		public Longitude(){
+//			this(0.0);
+//		}
+//		public void setLng(double lng) {
+//			this.lng = lng;
+//		}
+//		public double getLng() {
+//			return lng;
+//		}
+//		public String toString(){
+//			return "Longitude";
+//		}
+//	}
+//
+//	public static class Age_ extends Feature{
+//
+//		private Age age;
+//		public Age_(Age newer){
+//			metric = new DistanceMetric.AgeMetric();
+//			setAge(newer);
+//		}
+//		public Age_(){
+//			this(Age.empty);
+//		}
+//		public Age getAge() {
+//			return age;
+//		}
+//		public void setAge(Age age) {
+//			this.age = age;
+//		}
+//		public String toString(){
+//			return "Age";
+//		}
+//	}
+//
+//	public static class SquareFeet extends Feature{
+//		private int sqFt;
+//		public SquareFeet(int sqft){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setSqFt(sqft);
+//		}
+//		public SquareFeet(){
+//			this(0);
+//		}
+//		public int getSqFt() {
+//			return sqFt;
+//		}
+//		public void setSqFt(int sqFt) {
+//			this.sqFt = sqFt;
+//		}
+//		public String toString(){
+//			return "SquareFeet";
+//		}
+//	}
+//
+//	public static class Price extends Feature{
+//		private int price;
+//		public Price(int price){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setPrice(price);
+//		}
+//
+//		public Price() {
+//			this(0);
+//		}
+//
+//		public void setPrice(int price) {
+//			this.price = price;
+//		}
+//
+//		public int getPrice() {
+//			return price;
+//		}
+//
+//		public String toString(){
+//			return "Price";
+//		}
+//	}
+//
+//	public static class High extends Feature{
+//		private int high;
+//		public High(int high){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setHigh(high);
+//		}
+//
+//		public High() {
+//			this(0);
+//		}
+//
+//		public void setHigh(int price) {
+//			this.high = price;
+//		}
+//
+//		public int getHigh() {
+//			return high;
+//		}
+//
+//		public String toString(){
+//			return "high";
+//		}
+//	}
+//
+//
+//	public static class Low extends Feature{
+//		private int low;
+//		public Low(int low){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setLow(low);
+//		}
+//
+//		public Low() {
+//			this(0);
+//		}
+//
+//		public void setLow(int low) {
+//			this.low = low;
+//		}
+//
+//		public int getLow() {
+//			return low;
+//		}
+//
+//		public String toString(){
+//			return "low";
+//		}
+//	}
+//
+//	public static class openPrice extends Feature{
+//		private int open;
+//		public openPrice(int open){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setOpen(open);
+//		}
+//
+//		public openPrice() {
+//			this(0);
+//		}
+//
+//		public void setOpen(int open) {
+//			this.open = open;
+//		}
+//
+//		public int getOpen() {
+//			return open;
+//		}
+//
+//		public String toString(){
+//			return "openPrice";
+//		}
+//	}
+//
+//	public static class closePrice extends Feature{
+//		private int close;
+//		public closePrice(int close){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setClose(close);
+//		}
+//
+//		public closePrice() {
+//			this(0);
+//		}
+//
+//		public void setClose(int close) {
+//			this.close = close;
+//		}
+//
+//		public int getClose() {
+//			return close;
+//		}
+//
+//		public String toString(){
+//			return "closePrice";
+//		}
+//	}
+//
+//	public static class Volume extends Feature{
+//		private int volume;
+//		public Volume(int volume){
+//			metric = new DistanceMetric.DoubleMetric();
+//			setVolume(volume);
+//		}
+//
+//		public Volume() {
+//			this(0);
+//		}
+//
+//		public void setVolume(int volume) {
+//			this.volume = volume;
+//		}
+//
+//		public int getVolume() {
+//			return volume;
+//		}
+//
+//		public String toString(){
+//			return "volume";
+//		}
+//	}
+//
+//
+//	class Open extends Feature{
+//		private int open;
+//		Open(int open){
+//			metric = new DistanceMetric.DoubleMetric();
+//			// setPrice(open);
+//			this.open = open;
+//		}
+//
+//>>>>>>> origin/damanGUI
+//	}

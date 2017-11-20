@@ -1,0 +1,37 @@
+package command;
+
+import java.util.LinkedList;
+
+/**
+ * This class parses all commands and runs the associated code if a match is found
+ * 
+ * @author CraigBook
+ *
+ */
+public class Parser {
+	private LinkedList<Command> commands = new LinkedList<>();
+
+    /**
+     * parses a command from the command line
+     *
+     * @param s the string to be parsed
+     */
+    public void parse(String s)
+    {
+        commands = Command.getAllCommands();
+
+        String[] words = s.split(" ");
+//        if()
+        if (words.length == 0) {
+        	System.out.println("Enter command");
+        } 
+        else if (words.length >= 1) {
+            for (Command command : commands) {
+                if (command.checkCommand(words)) {
+                    command.run();
+                    break;
+                }
+            }
+        }
+    }
+}

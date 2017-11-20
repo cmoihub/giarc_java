@@ -1,0 +1,35 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.List;
+
+//import KNN.Feature;
+
+public class MetricEvaluator {
+	public double sumOfDistances(Example trainingExample, Example testExample) {
+    	Double distance = 0.0;
+    	/*
+    	 * if intset contains a certain kind of feature add the distance metric associated with that feature to the distance variable
+    	 */
+    	List<Feature> trainingFeatures = new ArrayList<Feature>(trainingExample.getFeatures());
+    	List<Feature> testFeatures = new ArrayList<Feature>(testExample.getFeatures());
+    	Feature  trainingFeature, testFeature;
+    	for (int i = 0; i < trainingFeatures.size(); i++){
+    		trainingFeature = trainingFeatures.get(i);
+    		testFeature = testFeatures.get(i);
+    		/*
+    		 * test feature is null given that is the predicted feature, 
+    		 * so as to avoid a null pointer exception we don't compare the empty feature to it's corresponding feature from the training example 
+    		 */
+    		
+    		if(testFeature!=null){
+    			distance+=trainingFeature.getMetric().calculateDistance(trainingFeature, testFeature);
+    		}
+    		else continue;
+    	}
+		return distance;
+    }
+
+}

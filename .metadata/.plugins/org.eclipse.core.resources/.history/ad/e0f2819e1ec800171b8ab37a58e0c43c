@@ -1,0 +1,33 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.DistanceMetric;
+
+public class DistanceMetricTest {
+	private DistanceMetric doubleMetric;
+	private DistanceMetric ageMetric;
+	private DistanceMetric euclideanMetric;
+	private double delta = 0.000000000000001;
+	@Before
+	public void setUp(){
+		doubleMetric = DistanceMetric.getDouble();
+		ageMetric = DistanceMetric.getAge();
+		euclideanMetric = DistanceMetric.getEuclidean();
+	}
+	
+	@Test
+	public void testDouble1() {
+		assertEquals(doubleMetric.calculateDistance(5.7,2.9), 2.8, 0.001);
+//		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testDouble2(){
+		assertEquals(doubleMetric.calculateDistance(5.7,(-1*2.9)), 8.6, 0.001);
+	}
+
+}

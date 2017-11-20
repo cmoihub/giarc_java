@@ -1,0 +1,189 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import KNN.Age;
+
+//import KNN.Age;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public  class Feature {
+    protected List<Feature> features = new ArrayList<Feature>();
+    protected DistanceMetric metric;
+    protected Object value;
+    protected void add (Feature feature){
+        features.add(feature);
+    }
+    public DistanceMetric getMetric(){
+    	return metric;
+    }
+    protected Object getValue(){
+    	return value;
+    }
+    
+    
+    public static class Coordinates extends Feature{
+        private Point2D.Double coords;
+        Latitude lat;
+        Longitude lng;
+        public Coordinates(double lat_, double lng_){
+            metric = new DistanceMetric.EuclideanMetric();
+            lat = new Latitude(lat_);
+            lng = new Longitude(lng_);
+            add(lat);
+            add(lng);
+            setCoords(new Point2D.Double((Double)lat.getValue(), (Double)lng.getValue()));
+        }
+        public Coordinates(){
+            this(0.0,0.0);
+        }
+        public void setCoords(Point2D.Double coords) {
+            this.coords= coords;
+        }
+        public Object getValue(){
+        	return coords;
+        }
+        public String toString(){
+            return "Coordinates";
+        }
+    }
+
+    public static class Latitude extends Feature{
+        private double lat;
+        public Latitude(double lat){
+            metric = new DistanceMetric.DoubleMetric();
+            setLat(lat);
+        }
+        Latitude(){
+            this.setLat(0.0);
+        }
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
+        public Object getValue() {
+            return lat;
+        }
+        public String toString(){
+            return "Latitude";
+        }
+        public double getVal() {
+        	return this.lat;
+        }
+    }
+
+    public static class Longitude extends Feature{
+        private double lng;
+        public Longitude(double lng){
+            metric = new DistanceMetric.DoubleMetric();
+            setLng(lng);
+        }
+        public Longitude(){
+            this(0.0);
+        }
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+//        public double getLng() {
+//            return lng;
+//        }
+        public Object getValue() {
+            return lng;
+        }
+        public String toString(){
+            return "Longitude";
+        }
+        public double getVal() {
+        	return this.lng;
+        }
+    }
+
+    public static class Age_ extends Feature{
+    	
+        private Age age;
+        public Age_(Age newer){
+            metric = new DistanceMetric.AgeMetric();
+            setAge(newer);
+        }
+        public Age_(){
+            this(Age.empty);
+        }
+        public Age getAge() {
+            return age;
+        }
+        public void setAge(Age age) {
+            this.age = age;
+        }
+        public Object getValue() {
+            return age;
+        }
+        public String toString(){
+            return "Age";
+        }
+        
+    }
+
+    public static class SquareFeet extends Feature{
+        private int sqFt;
+        public SquareFeet(int sqft){
+            metric = new DistanceMetric.IntegerMetric();
+            setSqFt(sqft);
+        }
+        public SquareFeet(){
+            this(0);
+        }
+        public int getSqFt() {
+            return sqFt;
+        }
+        public void setSqFt(int sqFt) {
+            this.sqFt = sqFt;
+        }
+        public Object getValue() {
+            return sqFt;
+        }
+        public String toString(){
+            return "Square Feet";
+        }
+        public double getVal() {
+        	return this.sqFt;
+        }
+    }
+
+    public static class Price extends Feature{
+        private int price;
+        public Price(int price){
+            metric = new DistanceMetric.DoubleMetric();
+            setPrice(price);
+        }
+
+        public Price() {
+            this(0);
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+
+        public Object getValue() {
+            return price;
+        }
+        public String toString(){
+            return "Price";
+        }
+        
+        public double getVal() {
+        	return this.price;
+        }
+    }
+
+	public double getVal() {
+		// TODO Auto-generated method stub
+//		if(this instanceof Price)
+//			return ((Price)this).getPrice();
+		return 0;
+		
+	}
+}

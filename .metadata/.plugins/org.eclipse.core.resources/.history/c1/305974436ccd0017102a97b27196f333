@@ -1,0 +1,12 @@
+package command;
+
+public class HelpCommand extends Command {
+	public HelpCommand(){
+		super("help");
+	}
+
+	@Override
+	protected void run() {
+		System.out.println("Below are the available commands: \n" + "Help -> 'help'\n" + "Exit -> 'exit'\n");
+	}
+}

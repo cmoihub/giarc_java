@@ -1,0 +1,476 @@
+package Problem;
+
+import javafx.embed.swing.JFXPanel;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+
+import com.sun.xml.internal.ws.api.PropertySet;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class ProblemView extends JFrame implements ItemListener{
+	private Problem problem;
+	private JMenuBar menuBar;
+	private JButton addFeature;
+	private JButton predict;
+	private JPanel allFeaturesPanel;
+	private JPanel selectedFeaturesPanel;
+	private DefaultListModel<String> feature_defaultListModel;
+	private DefaultListModel<Feature> selectedFeatures;
+	private String selectedFeature;
+	private String selectedFeature_;
+	private JList<String> feature_jList;
+	private JList<Feature> selectedFeatures_jList;
+	private JTextField predictionFeature;
+	private JTextField trainingExampleNo;
+	private JTextField ageField;
+	private JTextField sqftField;
+	private JTextField latField;
+	private JTextField longField;
+	private JTextField coordField;
+	private JTextField priceField;
+	private JPanel container;
+	private JCheckBox age;
+	private JCheckBox squarefeet;
+	private JCheckBox longitude;
+	private JCheckBox latitude;
+	private JCheckBox coordinates;
+	private JCheckBox price;
+	private JCheckBox high;
+	private JCheckBox low;
+	private JCheckBox volume;
+	private JCheckBox open;
+	private JCheckBox close;
+	private String examples = "";
+
+	private ArrayList<JCheckBox> checkboxes;
+	private ArrayList<Feature> given = new ArrayList<Feature>(); 
+
+	ArrayList<String> list = new ArrayList<String>();
+	/**
+	 *
+	 * @param problem
+	 */
+	ProblemView(Problem problem){
+		super("Select Features");
+		container = new JPanel();
+		System.out.println("Display possible features");
+		this.problem = problem;
+
+		menuBar = new JMenuBar();
+		this.setJMenuBar(menuBar);
+
+		//        removeFeature = new JButton("Remove Features");
+		//        menuBar.add(removeFeature);
+
+		addFeature = new JButton("Add Features");
+		menuBar.add(addFeature);
+
+		predict = new JButton("Feature to Predict");
+		menuBar.add(predict);
+		predict.setVisible(false);
+		allFeaturesPanel = new JPanel(new GridLayout(problem.numFeatures(),1));
+		// showFeatures(problem.feature_all_defaultListModel);
+
+
+		selectedFeaturesPanel = new JPanel(new GridLayout(problem.numFeatures(),1));
+		//   showSelection(problem.feature_selected_defaultListModel);
+
+		age = new JCheckBox("age");
+		age.setMnemonic(KeyEvent.VK_C); 
+
+		squarefeet = new JCheckBox("squareFeet");
+		squarefeet.setMnemonic(KeyEvent.VK_C); 
+
+		latitude = new JCheckBox("latitude");
+		latitude.setMnemonic(KeyEvent.VK_C); 
+
+		longitude = new JCheckBox("longitude");
+		longitude.setMnemonic(KeyEvent.VK_C); 
+
+		coordinates = new JCheckBox("coordinates");
+		coordinates.setMnemonic(KeyEvent.VK_C); 
+
+		price = new JCheckBox("price");
+		price.setMnemonic(KeyEvent.VK_C); 
+
+		high = new JCheckBox("high");
+		high.setMnemonic(KeyEvent.VK_C); 
+
+		low = new JCheckBox("low");
+		low.setMnemonic(KeyEvent.VK_C); 
+
+		open = new JCheckBox("open");
+		open.setMnemonic(KeyEvent.VK_C); 
+
+		close = new JCheckBox("close");
+		close.setMnemonic(KeyEvent.VK_C); 
+
+		volume = new JCheckBox("volume");
+		volume.setMnemonic(KeyEvent.VK_C); 
+
+		// predictionFeature = new JTextField(10);
+		//  predictionFeature.setEditable(false);
+
+
+
+		//create all checkboxes
+		checkboxes = new ArrayList<JCheckBox>();
+		checkboxes.add(age);
+		checkboxes.add(squarefeet);
+		checkboxes.add(latitude);
+		checkboxes.add(longitude);
+		checkboxes.add(coordinates);
+		checkboxes.add(price);
+		checkboxes.add(high);
+		checkboxes.add(low);
+		checkboxes.add(open);
+		checkboxes.add(close);
+		checkboxes.add(volume);
+
+
+		JOptionPane.showMessageDialog(this,"Select the features you want for training examples");
+		allFeaturesPanel.add(age);
+		allFeaturesPanel.add(squarefeet);
+		allFeaturesPanel.add(latitude);
+		allFeaturesPanel.add(longitude);
+		allFeaturesPanel.add(coordinates);
+		allFeaturesPanel.add(price);
+		allFeaturesPanel.add(high);
+		allFeaturesPanel.add(low);
+		allFeaturesPanel.add(open);
+		allFeaturesPanel.add(close);
+		allFeaturesPanel.add(volume);
+
+
+		//Listeners
+		age.addItemListener(this);
+		squarefeet.addItemListener(this);
+		latitude.addItemListener(this);
+		longitude.addItemListener(this);
+		coordinates.addItemListener(this);
+		price.addItemListener(this);
+		high.addItemListener(this);
+		low.addItemListener(this);
+		open.addItemListener(this);
+		close.addItemListener(this);
+		volume.addItemListener(this);
+
+
+		/*
+        ageField = new JTextField(10);
+        ageField.setEditable(false);
+        sqftField = new JTextField(10);
+        sqftField.setEditable(false);
+        latField = new JTextField(10);
+        latField.setEditable(false);
+        longField = new JTextField(10);
+        longField.setEditable(false);
+        coordField = new JTextField(10);
+        coordField.setEditable(false);
+        priceField = new JTextField(10);
+        priceField.setEditable(false);
+
+       selectedFeaturesPanel.add(ageField);
+       selectedFeaturesPanel.add(sqftField);
+       selectedFeaturesPanel.add(latField);
+       selectedFeaturesPanel.add(longField);
+       selectedFeaturesPanel.add(coordField);
+       selectedFeaturesPanel.add(priceField);
+		 */
+
+		container.setLayout(new BoxLayout(container, BoxLayout.LINE_AXIS));
+		container.add(allFeaturesPanel);
+		//  container.add(selectedFeaturesPanel);
+		this.add(container);
+		setup(this);
+	}
+
+	/**
+	 * this function applies desired settings to a jframe
+	 *
+	 * @param frame
+	 */
+	void setup(JFrame frame){
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//        frame.setTitle(title);
+		frame.setSize(500,500);
+		frame.setLocationRelativeTo(null);
+		//frame.pack();
+		frame.setVisible(true);
+	}
+
+	/**
+	 *creates prediction based on inputs given
+	 */
+	public void showPrediction(){
+		//predictionFeature.setText(problem.getFeatureToPredict().toString());
+		String test = JOptionPane.showInputDialog(this,"Leave the feature you want to predict alone. I.e don't change the default text", examples);
+
+		ArrayList<String> lst = new ArrayList<String>();
+		Scanner input = new Scanner(test);
+
+		String s = input.nextLine();
+
+
+		for(String i : s.split(" ")){
+			lst.add(i);
+		}
+		input.close();
+
+
+		for(Feature f: given){
+			for(String a : lst){
+				if(a.equals(f)){
+					problem.setFeatureToPredict(f);			//finds the unchanged value and maps it to prediction
+
+				}
+			}
+
+		}
+
+
+		//ToDo: add values to features
+		for(int i = 0; i < lst.size(); i++){
+			//given.indexOf(i).
+		}
+
+
+	}
+
+	/**
+	 *
+	 * @param features
+	 */
+	public void showFeatures(DefaultListModel<String> features){
+		feature_defaultListModel = features;
+		feature_jList = new JList<String>(feature_defaultListModel);
+		feature_jList.addListSelectionListener(
+				listSelectionEvent -> {
+					selectedFeature = feature_jList.getSelectedValue();
+				}
+				);
+		feature_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		allFeaturesPanel.add(feature_jList);
+	}
+
+	/**
+	 *
+	 * @param features a trimmed down list of features to use to set up examples
+	 */
+	public void showSelection(DefaultListModel<Feature> features){
+		selectedFeatures = features;
+		selectedFeatures_jList = new JList<Feature>(selectedFeatures);
+		selectedFeatures_jList.addListSelectionListener(
+				listSelectionEvent->{
+					selectedFeature_ = feature_jList.getSelectedValue();
+				}
+				);
+		selectedFeaturesPanel.add(selectedFeatures_jList);
+	}
+
+	public String getTrainingExampleNumber(){
+		return trainingExampleNo.getText();
+	}
+	/*   
+>>>>>>> origin/damanGUI
+
+	 */
+	/**
+	 *
+	 * @return the currently selected feature from the list that shows all the features
+	 */
+	public String getSelectedItem(){
+
+		int tExamples = Integer.parseInt(JOptionPane.showInputDialog(this,"How many training examples whould you like?"));
+
+		JPanel selected = new JPanel(new GridLayout(tExamples,1));
+		JScrollPane sp = new JScrollPane(selected);
+
+		problem.createTrainingExamples(tExamples);
+
+
+		//creates a string out of the selected checkboxes
+		for(JCheckBox c : checkboxes) {
+
+			if(c.isSelected()) {
+
+				System.out.print("this: "+ c.getText());
+				//return c.getText();
+				examples +=  c.getText() + " ";
+
+			}
+
+		}
+
+		//adds selected checkboxes to training example textfield
+		for(Example e: problem.getTrainingExamples()) {
+			selected.add(new JTextField(examples));
+
+		}
+
+
+
+		Scanner input = new Scanner(examples);
+
+		String s = input.nextLine();
+
+
+		for(String i : s.split(" ")){
+			list.add(i);
+		}
+		input.close();
+
+		for(String str: list){
+			given.add(problem.createFeature(str));
+
+		}
+
+
+		predict.setVisible(true);
+		container.add(sp);
+		return "";
+
+	}
+
+	/**
+	 *
+	 * @return the feature from the list with features to be used to set up examples
+	 */
+	public Feature getSelectedFeature(){
+		return selectedFeatures_jList.getSelectedValue();
+	}
+
+	public JList getFeatures(){
+		return selectedFeatures_jList;
+	}
+
+
+
+
+//
+//	/**
+//	 *
+//	 * @param listener
+//	 */
+//	void _add(ActionListener listener){addFeature.addActionListener(listener);}
+//	void _predict(ActionListener listener){predict.addActionListener(listener);}
+//
+//	/**
+//	 *
+//	 * @param listener
+//	 */
+	//   void _predict(ActionListener listener){predict.addActionListener(listener);}
+
+	//   void _sendTrainingExampleNo(ActionListener listener){trainingExampleNo.addActionListener(listener);}
+
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		Object source = e.getItemSelectable();
+
+		if(source == age){
+			if( age.isSelected()) {
+				ageField.setEditable(true);
+			}else {
+				ageField.setEditable(false);
+			}
+
+		}
+
+		if(source == squarefeet){
+			if( squarefeet.isSelected()) {
+				sqftField.setEditable(true);
+			}else {
+				sqftField.setEditable(false);
+			}
+
+
+		}
+
+		if(source == latitude){
+			if( latitude.isSelected()) {
+				latField.setEditable(true);
+			}else {
+				latField.setEditable(false);
+			}
+
+
+		}
+
+		if(source == longitude){
+			if( longitude.isSelected()) {
+				longField.setEditable(true);
+			}else {
+				longField.setEditable(false);
+			}
+		}
+
+		if(source == coordinates){
+			if( coordinates.isSelected()) {
+				coordField.setEditable(true);
+			}else {
+				coordField.setEditable(false);
+			}
+
+		}
+
+		if(source == price){
+			if( price.isSelected()) {
+				priceField.setEditable(true);
+			}else {
+				priceField.setEditable(false);
+			}
+
+
+		}
+
+
+	}
+
+
+//<<<<<<< HEAD
+    void _button(ActionListener listener, JButton comp){
+    	comp.addActionListener(listener);
+    }
+    
+    void _textField(ActionListener listener, JTextField text){
+    	text.addActionListener(listener);
+    }
+    
+    /**
+     * setup add button listener
+     *
+     * @param listener
+     */
+    void _add(ActionListener listener){addFeature.addActionListener(listener);}
+
+    /**
+     * set up predict button listener
+     * @param listener
+     */
+    void _predict(ActionListener listener){predict.addActionListener(listener);}
+
+    /**
+     * set up training example no listener
+     * @param listener
+     */
+    void _sendTrainingExampleNo(ActionListener listener){trainingExampleNo.addActionListener(listener);}
+    
+    
+//=======
+//>>>>>>> origin/damanGUI
+}

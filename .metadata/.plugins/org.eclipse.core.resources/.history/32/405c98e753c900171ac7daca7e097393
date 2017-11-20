@@ -1,0 +1,60 @@
+/Age_.class
+/Coordinates.class
+/Latitude.class
+/Longitude.class
+/Price.class
+/Problem.class
+/ProblemController$_addActionListener.class
+/ProblemController$_predictActionListener.class
+/ProblemController$_trainingExampleNoActionListener.class
+/ProblemController.class
+/ProblemView.class
+/Property.class
+/SquareFeet.class
+/Example.class
+/ExampleView.class
+/AgeMetric.class
+/CoordinatesMetric.class
+/DistanceMetric.class
+/LatitudeMetric.class
+/LongitudeMetric.class
+/PriceMetric.class
+/SquareFeetMetric.class
+/Main.class
+/Feature.class
+<<<<<<< HEAD
+/Price$Open.class
+=======
+/DoubleMetric.class
+/EnumMetric.class
+/EuclideanMetric.class
+/DistanceMetric$DoubleMetric.class
+/DistanceMetric$EuclideanMetric.class
+/DistanceMetric$AgeMetric.class
+/Feature$Age_.class
+/Feature$Coordinates.class
+/Feature$Latitude.class
+/Feature$Longitude.class
+/Feature$Price.class
+/Feature$SquareFeet.class
+/Age.class
+/Problem$Age.class
+<<<<<<< HEAD
+/MetricEvaluator.class
+/Predictor.class
+=======
+/ProblemTest.class
+>>>>>>> ce8f2b45240391618e7a7816e6a795745b6ab1f6
+>>>>>>> branch 'master' of https://github.com/SYSC3110/project-les-brownies.git
+/Feature$High.class
+/Feature$Low.class
+/Feature$openPrice.class
+/Feature$Volume.class
+/Feature$closePrice.class
+/DistanceMetricTest.class
+<<<<<<< HEAD
+/DistanceMetric$IntegerMetric.class
+/PredictorTest.class
+=======
+/Feature$Open.class
+>>>>>>> origin/damanGUI

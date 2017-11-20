@@ -1,0 +1,38 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.DistanceMetric;
+import Problem.Feature;
+
+public class DistanceMetricTest {
+	private DistanceMetric.DoubleMetric doubleMetric;
+	private DistanceMetric ageMetric;
+	private DistanceMetric euclideanMetric;
+	private double delta = 0.000000000000001;
+	@Before
+	public void setUp(){
+		doubleMetric = new DistanceMetric.DoubleMetric();
+		ageMetric = DistanceMetric.getAge();
+		euclideanMetric = DistanceMetric.getEuclidean();
+	}
+	
+	@Test
+	public void testDoublePositiveNumbers() {
+		assertEquals(doubleMetric.calculateDistance(5.7,2.9), 2.8, delta);
+	}
+	
+	@Test
+	public void testDoubleNegativeNumbers(){
+		assertEquals(doubleMetric.calculateDistance(5.7,(-1*2.9)), 8.6, delta);
+	}
+	
+	@Test
+	public void testAgeMetric() {
+		assertEquals(ageMetric.calculateDistance(new Age_("newer"),new Age_("older")), 2.8, delta);
+	}
+
+}

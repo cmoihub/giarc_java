@@ -1,0 +1,22 @@
+package Tests;
+
+import static org.junit.Assert.*;
+import org.junit.*;
+
+import Problem.Age;
+
+public class AgeEnumTest {
+	private Age newer;
+	private Age older;
+	@Before
+	public void setup(){
+		newer = Age.newer;
+		older = Age.older;
+	}
+	
+	@Test
+	public void testAgeSetup(){
+		assertEquals("newer", newer.parseAge("new"));
+	}
+
+}

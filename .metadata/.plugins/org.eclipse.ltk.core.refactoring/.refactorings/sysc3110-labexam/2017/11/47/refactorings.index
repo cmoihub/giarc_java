@@ -1,0 +1,28 @@
+1511096210450	Move compilation unit
+1511096403007	Move compilation unit
+1511096630597	Encapsulate field 'view'
+1511096671705	Encapsulate field 'model'
+1511120963826	Move compilation unit
+1511121003806	Rename package 'labexam'
+1511126204374	Delete element
+1511126214042	Move compilation unit
+1511126432456	Rename type 'Main'
+1511126834186	Delete element
+1511126848512	Delete element
+1511126874444	Rename package 'mvc'
+1511127207305	Delete element
+1511129426393	Rename method 'initViewActionListeners'
+1511129814729	Delete element
+1511137948628	Rename field 'text'
+1511138406657	Rename type '_button1ActionListener'
+1511138415754	Rename type 'ieeeActionListener'
+1511138434154	Rename type '_button2ActionListener'
+1511138453313	Rename method '_button1'
+1511138463905	Rename method '_button2'
+1511138692472	Rename method 'ieee'
+1511138707263	Rename method 'acm'
+1511140703639	Rename field 'name'
+1511140710842	Rename field 'surname'
+1511140719028	Rename field 'text'
+1511143404772	Encapsulate field 'ieee'
+1511143438969	Encapsulate field 'acm'

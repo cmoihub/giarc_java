@@ -1,0 +1,9 @@
+package Problem;
+
+import javax.swing.JTable;
+
+public class ExampleView {
+	
+	JTable trainingExampleTable;
+	
+}

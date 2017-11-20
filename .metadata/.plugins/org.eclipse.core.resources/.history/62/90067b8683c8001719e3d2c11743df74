@@ -1,0 +1,68 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import java.awt.geom.Point2D;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.Age;
+import Problem.DistanceMetric;
+import Problem.DistanceMetric.AgeMetric;
+import Problem.DistanceMetric.DoubleMetric;
+import Problem.DistanceMetric.EuclideanMetric;
+import Problem.Feature;
+
+public class DistanceMetricTest {
+	private DistanceMetric.DoubleMetric doubleMetric;
+	private DistanceMetric.AgeMetric ageMetric;
+	private DistanceMetric.EuclideanMetric euclideanMetric;
+	private double delta = 0.000000000000001;
+	@Before
+	public void setUp(){
+		doubleMetric = new DoubleMetric();
+		ageMetric = new AgeMetric();
+		euclideanMetric = new EuclideanMetric();
+	}
+	
+	@Test
+	public void testDoublePositiveNumbers() {
+		assertEquals(doubleMetric.calculateDistance(5.7,2.9), 2.8, delta);
+	}
+	
+	@Test
+	public void testDoubleNegativeNumbers(){
+		assertEquals(doubleMetric.calculateDistance(5.7,(-1*2.9)), 8.6, delta);
+	}
+	
+	@Test
+	public void testAgeMetricDifferentAges() {
+		assertEquals(ageMetric.calculateDistance(Age.newer,Age.older), 1.0, delta);
+	}
+	
+	@Test
+	public void testAgeMetricSameAgesOlder(){
+		assertEquals(ageMetric.calculateDistance(Age.older,Age.older), 0.0, delta);
+	}
+	
+	@Test
+	public void testAgeMetricSameAgesNewer(){
+		assertEquals(ageMetric.calculateDistance(Age.newer,Age.newer), 0.0, delta);
+	}
+	
+	@Test
+	public void testEuclideanMetricXAxis(){
+		Point2D firstPoint = new Point2D.Double(3.0,0.0);
+		Point2D secondPoint = new Point2D.Double(4.0,0.0);
+		assertEquals(euclideanMetric.calculateDistance(firstPoint, secondPoint), 1.0, delta);
+	}
+	
+	@Test
+	public void testEuclideanMetricYAxis(){
+		Point2D firstPoint = new Point2D.Double(0.0,6.0);
+		Point2D secondPoint = new Point2D.Double(0.0,3.0);
+		assertEquals(euclideanMetric.calculateDistance(firstPoint, secondPoint), 1.0, delta);
+	}
+
+}

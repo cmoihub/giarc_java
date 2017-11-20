@@ -1,0 +1,9 @@
+package command;
+
+public abstract class Command {
+	protected boolean isTrue (String[] commands, String command){
+		return commands.length == 1 && commands[0].equalsIgnoreCase(command);
+	}
+	
+	protected abstract void run();
+}

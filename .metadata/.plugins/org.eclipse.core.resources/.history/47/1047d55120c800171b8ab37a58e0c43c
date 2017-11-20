@@ -1,0 +1,83 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+
+import KNN.Age;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public abstract class DistanceMetric {
+	public abstract double calculateDistance(Object first, Object second);
+
+    protected double difference(double first, double second) {
+        return Math.abs(first-second);
+    }
+
+    protected double difference(int first, int second) {
+        return Math.abs(first-second);
+    }
+    
+//    Methods for testing
+//    public static DoubleMetric getDouble(){
+//    	return new DoubleMetric();
+//    }
+    
+    public static EuclideanMetric getEuclidean(){
+    	return new EuclideanMetric();
+    }
+    
+    public static AgeMetric getAge(){
+    	return new AgeMetric();
+    }
+    
+    public static class DoubleMetric extends DistanceMetric{
+    	@Override
+    	public double calculateDistance(Object first, Object second){
+            return difference((Double) first, (Double) second);
+        }
+    }
+    
+    public static class EuclideanMetric extends DistanceMetric{
+    	@Override
+    	public double calculateDistance(Object first, Object second){
+    		Point2D firstCoords = (Point2D) first;
+    		Point2D secondCoords = (Point2D) second;
+    		return firstCoords.distance(secondCoords);
+        }
+    }
+    
+    
+}
+
+class EnumMetric extends DistanceMetric{
+	@Override
+	public double calculateDistance(Object first, Object second) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+
+class DoubleMetric extends DistanceMetric{
+	@Override
+	public double calculateDistance(Object first, Object second){
+        return difference((Double) first, (Double) second);
+    }
+}
+
+class EuclideanMetric extends DistanceMetric{
+	@Override
+	public double calculateDistance(Object first, Object second) {
+		Point2D firstCoords = (Point2D) first;
+		Point2D secondCoords = (Point2D) second;
+		return firstCoords.distance(secondCoords);
+	}
+}
+
+class AgeMetric extends DistanceMetric{
+    public double calculateDistance(Object first, Object second) {
+        Age first_ =  (Age) first;
+        Age second_ =  (Age) second;
+        return difference(first_.ordinal(), second_.ordinal());
+    }
+}

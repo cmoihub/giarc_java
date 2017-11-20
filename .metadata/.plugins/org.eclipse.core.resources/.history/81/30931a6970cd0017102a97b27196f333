@@ -1,0 +1,9 @@
+package main;
+
+import command.Parser;
+
+public class RunParser {
+	public static void main (String [] args){
+		Parser parser = new Parser();
+	}
+}

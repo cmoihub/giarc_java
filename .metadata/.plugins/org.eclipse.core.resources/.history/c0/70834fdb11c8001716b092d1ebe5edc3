@@ -1,0 +1,68 @@
+package Problem;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public class ProblemController {
+    private Problem problem;
+    private ProblemView view;
+    private ExampleView exampleView;
+    
+
+    public ProblemController(Problem problem, ProblemView display, ExampleView exampleview) {
+        this.problem = problem;
+        view = display;
+        view._add(new _addActionListener());
+        view._predict(new _predictActionListener());
+        view._sendTrainingExampleNo(new _trainingExampleNoActionListener());
+        exampleView = exampleview;
+//        exampleView.setTrainingExamples();
+    }
+
+    private class _addActionListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("Adding selected feature");
+            add();
+        }
+    }
+
+    private class _predictActionListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+        	System.out.println("Choosing feature to predict");
+            predict();
+        }
+    }
+    
+    private class _trainingExampleNoActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Restricting number of training examples");
+			setTrainingExampleNo();
+		}
+    }
+
+    /**
+     *
+     */
+    void add(){
+        problem.addFeatures(view.getSelectedItem());
+    }
+
+    /**
+     *
+     */
+    void predict(){
+        problem.setFeatureToPredict(view.getSelectedFeature());
+        view.showPrediction();
+    }
+    
+    void setTrainingExampleNo(){
+    	System.out.println(view.getTrainingExampleNumber());
+    	problem.setTrainingExampleNo(Integer.parseInt(view.getTrainingExampleNumber()));
+    }
+}

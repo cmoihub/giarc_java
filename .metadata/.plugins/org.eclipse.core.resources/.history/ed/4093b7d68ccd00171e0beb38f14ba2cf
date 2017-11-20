@@ -1,0 +1,23 @@
+package main;
+
+public class Model {
+	
+	private String text;
+	
+	public Model(){
+		
+	}
+	
+	public void setText(String text_){
+		text = text_;
+	}
+	
+	public String getText(){
+		return text;
+	}
+
+	public void reformat(String text)
+	{
+		
+	}
+}

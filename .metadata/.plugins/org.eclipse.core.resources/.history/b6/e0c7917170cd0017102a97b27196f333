@@ -1,0 +1,15 @@
+package command;
+
+public class RunCommand extends Command{
+
+	public RunCommand() {
+		super("run");
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	protected void run() {
+		System.out.println("test");
+	}
+
+}

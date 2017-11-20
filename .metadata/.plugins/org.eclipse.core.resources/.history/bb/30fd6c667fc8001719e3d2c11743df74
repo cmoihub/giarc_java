@@ -1,0 +1,15 @@
+package Tests;
+
+import static org.junit.Assert.*;
+import org.junit.*;
+
+import Problem.Age;
+
+public class AgeEnumTest {
+	private Age age;
+	@Before
+	public void setup(){
+		age = new Age();
+	}
+
+}

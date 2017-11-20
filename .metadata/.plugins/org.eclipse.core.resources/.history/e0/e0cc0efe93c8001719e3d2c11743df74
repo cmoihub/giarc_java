@@ -1,0 +1,27 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.AbstractSet;
+import java.util.List;
+
+import KNN.Feature;
+
+public class MetricEvaluator {
+	public double sumOfDistances(AbstractSet<Integer> intset) {
+    	Double distance = 0.0;
+
+//        if(intset.contains(Feature.Age.ordinal()))
+//        	distance+=ageDistance;
+//        if(intset.contains(Feature.SquareFeet.ordinal()))
+//        	distance+=sqFtDistance;
+//        if(intset.contains(Feature.Coordinates.ordinal()))
+//        	distance+=euclideanDistance;
+//        if(intset.contains(Feature.Latitude.ordinal()))
+//            distance+=latDistance;
+//        if(intset.contains(Feature.Longitude.ordinal()))
+//            distance+=lonDistance;
+        
+		return distance;
+    }
+
+}

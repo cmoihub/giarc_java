@@ -1,0 +1,37 @@
+package Problem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+//import KNN.Feature;
+
+public class MetricEvaluator {
+	Example testExample;
+	List<Feature> testFeatures;
+	public MetricEvaluator(Example test){
+		testExample = test;
+		testFeatures = new ArrayList<Feature>(testExample.getFeatures());
+	}
+	public double sumOfDistances(Example trainingExample) {
+    	Double distance = 0.0;
+    	/*
+    	 * if intset contains a certain kind of feature add the distance metric associated with that feature to the distance variable
+    	 */
+    	List<Feature> trainingFeatures = new ArrayList<Feature>(trainingExample.getFeatures());
+    	Feature  trainingFeature, testFeature;
+    	for (int i = 0; i < trainingFeatures.size(); i++){
+    		trainingFeature = trainingFeatures.get(i);
+    		testFeature = testFeatures.get(i);
+    		/*
+    		 * test feature is null given that is the predicted feature, 
+    		 * so as to avoid a null pointer exception we don't compare the empty feature to it's corresponding feature from the training example 
+    		 */
+    		if(testFeature!=null){
+    			distance+=trainingFeature.getMetric().calculateDistance(trainingFeature.getValue(), testFeature.getValue());
+    		}
+    		else continue;
+    	}
+		return distance;
+    }
+
+}

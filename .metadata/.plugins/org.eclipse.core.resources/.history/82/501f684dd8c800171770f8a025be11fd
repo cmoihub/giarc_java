@@ -1,0 +1,41 @@
+package Problem;
+
+import java.util.*;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public class Example {
+    protected Set<Feature> features;
+    public Example(){
+        features = new LinkedHashSet<Feature>();
+    }
+    public Example(Feature f1,Feature f2,Feature f3,Feature f4,Feature f5,Feature f6) {
+        features = new LinkedHashSet<Feature>();
+    	features.add(f1);
+    	features.add(f2);
+    	features.add(f3);
+    	features.add(f4);
+    	features.add(f5);
+    	features.add(f6);
+    }
+
+    protected void setFeatures(Set<Feature> allowedFeatures){
+        features = allowedFeatures;
+    }
+
+    protected void addFeature(Feature f){
+        features.add(f);
+//        features.add(f);
+    }
+    
+    protected Set<Feature> getFeatures(){
+    	return features;
+    }
+    
+    protected List<Feature> getFeatureList(){
+//    	Set <Feature> list = new LinkedHashSet<>(features);
+    	
+    	return new ArrayList<>(list);
+    }
+}

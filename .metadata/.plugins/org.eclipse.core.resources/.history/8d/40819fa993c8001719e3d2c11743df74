@@ -1,0 +1,37 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.AbstractSet;
+import java.util.List;
+
+import KNN.Feature;
+
+public class MetricEvaluator {
+	public double sumOfDistances(AbstractSet<Integer> intset) {
+    	Double distance = 0.0;
+
+//        Double ageDistance = df.ageDistanceFunction(trainingExampleData.get(2), testExampleData.get(2))/maxAge;
+//        Double sqFtDistance = df.squareFeetDistanceFunction(trainingExampleData.get(1), testExampleData.get(1))/maxSqFt;
+//        Double euclideanDistance = df.coordinatesDistanceFunction(trainingExampleData.get(0), testExampleData.get(0))/maxCoords;
+//        Double latDistance = df.latDistanceFunction(((Point2D)trainingExampleData.get(0)).getX(), ((Point2D)trainingExampleData.get(0)).getX())/maxLat;
+//        Double lonDistance = df.lngDistanceFunction(((Point2D)trainingExampleData.get(0)).getY(), ((Point2D)trainingExampleData.get(0)).getY())/maxLon;
+
+        /*
+         * Add each distance value that was selected by the user (in the command line) to the total distance value.
+         */
+
+        if(intset.contains(Feature.Age.ordinal()))
+//        	distance+=ageDistance;
+        if(intset.contains(Feature.SquareFeet.ordinal()))
+//        	distance+=sqFtDistance;
+        if(intset.contains(Feature.Coordinates.ordinal()))
+//        	distance+=euclideanDistance;
+        if(intset.contains(Feature.Latitude.ordinal()))
+//            distance+=latDistance;
+        if(intset.contains(Feature.Longitude.ordinal()))
+//            distance+=lonDistance;
+        
+        return distance;
+    }
+
+}

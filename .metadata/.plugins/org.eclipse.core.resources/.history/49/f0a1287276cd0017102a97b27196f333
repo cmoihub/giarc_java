@@ -1,0 +1,59 @@
+package gui_mvc;
+
+import javax.swing.JFrame;
+import listeners.*;
+import main.Model;
+
+public class Controller {
+
+	private View view;
+	private Model model;
+	public Controller(View view_, Model model_) {
+		setView(view_);
+		setModel(model_);
+	}
+	
+	/**
+	 * start program
+	 */
+	public void start(){
+		displayView();
+		initViewActionListeners();
+	}
+
+	/**
+	 * set buttons of view to action listeners
+	 */
+	public void initViewActionListeners() {
+		view._button1(new _button1ActionListener());
+		view._button2(new _button2ActionListener());
+		view._button3(new _button3ActionListener());
+	}
+	
+	/**
+	 * initialize view frame 
+	 */
+	public void displayView(){
+		view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		view.setSize(500,500);
+		view.setLocationRelativeTo(null);
+		view.setVisible(true);
+	}
+
+	public View getView() {
+		return view;
+	}
+
+	public void setView(View view_) {
+		view = view_;
+	}
+	
+	public Model getModel() {
+		return model;
+	}
+
+	public void setModel(Model model) {
+		this.model = model;
+	}
+
+}

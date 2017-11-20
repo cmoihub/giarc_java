@@ -1,0 +1,431 @@
+package Problem;
+
+import javax.swing.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class Problem {
+	//<<<<<<< HEAD
+	private static final String[] featureStrings = {"age", "sqft", "coordinates", "latitude", "longitude", "price"};
+	private ArrayList<Example> trainingExamples;
+	private Example testExample;
+	private Set<Feature> features;
+	private Feature featureToPredict_ = new Feature.Price();
+	public DefaultListModel<String> feature_all_defaultListModel;
+	public DefaultListModel<Feature> feature_selected_defaultListModel;
+	private int trainingExampleNumber;
+	private Object[][] trainingExampleData;
+	private Object[] trainingExampleColumns;
+	private Set<String> featureStringSet;
+
+	public Problem() {
+
+		features = new HashSet<Feature>();
+		trainingExamples = new ArrayList<Example>();
+		testExample = new Example();
+		feature_all_defaultListModel = new DefaultListModel<>();
+		setFeatureToPredict(new Feature.Price());
+		for (int i = 0; i < featureStrings.length; i++) {
+			feature_all_defaultListModel.addElement(featureStrings[i]);
+		}
+		feature_selected_defaultListModel = new DefaultListModel<>();
+		featureStringSet = new HashSet<String>();
+	}
+
+	/**
+	 * convert feature in string form to an actual feature
+	 *
+	 * @param feature
+	 */
+	public void addFeatures(String feature) {
+		switch (feature) {
+			case "age":
+				addFeature(new Feature.Age_());
+				featureStringSet.add("age");
+				break;
+			case "square feet":
+				addFeature(new Feature.SquareFeet());
+				featureStringSet.add("square feet");
+				break;
+			case "latitude":
+				addFeature(new Feature.Latitude());
+				featureStringSet.add("latitude");
+				break;
+			case "longitude":
+				addFeature(new Feature.Longitude());
+				featureStringSet.add("longitude");
+				break;
+			case "coordinates":
+				addFeature(new Feature.Coordinates());
+				featureStringSet.add("coordinates");
+				break;
+			case "price":
+				addFeature(new Feature.Price());
+				featureStringSet.add("price");
+			default:
+				System.out.println("Todo: Implement complex feature");
+				break;
+		}
+	}
+
+	/**
+	 * get features associated with problem
+	 *
+	 * @return
+	 */
+	public Set<Feature> getFeatures() {
+		return this.features;
+	}
+
+	/**
+	 * get feature strings
+	 *
+	 * @return
+	 */
+	public Set<String> getFeatureStringSet() {
+		return this.featureStringSet;
+	}
+
+	/**
+	 * add feature f to the set of features and update the model
+	 *
+	 * @param f
+	 */
+	public void addFeature(Feature f) {
+		if (f == null)
+			return;
+		if (!features.contains(f) || feature_selected_defaultListModel.contains(f)) {
+			features.add(f);
+			feature_selected_defaultListModel.addElement(f);
+		}
+	}
+
+	/**
+	 * add a new training example
+	 *
+	 * @param e
+	 */
+	public void addTrainingExample(Example e) {
+		this.trainingExamples.add(e);
+	}
+
+	/**
+	 * set the test example to a new value
+	 *
+	 * @param e
+	 */
+	public void setTestExample(Example e) {
+		this.testExample = e;
+	}
+
+	/**
+	 * add more training examples
+	 *
+	 * @param e
+	 */
+	public void addTrainingExamples(ArrayList<Example> e) {
+		this.trainingExamples.addAll(e);
+	}
+
+	/**
+	 * check how many training examples there are
+	 *
+	 * @return
+	 */
+	public int getTrainingSize() {
+		return this.trainingExamples.size();
+	}
+
+
+	/**
+	 * set the feature to predict for the test example
+	 *
+	 * @param f
+	 */
+	public void setFeatureToPredict(Feature f) {
+		featureToPredict_ = f;
+	}
+
+	/**
+	 * get feature to predict for test example
+	 *
+	 * @return
+	 */
+	public Feature getFeatureToPredict() {
+		return featureToPredict_;
+	}
+
+	/**
+	 * setup training and test examples
+	 */
+	public void setExamples() {
+		for (Example example : trainingExamples) {
+			example.setFeatures(features);
+//            System.out.println(example.getFeatures());
+		}
+		Set<Feature> copy = new HashSet<Feature>(features);
+		copy.remove(getFeatureToPredict());
+		testExample.setFeatures(copy);
+		System.out.println(testExample.getFeatures());
+	}
+
+	/**
+	 * update the number of training examples
+	 *
+	 * @param no
+	 */
+	public void setTrainingExampleNo(int no) {
+		trainingExampleNumber = no;
+	}
+
+	/**
+	 * get training examples associated with problem
+	 *
+	 * @return
+	 */
+//	public Object[][] getTrainingExamples() {
+//		return trainingExampleData;
+//	}
+
+
+	//    /**
+//     * get columns from JTable
+//     * @return
+//     */
+//=======
+//
+//	private static final String [] featureStrings = {"age", "sqft", "coordinates", "latitude", "longitude", "price", "openPrice", "closePrice", "high", "low", "volume"};
+//
+//
+//
+//	private ArrayList<Example> trainingExamples;
+//	private Example testExample;
+//	private Set<Feature> features;
+//	private Feature featureToPredict_ = new Feature.Price();
+//	public DefaultListModel<String> feature_all_defaultListModel;
+//	public DefaultListModel<Feature> feature_selected_defaultListModel;
+//	private int trainingExampleNumber;
+//	private Object[][] trainingExampleData;
+//	private Object[] trainingExampleColumns;
+//	private Set<String> featureStringSet;
+//	public Problem(){
+//
+//		features = new HashSet<Feature>();
+//		trainingExamples = new ArrayList<Example>();
+//		testExample = new Example();
+//		feature_all_defaultListModel = new DefaultListModel<>();
+//		setFeatureToPredict(new Feature.Price());
+//		for (int i = 0; i < featureStrings.length; i ++){
+//			feature_all_defaultListModel.addElement(featureStrings[i]);
+//		}
+//		feature_selected_defaultListModel = new DefaultListModel<>();
+//		featureStringSet = new HashSet<String>();
+//	}
+//
+//	/**
+//	 * convert feature in string form to an actual feature
+//	 *
+//	 * @param feature
+//	 */
+//	public void addFeatures(String feature) {
+//
+//		System.out.print("feature: " + feature + "\n");
+//
+//
+//		switch (feature){
+//		case "age":addFeature(new Feature.Age_());featureStringSet.add("age");
+//		break;
+//		case "square feet": addFeature(new Feature.SquareFeet());featureStringSet.add("square feet");
+//		break;
+//		case "latitude": addFeature(new Feature.Latitude());featureStringSet.add("latitude");
+//		break;
+//		case "longitude": addFeature(new Feature.Longitude());featureStringSet.add("longitude");
+//		break;
+//		case "coordinates": addFeature(new Feature.Coordinates());featureStringSet.add("coordinates");
+//		break;
+//
+//		case "price": addFeature(new Feature.Price());
+//		break;
+//		case "openPrice": addFeature(new Feature.openPrice());
+//		break;
+//		case "closePrice": addFeature(new Feature.closePrice());
+//		break;
+//		case "high": addFeature(new Feature.High());
+//		break;
+//		case "low": addFeature(new Feature.Low());
+//		break;
+//		case "volume": addFeature(new Feature.Volume());
+//		break;
+//
+//
+//		default:
+//			System.out.println("Todo: Implement complex feature");
+//			break;
+//
+//		}
+//
+//
+//	}
+//
+
+	public void  createTrainingExamples(int num) {
+		for(int i = 0; i <num; i++ ) {
+			trainingExamples.add(new Example());
+		}
+
+		setExamples();
+
+	}
+
+	public Feature createFeature(String feature) {
+		switch (feature) {
+			case "age":
+				return (new Feature.Age_());
+
+			case "square feet":
+				return (new Feature.SquareFeet());
+
+			case "latitude":
+				return (new Feature.Latitude());
+
+			case "longitude":
+				return (new Feature.Longitude());
+
+			case "coordinates":
+				return (new Feature.Coordinates());
+
+
+			case "price":
+				return (new Feature.Price());
+
+			case "openPrice":
+				return (new Feature.openPrice());
+
+			case "closePrice":
+				return (new Feature.closePrice());
+
+			case "high":
+				return (new Feature.High());
+
+			case "low":
+				return (new Feature.Low());
+
+			case "volume":
+				return (new Feature.Volume());
+
+
+			default:
+				System.out.println("Todo: Implement complex feature");
+				return null;
+
+		}
+	}
+
+		public int numFeatures() {
+
+		return featureStrings.length;
+	}
+
+	public ArrayList<Example> getTrainingExamples() {
+		return trainingExamples;
+	}
+}
+//
+//	public int numFeatures() {
+//
+//		return featureStrings.length;
+//	}
+//
+//	public Set<Feature> getFeatures(){
+//		return this.features;
+//	}
+//
+//	public Set<String> getFeatureStringSet(){
+//		return this.featureStringSet;
+//	}
+//
+//
+//	/**
+//	 *add feature f to the set of features and update the model
+//	 *
+//	 * @param f
+//	 */
+//	public void addFeature(Feature f){
+//		if(!features.contains(f) || feature_selected_defaultListModel.contains(f)){
+//			features.add(f);
+//			feature_selected_defaultListModel.addElement(f);
+//		}
+//	}
+//
+//	public void addTrainingExample(Example e) {
+//		this.trainingExamples.add(e);
+//	}
+//
+//	public void setTestExample(Example e) {
+//		this.testExample = e;
+//	}
+//
+//	public void addTrainingExamples(ArrayList<Example> e) {
+//		this.trainingExamples.addAll(e);
+//	}
+//	public int getTrainingSize() {
+//		return this.trainingExamples.size();
+//	}
+//
+//
+//	/**
+//	 *
+//	 * @param f
+//	 */
+//	public void setFeatureToPredict(Feature f){
+//		featureToPredict_ = f;
+//	}
+//
+//	/**
+//	 *
+//	 * @return
+//	 */
+//	public Feature getFeatureToPredict() {
+//		return featureToPredict_;
+//	}
+//
+//	public void  createTrainingExamples(int num) {
+//		for(int i = 0; i <num; i++ ) {
+//			trainingExamples.add(new Example());
+//		}
+//
+//		setExamples();
+//
+//	}
+//	public void setExamples(){
+//		for (Example example : trainingExamples){
+//			example.setFeatures(features);
+//			//            System.out.println(example.getFeatures());
+//		}
+//		//Set<Feature> copy = new HashSet<Feature>(features);
+//		// copy.remove(getFeatureToPredict());
+//		// testExample.setFeatures(copy);
+//		System.out.println(testExample.getFeatures());
+//	}
+//
+//	/**
+//	 * update the number of training examples
+//	 * @param no
+//	 */
+//	public void setTrainingExampleNo(int no){
+//		trainingExampleNumber = no;
+//	}
+//
+
+//
+//>>>>>>> origin/damanGUI
+//	public Object[] getColumns(){
+//		return trainingExampleColumns;
+//	}
+//}

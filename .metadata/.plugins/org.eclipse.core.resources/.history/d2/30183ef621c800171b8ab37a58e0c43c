@@ -1,0 +1,21 @@
+//package KNN;
+//
+//public enum Age{
+//	newer ("new"), 
+//	older ("old"),
+//	empty();
+//	String age;
+//	Age (String age_){
+//		age = age_;
+//	}
+//	Age(){this("");}
+//	
+//	public static Age parseAge (String s) {
+//		
+//		if(s == "new") {
+//			return newer;
+//		}else {
+//		return older; 
+//		}
+//	}
+//}

@@ -1,0 +1,11 @@
+package tests;
+
+import org.junit.runners.Suite;
+
+@Runwith(Suite.class);
+@SuiteClasses({
+	ControllerTest.java
+})
+//public class AllTests {
+//
+//}

@@ -1,0 +1,146 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.List;
+
+import KNN.Age;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public class Feature {
+    protected List<Feature> features;
+    protected DistanceMetric metric;
+    protected void add (Feature feature){
+        features.add(feature);
+    }
+}
+
+class Coordinates extends Feature{
+    private Point2D.Double coords;
+    Latitude lat;
+    Longitude lng;
+    Coordinates(double lat_, double lng_){
+        metric = new EuclideanMetric();
+        lat = new Latitude(lat_);
+        lng = new Longitude(lng_);
+        add(lat);
+        add(lng);
+//        super.add(this.lat);
+//        super.add(this.lng);
+        setCoords(new Point2D.Double(lat.getLat(), lng.getLng()));
+    }
+    Coordinates(){
+        this(0.0,0.0);
+    }
+    public void setCoords(Point2D.Double coords) {
+        this.coords = coords;
+    }
+    public String toString(){
+        return "Coordinates";
+    }
+}
+
+class Latitude extends Feature{
+    private double lat;
+    Latitude(double lat){
+        metric = new DoubleMetric();
+        setLat(lat);
+    }
+    Latitude(){
+        this.setLat(0.0);
+    }
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+    public double getLat() {
+        return lat;
+    }
+    public String toString(){
+        return "Latitude";
+    }
+}
+
+class Longitude extends Feature{
+    private double lng;
+    Longitude(double lng){
+        metric = new DoubleMetric();
+        setLng(lng);
+    }
+    Longitude(){
+        this(0.0);
+    }
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+    public double getLng() {
+        return lng;
+    }
+    public String toString(){
+        return "Longitude";
+    }
+}
+
+class Age_ extends Feature{
+    private Age age;
+    Age_(Age age){
+        metric = new AgeMetric();
+        setAge(age);
+    }
+    Age_(){
+        this(Age.empty);
+    }
+    public Age getAge() {
+        return age;
+    }
+    public void setAge(Age age) {
+        this.age = age;
+    }
+    public String toString(){
+        return "Age";
+    }
+}
+
+class SquareFeet extends Feature{
+    private int sqFt;
+    SquareFeet(int sqft){
+        metric = new DoubleMetric();
+        setSqFt(sqft);
+    }
+    SquareFeet(){
+        this(0);
+    }
+    public int getSqFt() {
+        return sqFt;
+    }
+    public void setSqFt(int sqFt) {
+        this.sqFt = sqFt;
+    }
+    public String toString(){
+        return "Square Feet";
+    }
+}
+
+class Price extends Feature{
+    private int price;
+    Price(int price){
+        metric = new DoubleMetric();
+        setPrice(price);
+    }
+
+    public Price() {
+        this(0);
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String toString(){
+        return "Price";
+    }
+}

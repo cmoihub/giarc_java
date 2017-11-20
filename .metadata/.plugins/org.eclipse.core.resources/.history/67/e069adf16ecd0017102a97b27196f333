@@ -1,0 +1,7 @@
+package mvc;
+
+public class Console {
+	public void printInfo(){
+		System.out.println("Message to print");
+	}
+}

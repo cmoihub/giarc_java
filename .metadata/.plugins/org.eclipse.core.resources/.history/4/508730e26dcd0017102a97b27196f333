@@ -1,0 +1,30 @@
+package command;
+
+public class Parser {
+	private LinkedList<Command> commands = new LinkedList<>();
+
+    /**
+     * parses a command from the command line
+     *
+     * @param s the string to be parsed
+     */
+    public void parse(String s)            //Parses string and runs associated command
+    {
+        getAllCommands();
+
+        String[] words = s.split(" ");
+        if (words.length == 0) {
+        } else if (words.length >= 1) {
+            for (Command command : commands) {        //Checks all commands
+                if (command.checkCommand(words)) {
+                    command.run();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void getAllCommands() {
+        commands = Command.getAllCommands();
+    }
+}

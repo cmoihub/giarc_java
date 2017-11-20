@@ -1,0 +1,52 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+
+import KNN.Age;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ */
+public abstract class DistanceMetric {
+    protected abstract double calculateDistance(Object first, Object second);
+
+    protected double difference(double first, double second) {
+        return Math.abs(first-second);
+    }
+
+    protected double difference(int first, int second) {
+        return Math.abs(first-second);
+    }
+}
+
+class EnumMetric extends DistanceMetric{
+	@Override
+	protected double calculateDistance(Object first, Object second) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+
+class DoubleMetric extends DistanceMetric{
+	@Override
+	protected double calculateDistance(Object first, Object second){
+        return difference((Double) first, (Double) second);
+    }
+}
+
+class EuclideanMetric extends DistanceMetric{
+	@Override
+	protected double calculateDistance(Object first, Object second) {
+		Point2D firstCoords = (Point2D) first;
+		Point2D secondCoords = (Point2D) second;
+		return firstCoords.distance(secondCoords);
+	}
+}
+
+class AgeMetric extends DistanceMetric{
+    protected double calculateDistance(Object first, Object second) {
+        Age first_ =  (Age) first;
+        Age second_ =  (Age) second;
+        return difference(first_.ordinal(), second_.ordinal());
+    }
+}

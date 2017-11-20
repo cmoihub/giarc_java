@@ -1,0 +1,34 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.List;
+
+//import KNN.Feature;
+
+public class MetricEvaluator {
+	public double sumOfDistances(AbstractSet<Feature> features, Example trainingExample) {
+    	Double distance = 0.0;
+
+    	if(features.contains(Feature.Age_))
+    	
+    	/*
+    	 * if intset contains a certain kind of feature add the distance metric associated with that feature to the distance variable
+    	 */
+
+//        if(intset.contains(Feature.Age.ordinal()))
+//        	distance+=ageDistance;
+//        if(intset.contains(Feature.SquareFeet.ordinal()))
+//        	distance+=sqFtDistance;
+//        if(intset.contains(Feature.Coordinates.ordinal()))
+//        	distance+=euclideanDistance;
+//        if(intset.contains(Feature.Latitude.ordinal()))
+//            distance+=latDistance;
+//        if(intset.contains(Feature.Longitude.ordinal()))
+//            distance+=lonDistance;
+        
+		return distance;
+    }
+
+}

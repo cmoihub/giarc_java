@@ -1,0 +1,37 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.List;
+
+//import KNN.Feature;
+
+public class MetricEvaluator {
+	void swap (Feature a, Feature b){
+		Feature temp = a;
+		a = b;
+		b = temp;
+	}
+	
+	public double sumOfDistances(Example trainingExample, Example testExample) {
+    	Double distance = 0.0;
+//    	DistanceMetric metric;
+//    	for (Feature f:trainingExample.getFeatures()){
+//    		metric = f.getMetric();
+//    		distance+=metric.calculateDistance(trainingExample, testExample);
+//    	}
+    	/*
+    	 * if intset contains a certain kind of feature add the distance metric associated with that feature to the distance variable
+    	 */
+    	List<Feature> trainingFeatures = new ArrayList<Feature>(trainingExample.getFeatures());
+    	List<Feature> testFeatures = new ArrayList<Feature>(testExample.getFeatures());
+    	Feature  trainingFeature;
+    	for (int i = 0; i < trainingFeatures.size(); i++){
+    		trainingFeature = trainingFeatures.get(i);
+    		distance+=trainingFeature.getMetric().calculateDistance(trainingFeature, testFeatures.get(i));
+    	}
+		return distance;
+    }
+
+}

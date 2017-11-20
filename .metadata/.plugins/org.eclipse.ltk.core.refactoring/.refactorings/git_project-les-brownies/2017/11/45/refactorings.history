@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Tests.SumOfDistances&apos; to &apos;SumOfDistancesTest&apos;&#x0A;- Original project: &apos;git_project-les-brownies&apos;&#x0A;- Original element: &apos;Tests.SumOfDistances&apos;&#x0A;- Renamed element: &apos;Tests.SumOfDistancesTest&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;SumOfDistances&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/&lt;Tests{SumOfDistances.java[SumOfDistances" matchStrategy="1" name="SumOfDistancesTest" qualified="false" references="true" similarDeclarations="false" stamp="1510191177282" textual="false" version="1.0"/>
+</session>

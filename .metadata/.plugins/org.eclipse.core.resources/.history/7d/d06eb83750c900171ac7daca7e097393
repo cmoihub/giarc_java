@@ -1,0 +1,118 @@
+package Problem;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class ProblemController {
+	private Problem problem;
+	private ProblemView view;
+
+	public ProblemController(Problem problem, ProblemView display) {
+		this.problem = problem;
+		view = display;
+	}
+
+	/**
+	 * 
+	 */
+	public void setup(){
+		view._add(new _addActionListener());
+		view._predict(new _predictActionListener());
+		view._sendTrainingExampleNo(new _trainingExampleNoActionListener());
+	}
+
+	/**
+	 * This is an action listener for the add button
+	 * 
+	 * @author CraigBook
+	 *
+	 */
+	private class _addActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Adding selected feature");
+			add();
+		}
+	}
+
+	/**
+	 * 
+	 * @author CraigBook
+	 *
+	 */
+	private class _predictActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			System.out.println("Choosing feature to predict");
+			predict();
+		}
+	}
+
+
+	/**
+	 * This is an action listener for the training example number text field
+	 * 
+	 * @author CraigBook
+	 *
+	 */
+
+    private class _trainingExampleNoActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Restricting number of training examples");
+			setTrainingExampleNo();
+		}
+    }
+
+	/**
+	 *
+	 */
+//	void add(){
+
+//<<<<<<< HEAD
+    /**
+     * adding action
+     */
+    void add(){
+        problem.addFeatures(view.getSelectedItem());
+    }
+
+    /**
+     * prediction action
+     */
+    void predict(){
+        problem.setFeatureToPredict(view.getSelectedFeature());
+        view.showPrediction();
+    }
+
+	void setTrainingExampleNo(){
+		System.out.println(view.getTrainingExampleNumber());
+		problem.setTrainingExampleNo(Integer.parseInt(view.getTrainingExampleNumber()));
+	}
+
+    /**
+     * setting training examples action
+     */
+//=======
+//		problem.addFeatures(view.getSelectedItem());
+//	}
+
+//	/**
+//	 *
+//	 */
+//	void predict(){
+//		//problem.setFeatureToPredict(view.getSelectedFeature());
+//		view.showPrediction();
+//	}
+	/*    
+>>>>>>> origin/damanGUI
+    void setTrainingExampleNo(){
+    	System.out.println(view.getTrainingExampleNumber());
+    	problem.setTrainingExampleNo(Integer.parseInt(view.getTrainingExampleNumber()));
+    }
+	 */
+}

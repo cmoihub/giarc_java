@@ -1,0 +1,19 @@
+package Problem;
+
+/**
+ * Main Class to run the MVC setup of the KNN Program
+ */
+public class Main {
+	public static void runProblem(){
+		Problem problem = new Problem();
+		ProblemView view = new ProblemView(problem);
+		ExampleView examples = new ExampleView();
+		ProblemController controller = new ProblemController(problem, view, examples);
+		controller.setup();
+	}
+	
+	public static void main(String args[])
+	{
+		runProblem();
+	}
+}

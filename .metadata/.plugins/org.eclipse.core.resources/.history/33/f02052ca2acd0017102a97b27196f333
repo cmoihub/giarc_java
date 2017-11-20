@@ -1,0 +1,12 @@
+package labexam;
+
+import javax.swing.JFrame;
+
+public class View extends JFrame{
+
+	public View(Model model) {
+		this("Lab Exam")
+		// TODO Auto-generated constructor stub
+	}
+
+}

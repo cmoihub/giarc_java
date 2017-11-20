@@ -1,0 +1,41 @@
+package KNN;
+
+import java.util.*;
+
+import Problem.ExampleView;
+import Problem.Problem;
+import Problem.ProblemController;
+import Problem.ProblemView;
+
+/**
+ * @Author Daman Singh
+ * 
+ * This is the main class
+ * 
+ */
+
+public class MLFramework{
+	public static void runCommandLine() {
+		Parser p = new Parser();
+		Scanner scanner = new Scanner(System.in);
+		while(true){
+			System.out.print( "Welcome to KNN, for help: type 'help' and to exit: 'exit'\n=>");
+			String input = scanner.nextLine();
+			p.parse(input);
+		}
+	}
+
+	public static void mvc() {
+		KNN knn = new KNN();
+		KNNDisplay display = new KNNDisplay();
+		KNNController controller = new KNNController(knn, display);
+	}
+
+	
+
+	public static void main(String args[])
+	{
+		runCommandLine();
+//		mvc();
+	}
+}

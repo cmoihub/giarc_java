@@ -1,0 +1,119 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Predictor {
+	private MetricEvaluator metricEvaluator;
+	private Map<Example, Double> distances;
+	private List<Example> nearestNeighbours;
+	private double simple;
+	private double[] complex;
+
+	private KNN knn;
+	public Predictor() {
+		distances = new HashMap<Example, Double>();
+		nearestNeighbours = new ArrayList<Example>();
+		simple = 0;
+		complex = new double[2];
+		metricEvaluator = new MetricEvaluator();
+		knn = new KNN();
+	}
+
+	/**
+	 * 
+	 * @return simple value
+	 */
+	public double getSimple() {
+		return this.simple;
+	}
+	
+	public double [] getComplex(){
+		return this.complex;
+	}
+	
+	/**
+	 * Applies knn algorithm to a set of training examples based on a test example 
+	 * 
+	 * @param k number of neighbours to choose
+	 * @param trainingExamples 
+	 * @param testExample
+	 */
+	public void setNearestNeighbours(int k, ArrayList<Example> trainingExamples, Example testExample){
+		//prevents empty lists from being passed
+		if (trainingExamples.isEmpty()){
+			return;
+		}
+		nearestNeighbours = knn.getNearestNeighbours(k, trainingExamples, testExample);
+	}
+	
+	/**
+	 *
+	 * @return the nearest neighbours
+	 */
+	public List<Example> getNearestNeighbours() {
+		return nearestNeighbours;
+	}
+
+	/**
+	 *
+	 * @param map
+	 * @param <K>
+	 * @param <V>
+	 * @return a hashmap that has been sorted by value
+	 */
+	private static <K, V extends Comparable<? super V>> Map<Example, Double> sortMapByValue(Map<Example, Double> map) {
+		return map.entrySet()
+				.stream()
+				.sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
+				.collect(Collectors.toMap(
+						Map.Entry::getKey,
+						Map.Entry::getValue,
+						(e1, e2) -> e1,
+						LinkedHashMap::new
+				));
+	}
+
+	/**
+	 * set the prediction field for the appropriate simple/complex feature
+	 *
+	 * @param featureString
+	 */
+	public void setPrediction(String featureString) {
+		for (Example e : getNearestNeighbours()) {
+			for (Feature f : new ArrayList<Feature>(e.getFeatures())) {
+				if (f.toString().equals(featureString)) {
+					switch (f.toString()) {
+						case "Coordinates":
+							Point2D.Double coords = (Point2D.Double) f.getValue();
+							complex[0] += coords.getX();
+							complex[1] += coords.getY();
+							break;
+						case "Latitude":
+						case "Longitude":
+							simple += ((Double) f.getValue()).intValue();
+							break;
+						case "Price":
+						case "SquareFeet":
+						case "Age":
+							simple += ((Integer) f.getValue());
+							break;
+					}
+				}
+			}
+		}
+		if (simple > 0) {
+			simple = simple / nearestNeighbours.size();
+		} else {
+			for (int i = 0; i < complex.length; i++) {
+				complex[0] = complex[0] / nearestNeighbours.size();
+				complex[1] = complex[1] / nearestNeighbours.size();
+			}
+		}
+	}
+}

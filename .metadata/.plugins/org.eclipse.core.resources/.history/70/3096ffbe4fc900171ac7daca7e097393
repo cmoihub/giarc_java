@@ -1,0 +1,123 @@
+package Tests;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import KNN.Age;
+import Problem.Feature.*;
+import Problem.*;
+/**
+ * 
+ * @author Issa
+ *
+ */
+public class PredictorTest {
+
+	private Predictor p;
+	private ArrayList<Example> trainingSet;
+	private Example testExample;
+	private Example h1;
+	private Example h2;
+	private Example h3;
+	private Example h4;
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {	
+		
+			p = new Predictor();
+		  h1 = new Example(new Coordinates(12,50), new SquareFeet(1200),
+				  new Age_(Age.newer),new Price(500000), new Latitude(12), new Longitude(25));
+		  
+		   h2 = new Example(new Coordinates(10,50), new SquareFeet(1000),new Age_(Age.older), 
+				  new Price(300000), new Latitude(10), new Longitude(50));
+		  
+		   h4 = new Example(new Coordinates(30,100), new SquareFeet(800),
+				  new Age_(Age.newer),new Price(400000), new Latitude(30), new Longitude(100));
+	  
+		  h3 = new Example(new Coordinates(15,20), new SquareFeet(1000),
+				  new Age_(Age.newer),new Price(400000), new Latitude(15), new Longitude(20));
+		  
+		  testExample = new Example(new Coordinates(15,20), new SquareFeet(1000),
+				  new Age_(Age.newer),new Price(400000), new Latitude(15), new Longitude(20));
+	  
+		  trainingSet = new ArrayList<Example>();
+//		trainingSet.add(h1);/*trainingSet.add(h2);trainingSet.add(h3);*/
+
+		  Predictor p = new Predictor(); 
+//		  p.setNearestNeighbours(1, trainingSet, testExample);
+//		  p.setPrediction("Coordinates");
+	}
+	/*
+	 * Tests to make sure that the nearestNeighbors stores the correct value if we have
+	 * only one training example
+	 */
+	@Test
+	public void testSetNearestNeighboursEmpty() {
+		p.setNearestNeighbours(1, trainingSet, testExample);
+		assertTrue(p.getNearestNeighbours().isEmpty());
+	}
+		
+	/*
+	 * Test to ensure that given only one trainingExample the setNearestNeighbors will
+	 * select that value
+	 */
+	@Test 
+	public void testSetNearestNeighboursOne() {
+		trainingSet.add(h1);
+		p.setNearestNeighbours(1, trainingSet, testExample);
+		assertEquals(h1,p.getNearestNeighbours().get(0));
+
+	}
+	@Test
+	public void testSetPredictionOne() {
+		trainingSet.add(h1);
+		p.setNearestNeighbours(1, trainingSet, testExample);
+		p.setPrediction("Price");
+		assertTrue(p.getSimple()==h1.getFeature("Price"));
+	}
+	
+	
+	/*
+	 * Test to make sure that SetNearestNeighbours generates and orders the list of 
+	 * nearest neighbors correctly when given multiple training examples
+	 */
+	
+	@Test 
+	public void testSetNearestNeighboursMultiple() {
+		trainingSet.add(h2);trainingSet.add(h3);trainingSet.add(h4);
+		p.setNearestNeighbours(3, trainingSet, testExample);
+
+		assertEquals(h3,p.getNearestNeighbours().get(0));
+		
+		
+	}
+	
+	@Test
+	public void testSetPredictionMultiple() {
+		trainingSet.add(h1);
+
+		trainingSet.add(h2);trainingSet.add(h3);trainingSet.add(h4);
+		p.setNearestNeighbours(2, trainingSet, testExample);
+		p.setPrediction("Price");
+		assertTrue(p.getSimple()==h3.getFeature("Price"));
+	}
+	
+
+	
+	
+}

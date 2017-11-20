@@ -1,0 +1,29 @@
+package labexam;
+
+import javax.swing.*;
+
+public class View extends JFrame{
+	private JButton button1;
+	private JButton button2;
+	private JButton button3;
+	
+	private JPanel panel;
+	
+	private JMenuBar menu;
+	
+	private JTextField text;
+	public View(Model model_) {
+		super("SYSC 3110 Lab Exam");
+		model = model_;
+		initializeSwing();
+	}
+	
+	public void initializeSwing(){
+		button1 = new JButton("button1");
+		button2 = new JButton("button2");
+		button3 = new JButton("button3");
+		
+		panel = new JPanel();
+	}
+
+}

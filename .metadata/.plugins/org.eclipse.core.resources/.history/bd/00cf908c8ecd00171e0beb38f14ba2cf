@@ -1,0 +1,39 @@
+package main;
+
+public class Model {
+	
+	private String text;
+	private String name;
+	private String surname;
+	
+	public Model(){
+		
+	}
+	
+	public void setName(String name_){
+		name = name_;
+	}
+	
+	public void setSurname(String surname_){
+		surname = surname_;
+	}
+	
+	public void setText(String text_){
+		text = text_;
+	}
+	
+	public String getText(){
+		return text;
+	}
+
+	public void reformat(String text, String format)
+	{
+		switch(text){
+		case "ACM":
+			break;
+		case "IEEE":
+		default:
+			break;
+		}
+	}
+}

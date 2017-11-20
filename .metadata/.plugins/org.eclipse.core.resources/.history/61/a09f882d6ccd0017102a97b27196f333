@@ -1,0 +1,14 @@
+package command;
+
+public class ExitCommand extends Command{
+
+	public ExitCommand() {
+		super("exit");
+	}
+
+	@Override
+	protected void run() {
+		
+	}
+
+}

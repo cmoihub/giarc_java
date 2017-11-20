@@ -1,0 +1,147 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import Problem.Feature.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import KNN.Age;
+import KNN.Data;
+
+//import KNN.Data;
+
+//import KNN.Data;
+
+public class Predictor {
+	private MetricEvaluator metricEvaluator;
+	private Map<Example, Double> distances;
+	private List<Example> nearestNeighbours;
+	private double simple;
+	private double [] complex;
+
+	public Predictor(){
+		distances = new HashMap<Example,Double>();
+		nearestNeighbours = new ArrayList<Example>();
+		simple = 0;
+		complex = new double[2];
+	}
+	
+	/**
+    *
+    * @param k number of nearest neighbours to return
+    * @return
+    */
+   public void setNearestNeighbours(int k, ArrayList<Example> trainingExamples, Example testExample) {
+       
+       metricEvaluator = new MetricEvaluator(testExample);
+//       map training examples to their distance to the test example
+       for (int i = trainingExamples.size()-1; i >= 0; i--){
+           distances.put(trainingExamples.get(i), metricEvaluator.sumOfDistances(trainingExamples.get(i)));
+       }
+       
+//       Sort the hashmap
+       Map<Example, Double> sortedDistances = sortByValue(distances);
+       
+//       Check distances
+       for (Double value : sortedDistances.values()){
+    	   System.out.println(value);
+       }
+       
+       List<Example> allDataPoints = new ArrayList<>(sortedDistances.keySet());
+//       Pick the first k items
+//       List<Example> nearestNeighbours = new ArrayList<>();
+       for (int i = 0; i < k; i++) {
+           nearestNeighbours.add(allDataPoints.get(i));
+       }
+       System.out.println(nearestNeighbours.size());
+//       return nearestNeighbours;
+   }
+   
+   public List<Example> getNearestNeighbours(){
+	   return nearestNeighbours;
+   }
+   
+   /**
+   *
+   * @param map
+   * @param <K>
+   * @param <V>
+   * @return
+   */
+  private static <K, V extends Comparable<? super V>> Map<Example, Double> sortByValue(Map<Example, Double> map) {
+      return map.entrySet()
+              .stream()
+              .sorted(Map.Entry.comparingByValue(/*Collections.reverseOrder()*/))
+              .collect(Collectors.toMap(
+                      Map.Entry::getKey,
+                      Map.Entry::getValue,
+                      (e1, e2) -> e1,
+                      LinkedHashMap::new
+              ));
+  }
+  
+  public void setPrediction(String featureString) {
+	  double sum = 0;
+//	  System.out.println(this.nearestNeighbours);
+	  for(Example e: getNearestNeighbours()) {
+		  for(Feature f: new ArrayList<Feature>(e.getFeatures())) {
+			  if(f.toString().equals(featureString)){
+				  switch(f.toString()){
+				  	case "Coordinates":
+						Point2D.Double coords = (Point2D.Double)f.getValue();
+				  		complex[0]+=coords.getX();
+						complex[1]+=coords.getY();
+				  	break;
+				  	case "Latitude": case "Longitude": simple+= ((Double) f.getValue()).intValue();
+				  	break;
+				  	case "Price": case "SquareFeet": case "Age":
+				  		simple+= ((Integer) f.getValue());
+				  	break;
+				  }
+			  }
+		  }
+	  }
+	  if(simple > 0) {
+	  	simple = simple/nearestNeighbours.size();
+	  }
+	  else {
+	  	for (int i = 0; i < complex.length; i++){
+	  		complex[0] = complex[0]/nearestNeighbours.size();
+			complex[1] = complex[1]/nearestNeighbours.size();
+		}
+	  }
+  }
+  
+  public static void main(String[] args) {
+	  Example h1 = new Example(new Coordinates(12,50), new SquareFeet(1200),
+			  new Age_(Age.newer),new Price(500000), new Latitude(12), new Longitude(25));
+	  
+	  Example h2 = new Example(new Coordinates(10,50), new SquareFeet(1000),new Age_(Age.older), 
+			  new Price(300000), new Latitude(10), new Longitude(50));
+	  
+	  Example h3 = new Example(new Coordinates(30,100), new SquareFeet(800),
+			  new Age_(Age.newer),new Price(400000), new Latitude(30), new Longitude(100));
+  
+	  Example h4 = new Example(new Coordinates(15,20), new SquareFeet(1000),
+			  new Age_(Age.newer),new Price(400000), new Latitude(15), new Longitude(20));
+  
+	  ArrayList<Example> trainingSet = new ArrayList<Example>();
+	  trainingSet.add(h1);trainingSet.add(h2);trainingSet.add(h3);
+	  Predictor p = new Predictor(); 
+	  p.setNearestNeighbours(1, trainingSet, h4);
+	  p.setPrediction("Coordinates");
+//	  double x = p.setPrediction("Age");
+	  System.out.println(p.simple);
+	  for (int i = 0; i < p.complex.length; i++){
+		  System.out.println(p.complex[i]);
+	  }
+//	  System.out.println();
+	  
+  }
+}

@@ -1,0 +1,79 @@
+package Problem;
+
+import java.awt.geom.Point2D;
+
+import KNN.Age;
+
+//import KNN.Age;
+
+/**
+ * Class for setting up distance calculations for features
+ * 
+ * Created by CraigBook on 2017-11-09.
+ */
+public abstract class DistanceMetric {
+	/**
+	 * Calculate the distance between two values
+	 * 
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+	public abstract double calculateDistance(Object first, Object second);
+
+	
+	/**
+	 * calculate the absolute difference between two doubles
+	 * 
+	 * 
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+    protected double difference(double first, double second) {
+        return Math.abs(first-second);
+    }
+
+    /**
+     * calculate the absolute difference between two ints
+     * 
+     * @param first
+     * @param second
+     * @return
+     */
+    protected double difference(int first, int second) {
+        return Math.abs(first-second);
+    }
+
+    /**
+	 * Distance Metric for features that use Double values
+     */
+    public static class DoubleMetric extends DistanceMetric{
+    	@Override
+    	public double calculateDistance(Object first, Object second){
+            return difference((Double) first, (Double) second);
+        }
+    }
+
+	/**
+	 * Distance Metric for features that use integer values
+	 */
+	public static class IntegerMetric extends DistanceMetric{
+		@Override
+		public double calculateDistance(Object first, Object second) {
+			return difference((Integer) first, (Integer) second);
+		}
+    }
+
+	/**
+	 * Distance Metric for features that use Point2D values
+	 */
+	public static class EuclideanMetric extends DistanceMetric{
+    	@Override
+    	public double calculateDistance(Object first, Object second){
+    		Point2D firstCoords = (Point2D) first;
+    		Point2D secondCoords = (Point2D) second;
+    		return firstCoords.distance(secondCoords);
+        }
+    }
+}
