@@ -1,0 +1,1141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="Problem.GeneralProblem" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/GeneralProblem.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="407" width="368" x="173" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="Problem.Extractor" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Extractor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="309" x="1094" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="Problem.KNN" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/KNN.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="437" x="-409" y="1507"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="feature.Feature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature/Feature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="168" x="379" y="2239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="Problem.DistanceMetric.DoubleMetric" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/DistanceMetric.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="245" x="-38" y="3255"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="Problem.GeneralPredictor" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/GeneralPredictor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="360" x="-311" y="1258"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="feature.StringFeature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature/StringFeature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="175" x="-499" y="2811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="Problem.DistanceMetric" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/DistanceMetric.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="245" x="-119" y="3078"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="Problem.Extractor.Tree" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Extractor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="170" x="903" y="2239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="console.HelpCommand" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="154" x="1129" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="gui.ProblemController" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/gui/ProblemController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="256" x="667" y="-227"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="feature.NumberFeature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature/NumberFeature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="193" x="173" y="2811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="feature.BaseFeature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature/BaseFeature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="168" x="-35" y="2811"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="Problem.Main" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="125" x="964" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="gui.ProblemController._addFeatureActionListener" 
+    project="git_project-les-brownies" file="/git_project-les-brownies/gui/ProblemController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="215" x="-79" y="-32"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="console.exitCommand" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="154" x="1323" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="gui.PracticeGUI" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/gui/PracticeGUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="263" width="317" x="-604" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="gui.ProblemView" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/gui/ProblemView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1109" width="317" x="350" y="109"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="gui.ProblemController._addActionListener" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/gui/ProblemController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="215" x="176" y="-32"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="console.complexFunction" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="268" x="1517" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="feature.ComplexFeature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature/ComplexFeature.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="228" x="-389" y="2239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="Problem.Problem" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Problem.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="479" width="368" x="686" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="console.test2Command" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="243" x="1825" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="console.Parser" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Parser.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="154" x="2108" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="helper.print" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/helper/print.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="130" x="691" y="2239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="Problem.Example" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Example.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="227" x="112" y="2239"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="console.testCommand" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="243" x="2302" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="Problem.DistanceMetric.ComplexMetric" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/DistanceMetric.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="256" x="-459" y="2524"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="console.addDataPoint" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="154" x="2585" y="-404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="Problem.Extractor.Node" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/Extractor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="170" x="1094" y="2524"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="gui.ProblemController._exitActionListener" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/gui/ProblemController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="215" x="728" y="-32"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="Problem.DistanceMetric.StringMetric" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/DistanceMetric.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="245" x="-323" y="3255"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="gui.ProblemController._predictionActionListener" 
+    project="git_project-les-brownies" file="/git_project-les-brownies/gui/ProblemController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="215" x="431" y="-32"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="34" language="java" name="console.Command" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/console/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="258" x="1825" y="-227"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="35" language="java" name="Problem.MetricEvaluator" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem/MetricEvaluator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="212" x="-226" y="1720"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="36">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="37" name="commands">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="38" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="40" name="predictor">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="41" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="42">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="43">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="27"/>  
+  </dependency>  
+  <association id="44">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="45" name="metricEvaluator">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="46" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="48">    
+    <bendpoint x="-26" y="2239"/>    
+    <bendpoint x="-26" y="2524"/>    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="49" name="testFeatures">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="50" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="51">    
+    <bendpoint x="-294" y="2811"/>    
+    <bendpoint x="-294" y="3078"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <dependency id="52">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="53">    
+    <bendpoint x="-131" y="2239"/>    
+    <bendpoint x="-89" y="2524"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="54" name="features">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="55" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="56">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="57">    
+    <bendpoint x="-614" y="1507"/>    
+    <bendpoint x="-635" y="1720"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <nesting id="58">    
+    <bendpoint x="1103" y="2239"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="30"/>  
+  </nesting>  
+  <dependency id="59">    
+    <bendpoint x="37" y="2239"/>    
+    <bendpoint x="79" y="2524"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="60">    
+    <bendpoint x="-131" y="2524"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="61" name="baseFeatures">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <bendpoint x="-677" y="1258"/>    
+    <bendpoint x="-677" y="1507"/>    
+    <bendpoint x="-677" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="64" name="complexTestingExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="65" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="66">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="67">    
+    <bendpoint x="79" y="1720"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <generalization id="68">    
+    <bendpoint x="-5" y="2524"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <dependency id="69">    
+    <bendpoint x="1103" y="1258"/>    
+    <bendpoint x="1103" y="1507"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <generalization id="70">    
+    <bendpoint x="598" y="2524"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <nesting id="71">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <dependency id="72">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <nesting id="73">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="33"/>  
+  </nesting>  
+  <association id="74">    
+    <bendpoint x="-656" y="1258"/>    
+    <bendpoint x="-656" y="1507"/>    
+    <bendpoint x="-656" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="75" name="complexTrainingExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <bendpoint x="634" y="1258"/>    
+    <bendpoint x="634" y="1507"/>    
+    <bendpoint x="634" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="78" name="allFeatures">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="80">    
+    <bendpoint x="121" y="1507"/>    
+    <bendpoint x="571" y="1720"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="81">    
+    <bendpoint x="-440" y="1507"/>    
+    <bendpoint x="16" y="1720"/>    
+    <bendpoint x="16" y="2239"/>    
+    <bendpoint x="16" y="2524"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <association id="82">    
+    <bendpoint x="142" y="1258"/>    
+    <bendpoint x="142" y="1507"/>    
+    <bendpoint x="121" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="83" name="gExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="84" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="85">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="20"/>  
+  </dependency>  
+  <nesting id="86">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="19"/>  
+  </nesting>  
+  <dependency id="87">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="28"/>  
+  </dependency>  
+  <dependency id="88">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <realization id="89">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <dependency id="90">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="91">    
+    <bendpoint x="-47" y="2239"/>    
+    <bendpoint x="37" y="2524"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="92">    
+    <bendpoint x="655" y="1258"/>    
+    <bendpoint x="655" y="1507"/>    
+    <bendpoint x="655" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="93" name="testingExample">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="94" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <bendpoint x="121" y="2524"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="96" name="features">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="97" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="98">    
+    <bendpoint x="577" y="2239"/>    
+    <bendpoint x="-68" y="2524"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="99">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="25"/>  
+  </dependency>  
+  <dependency id="100">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="101">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <dependency id="102">    
+    <bendpoint x="1145" y="-227"/>    
+    <bendpoint x="1145" y="-32"/>    
+    <bendpoint x="1145" y="109"/>    
+    <bendpoint x="1145" y="1258"/>    
+    <bendpoint x="1082" y="1507"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <dependency id="103">    
+    <bendpoint x="-542" y="2239"/>    
+    <bendpoint x="-542" y="2524"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="104">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="105">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="106" name="knn">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="107" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="108">    
+    <end type="SOURCE" refId="33"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="109">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="110">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="111">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="112" name="parent">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="113" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="114">    
+    <bendpoint x="592" y="1258"/>    
+    <bendpoint x="592" y="1507"/>    
+    <bendpoint x="592" y="1720"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="115" name="trainingExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="116" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="117">    
+    <bendpoint x="872" y="2239"/>    
+    <bendpoint x="872" y="2524"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="118">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="119">    
+    <bendpoint x="697" y="-32"/>    
+    <bendpoint x="697" y="109"/>    
+    <bendpoint x="697" y="1258"/>    
+    <bendpoint x="697" y="1507"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="120" name="problem">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="121" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="122">    
+    <bendpoint x="676" y="-32"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="123" name="view">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="124" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="125">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="29"/>  
+  </dependency>  
+  <realization id="126">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <association id="127">    
+    <bendpoint x="1454" y="1258"/>    
+    <bendpoint x="1454" y="1507"/>    
+    <bendpoint x="1454" y="1720"/>    
+    <bendpoint x="1454" y="2239"/>    
+    <bendpoint x="1454" y="2524"/>    
+    <bendpoint x="1454" y="2811"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="128" name="metrics">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="129" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <bendpoint x="619" y="2239"/>    
+    <bendpoint x="619" y="2524"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="131" name="features">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="132" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <bendpoint x="100" y="1507"/>    
+    <bendpoint x="100" y="1720"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="134" name="nearestNeighbours">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="135" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="136">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <dependency id="137">    
+    <bendpoint x="58" y="1507"/>    
+    <bendpoint x="37" y="1720"/>    
+    <bendpoint x="79" y="2239"/>    
+    <bendpoint x="100" y="2524"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="138">    
+    <bendpoint x="-173" y="2524"/>    
+    <bendpoint x="-173" y="2811"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="139" name="metric">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="140" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="141">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <dependency id="142">    
+    <bendpoint x="-402" y="3078"/>    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="32"/>  
+  </dependency>  
+  <realization id="143">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <association id="144">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="145" name="trainingExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="146" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="147">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <nesting id="148">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="31"/>  
+  </nesting>  
+  <realization id="149">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <dependency id="150">    
+    <bendpoint x="156" y="3078"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="151">    
+    <bendpoint x="851" y="2239"/>    
+    <bendpoint x="851" y="2524"/>    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="152">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <generalization id="153">    
+    <bendpoint x="-231" y="2811"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="154">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <nesting id="155">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <dependency id="156">    
+    <bendpoint x="-635" y="1507"/>    
+    <bendpoint x="-698" y="1720"/>    
+    <bendpoint x="-698" y="2239"/>    
+    <bendpoint x="-698" y="2524"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="157">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="158" name="featureToPredict_">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="159" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="160">    
+    <bendpoint x="640" y="2524"/>    
+    <bendpoint x="640" y="2811"/>    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="161" name="metric">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="162" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <bendpoint x="598" y="2239"/>    
+    <bendpoint x="577" y="2524"/>    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="164" name="featureToPredict_">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="165" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="166">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <dependency id="167">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="21"/>  
+  </dependency>  
+  <nesting id="168">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="169">    
+    <end type="SOURCE" refId="30" navigable="false">      
+      <attribute id="170" name="children">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="171" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="172">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="173">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <association id="174">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="175" name="testExample">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="176" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="177">    
+    <bendpoint x="1124" y="1258"/>    
+    <bendpoint x="1279" y="1507"/>    
+    <bendpoint x="1433" y="1720"/>    
+    <bendpoint x="1433" y="2239"/>    
+    <bendpoint x="1433" y="2524"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <generalization id="178">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="179">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="180" name="trainingExamples">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="181" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="182">    
+    <bendpoint x="-252" y="2811"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="28"/>  
+  </nesting>  
+  <dependency id="183">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="184">    
+    <bendpoint x="-110" y="2239"/>    
+    <bendpoint x="-110" y="2524"/>    
+    <bendpoint x="-110" y="2811"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="185">    
+    <bendpoint x="-719" y="1258"/>    
+    <bendpoint x="-719" y="1507"/>    
+    <bendpoint x="-719" y="1720"/>    
+    <bendpoint x="-719" y="2239"/>    
+    <bendpoint x="-719" y="2524"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="186">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="187" name="root">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="188" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="189">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <association id="190">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="191" name="features">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="192" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="193">    
+    <bendpoint x="-273" y="2811"/>    
+    <bendpoint x="-273" y="3078"/>    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="194">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <generalization id="195">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <nesting id="196">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="32"/>  
+  </nesting>  
+  <dependency id="197">    
+    <bendpoint x="-490" y="2239"/>    
+    <bendpoint x="-490" y="2524"/>    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="198">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="199">    
+    <bendpoint x="973" y="-227"/>    
+    <bendpoint x="973" y="-32"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <realization id="200">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="34"/>  
+  </realization>  
+  <association id="201">    
+    <bendpoint x="-461" y="1258"/>    
+    <bendpoint x="-461" y="1507"/>    
+    <bendpoint x="-257" y="1720"/>    
+    <bendpoint x="-89" y="2239"/>    
+    <bendpoint x="-47" y="2524"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="202" name="manualFeature">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="203" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="204">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="205" name="testExample">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="206" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="207">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="208" name="testExample">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="209" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="210">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -1,0 +1,38 @@
+package featureTests;
+
+import static org.junit.Assert.*;
+
+import java.util.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import feature.*;
+
+public class ComplexFeatureTest {
+	ComplexFeature f;
+	NumberFeature a1;
+	NumberFeature a2;
+	List<BaseFeature> baseFeatures;
+	
+	@Before
+	public void setUp() throws Exception {
+		f = new ComplexFeature();
+		baseFeatures = new ArrayList<>();
+		a1 = new NumberFeature();
+		a2 = new NumberFeature();
+		baseFeatures.add(a1);
+		baseFeatures.add(a2);
+	}
+
+	@Test
+	public void testConstructor() {
+		f = new ComplexFeature(baseFeatures);
+		assertNotEquals(f.getFeatures(), null);
+	}
+	
+	@Test
+	public void testComplex(){
+		assertTrue(f.isComplex());
+	}
+}

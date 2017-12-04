@@ -1,0 +1,30 @@
+1511712026939	Move files
+1511712065660	Delete element
+1511727609804	Delete element
+1511728247954	Move compilation units
+1511728295666	Move compilation units
+1511728506648	Move compilation unit
+1511731162120	Rename method 'read'
+1511731174127	Rename method 'readFile'
+1511740086063	Rename local variable 'lines'
+1511795700560	Delete element
+1511795735208	Rename package 'Tests'
+1511795915617	Rename package 'tests_problem'
+1511795993645	Rename type 'gui'
+1511796478375	Rename type 'AllTests'
+1511796494069	Rename type 'ProblemTests'
+1511797733075	Delete element
+1511816015473	Encapsulate field 'complex'
+1511817840503	Rename method 'setupComplexity'
+1511817867049	Rename local variable 'tree'
+1511819019509	Rename local variable 'next'
+1511819035597	Rename local variable 'features'
+1511819044607	Rename local variable 'feature'
+1511819660943	Encapsulate field 'parent'
+1511831840757	Move compilation unit
+1511839583707	Rename resource 'sysc3110-class-auto.jpg'
+1511839633292	Rename resource 'sysc3110-class-auto.jpg'
+1511839699027	Rename resource 'sysc3110-class-auto.jpg'
+1511839744075	Rename resource 'sysc3110-class-auto.jpg'
+1511839752957	Rename resource 'sysc3110-class-gui.jpg'
+1511839904945	Rename resource 'sysc3110-class-auto.jpg'

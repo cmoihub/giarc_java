@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="gui" project="git_project-les-brownies" file="/git_project-les-brownies/gui" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="74" y="36"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="featureTests" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/featureTests" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="80" y="191"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="Problem" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/Problem" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="655" y="29"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="helper" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/helper" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="694" y="323"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="feature" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/feature" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="330" y="323"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="problemTests" project="git_project-les-brownies" 
+    file="/git_project-les-brownies/problemTests" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="319" y="173"/>    
+    <display autosize="true" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <dependency id="7">    
+    <bendpoint x="487" y="128"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="11">    
+    <bendpoint x="431" y="128"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -1,0 +1,66 @@
+package problemTests;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.Extractor;
+import Problem.Extractor.Line;
+import Problem.GeneralExample;
+
+/**
+ * 
+ * @author CraigBook
+ *
+ */
+public class ExtractorTest {
+
+	String filename;
+	String separator;
+	@Before
+	public void setUp() throws Exception {
+		filename = "tabulated_data_test.csv";
+		separator = ",";
+	}
+
+	@Test
+	public void testLines() {
+		List<Line> lines = Extractor.getLines(filename, separator);
+		for (Line l : lines){
+			assert(l.toString() != "");
+		}
+	}
+
+	@Test
+	public void testExamples() {
+		List<GeneralExample> lines = Extractor.getExamples(filename, separator);
+		for (GeneralExample e : lines){
+			assertEquals(e.toString(),"");
+		}
+	}
+	
+	@Test
+	public void testExampleSize() {
+		List<GeneralExample> lines = Extractor.getExamples(filename, separator);
+		assertEquals(lines.size(), 13);
+	}
+	
+	@Test
+	public void testExampleFeatureSize() {
+		List<GeneralExample> examples = Extractor.getExamples(filename, separator);
+		for (GeneralExample e : examples){
+			assertEquals(e.getFeatures().size(), 4);
+		}
+	}
+	
+	@Test
+	public void testExampleFeatureFirst() {
+		List<GeneralExample> examples = Extractor.getExamples(filename, separator);
+		for (GeneralExample e : examples){
+			assertEquals(e.getFeatures().get(3).toString(), "Kick");
+		}
+	}
+}

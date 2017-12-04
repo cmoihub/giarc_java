@@ -1,0 +1,153 @@
+package gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import Problem.*;
+import feature.BaseFeature;
+import feature.Feature;
+import feature.NumberFeature;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class ProblemController {
+	private ProblemModel problemModel;
+	private ProblemModel problem;
+	private ProblemView view;
+	
+/*
+    public ProblemController(Problem problem, ProblemView display, ExampleView exampleview) {
+        this.problem = problem;
+        view = display;
+        view._add(new _addActionListener());
+        view._predict(new _predictActionListener());
+        view._sendTrainingExampleNo(new _trainingExampleNoActionListener());
+        exampleView = exampleview;
+        exampleView.setTrainingExamples();
+    }
+*/
+	public ProblemController(ProblemModel problem, ProblemView display) {
+		this.problem = problem;
+		view = display;
+		
+	}
+
+
+	/**
+	 * 
+	 */
+	public void setup(){
+		view._add(new _addActionListener());
+		view._exit(new _exitActionListener());
+		view._addFeature(new _addFeatureActionListener());
+		view._prediction(new _predictionActionListener());
+		view.addPredictHousingListener(new _addHousingListener());
+	}
+
+	/**
+	 * This is an action listener for the add button
+	 * 
+	 * @author CraigBook, DamanSingh
+	 *
+	 */
+	private class _addActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Adding selected feature");
+			
+			problemModel = new ProblemModel(1, Extractor.getExamples(view.soccerFilename, view.separator));
+			Example soccerStructure = problemModel.soccerExampleStructure();
+			Example test = view.getTestUserInput(soccerStructure);		
+			ArrayList<BaseFeature> testList = (ArrayList<BaseFeature>) test.getFeatures();
+			testList.remove(testList.size()-1);
+			Object prediction = problemModel.getPrediction(new Example(testList));
+			view.outputPredictionValue(prediction);
+			
+		}
+	}
+	
+	/**
+	 * @author issahassan
+	 */
+	
+	private class _addHousingListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				problemModel = ProblemModel.generateHousingModel();
+				Example housingStructure = ProblemModel.housingExampleStructure();
+				Example test = view.getTestUserInput(housingStructure);		
+				ArrayList<BaseFeature> testList = (ArrayList<BaseFeature>) test.getFeatures();
+				testList.remove(testList.size()-1);
+				Object prediction = problemModel.getPrediction(new Example(testList));
+				view.outputPredictionValue(prediction);
+
+			
+		}
+	}
+
+	/**
+	 * 
+	 * @author CraigBook, DamanSingh
+	 *
+	 */
+	private class _addFeatureActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			//view.metricsRadioButtons();
+			String message = "Choose the type of feature you would like to implement";
+			Object[] params = {message, view.getChooseMetricsPanel()};
+			int s = JOptionPane.showConfirmDialog(view, params, "Select type of feature", JOptionPane.OK_OPTION);
+			view.manualAddFeature(s);
+		}
+	}
+	
+	
+	
+	private class _exitActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			System.exit(0);
+		}
+	}
+
+	
+	
+	private class _predictionActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			String message = "Add features for test example except the feature to predict";
+			Object[] params = {message, view.getChooseMetricsPanel()};
+			int s = JOptionPane.showConfirmDialog(view, params, "Select type of feature", JOptionPane.OK_OPTION);
+			view.manualAddFeature(100);
+		}
+		
+	}
+    
+   
+
+   
+    
+    void setTrainingExampleNo(){
+  //  	System.out.println(view.getTrainingExampleNumber());
+   // 	problem.setTrainingExampleNo(Integer.parseInt(view.getTrainingExampleNumber()));
+
+    }
+    
+    
+    public void createFeature(){
+    	
+    	
+    }
+}
+    
+    
+

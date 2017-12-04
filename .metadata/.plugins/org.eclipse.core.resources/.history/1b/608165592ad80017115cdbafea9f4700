@@ -1,0 +1,114 @@
+package problemTests;
+
+import static org.junit.Assert.*;
+
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.*;
+import Problem.DistanceMetric.*;
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.Feature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+public class DistanceMetricTest {
+	private DistanceMetric.DoubleMetric doubleMetric;
+	private double delta = 0.000000000000001;
+	private DoubleMetric d2;
+	private DoubleMetric d1;
+	@Before
+	public void setUp(){
+		doubleMetric = new DoubleMetric();
+		
+		d1 = new DoubleMetric();
+		d2 = new DoubleMetric();
+	}
+	
+	@Test
+	public void testDoubleMetric() {
+		double shouldBe0 = d1.calculateDistance(4.0,4.0);
+		double shouldBe1 = d2.calculateDistance(4.0, 3.0);
+		
+		assertTrue(0==shouldBe0);
+		assertTrue(1==shouldBe1);
+		
+	}
+	
+//	@Test
+//	public void testEuclideanMetric() {
+//		Point2D p1 = new Point2D.Double (11.0,77.0);
+//		Point2D p2 = new Point2D.Double (77.0,77.0);
+//		
+//		Point2D p3 = new Point2D.Double (77.0,77.0);
+//		Point2D p4 = new Point2D.Double (77.0,77.0);
+//	}
+	
+	@Test
+	public void testDoublePositiveNumbers() {
+		assertEquals(doubleMetric.calculateDistance(5.7,2.9), 2.8, delta);
+	}
+	
+	@Test
+	public void testDoubleNegativeNumbers(){
+		assertEquals(doubleMetric.calculateDistance(5.7,(-1*2.9)), 8.6, delta);
+	}
+	
+	@Test
+	public void testDistanceComplexFeatures(){
+		//child1
+		StringFeature f111 = new StringFeature("Hello");
+		NumberFeature f112 = new NumberFeature(3);
+		NumberFeature f113 = new NumberFeature(4);
+		List<BaseFeature> l2 = new ArrayList<BaseFeature>();
+		l2.add(f111);l2.add(f112);l2.add(f113);
+		ComplexFeature f11 = new ComplexFeature(l2);
+		
+		//child2
+		NumberFeature f121 = new NumberFeature(5);
+		NumberFeature f1221 = new NumberFeature(6);
+		ComplexFeature f122 = new ComplexFeature();
+		f122.addFeature(f1221);
+		ComplexFeature f12 = new ComplexFeature();
+		f12.addFeature(f121);f12.addFeature(f122);
+		
+		//main construction
+		Feature f13 = new NumberFeature(1);
+		ArrayList<BaseFeature> l1 = new ArrayList<BaseFeature>();
+		l1.add(f11);l1.add(f12);l1.add(f13);
+		ComplexFeature f = new ComplexFeature(l1);		
+
+		/*
+		 * Test Example 2
+		 */
+		
+		//child1
+		StringFeature x111 = new StringFeature("Hello");
+		NumberFeature x112 = new NumberFeature(2); 
+		NumberFeature x113 = new NumberFeature(3);
+		ComplexFeature x11 = new ComplexFeature();
+		x11.addFeature(x111);x11.addFeature(x112);x11.addFeature(x113);
+
+		//child2
+		NumberFeature x121 = new NumberFeature(4);
+		NumberFeature x1221 = new NumberFeature(5);
+		ComplexFeature x122 = new ComplexFeature(); 
+		x122.addFeature(x1221);
+		ComplexFeature x12 = new ComplexFeature(); 
+		x12.addFeature(x121);x12.addFeature(x122);
+
+		//main construction
+		Feature x13 = new NumberFeature(0);
+		ComplexFeature x = new ComplexFeature(); x.addFeature(x11);x.addFeature(x12);x.addFeature(x13);
+		
+		DistanceMetric.ComplexMetric cm = new ComplexMetric();
+		cm.calculateDistance(x, f);
+		System.out.println("Complex Distance: "+cm.calculateDistance(f,x));
+		assert(cm.calculateDistance(x, f) > 0);
+	}
+}

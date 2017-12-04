@@ -1,0 +1,117 @@
+package problemTests;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import Problem.*;
+import feature.GeneralFeature;
+
+/**
+ * 
+ * @author issahassan
+ *
+ */
+
+public class ProblemTest {
+	private static final int SIZE_TRAINING_SET = 3;
+	
+	private Problem p;
+	
+	private ArrayList<Example> trainingExamples;
+	//Examples
+	private Example e1;
+	private Example e2;
+	private Example e3;
+	
+	//Test Features
+	private GeneralFeature f1;
+	private GeneralFeature f2;
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {	
+		
+		p = new Problem();
+		f1 = null;
+		f2 = null;
+//		ArrayList<Example> trainingExamples =	this.createExamples();		
+		p.addTrainingExamples(trainingExamples);
+
+	}
+	
+	
+	
+//	public ArrayList<Example> createExamples() {
+//		e1 = new Example(new Coordinates(24.0,14.0), new SquareFeet(2400),new Age_(Age.newer), 
+//				new Latitude(24.0), new Longitude(14.0),new Price(600000));
+//		e2 = new Example(new Coordinates(44.0,16.0), new SquareFeet(3400),new Age_(Age.older), 
+//				new Latitude(44), new Longitude(16),new Price(750000));
+//		e3 = new Example();
+//		trainingExamples = new ArrayList<Example>();
+//		trainingExamples.add(e1);trainingExamples.add(e2);trainingExamples.add(e3);
+//		return trainingExamples;
+//	}
+
+	
+	@Test
+	public void testAddMultipleTrainingExamples() {
+		trainingExamples.add(e1);trainingExamples.add(e2);trainingExamples.add(e3);
+		assertEquals(SIZE_TRAINING_SET,p.getTrainingSize());
+	}
+
+	@Test
+	public void testSetExamples() {
+		assertTrue(true);
+
+	}
+	
+	@Test
+	public void testAddOneFeature() {
+		int x = p.getFeatures().size();
+		p.addFeature(f1);
+		assertTrue(x+1==p.getFeatures().size());
+
+	}
+	@Test
+	public void testAddNullFeature() {
+		int x = 0;
+		p.addFeature(f2);
+		assertTrue(x==p.getFeatures().size());
+	}
+	
+	
+	@Test
+	public void testAddFeatures() {
+		boolean worked = false;
+		p.addFeatures("age");
+		if(p.getFeatureStringSet().contains("age"))
+				worked = true;
+		assertTrue(worked);
+		
+	}
+	
+	@Test
+	public void testAddNonExistantFeatures() {
+		boolean worked = false;
+		p.addFeatures("Nothing");
+		if(!p.getFeatureStringSet().contains("Nothing"))
+			worked = true;
+		assertTrue(worked);
+			
+	}
+	
+}

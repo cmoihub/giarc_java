@@ -1,0 +1,26 @@
+package featureTests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import feature.NumberFeature;
+
+public class NumberFeatureTest {
+
+	NumberFeature n1;
+	NumberFeature n2;
+	int no = 0;
+	@Before
+	public void setUp() throws Exception {
+		n1 = new NumberFeature();
+		n2 = new NumberFeature(no);
+	}
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

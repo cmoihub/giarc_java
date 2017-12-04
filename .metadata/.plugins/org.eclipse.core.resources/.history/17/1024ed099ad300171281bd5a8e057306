@@ -1,0 +1,494 @@
+package gui;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import Problem.DistanceMetric;
+import Problem.Extractor;
+import Problem.Problem;
+import Problem.Extractor.Line;
+import Problem.GeneralExample;
+import feature.BaseFeature;
+import feature.Feature;
+
+public class ProblemView extends JFrame implements ItemListener{
+
+	private Problem problem;
+	private Boolean chosen = false;
+
+	//Panels
+	private JPanel container;
+	private JPanel allFeaturesPanel;
+	private JPanel metricsPanel;
+	private JPanel selectedFeaturesPanel;
+	private JPanel chooseDatasetPanel;
+	private JPanel chooseMetricsPanel;
+
+	//Buttons
+	
+	//private JButton ok;
+	private JButton addFeature;
+	private JButton predict;
+	private JButton exit;
+
+	//RadioButtons
+	private ButtonGroup chooseDatasetBG;
+	private JRadioButton stocks;
+	private JRadioButton manual;
+	private JRadioButton soccer;
+	private JRadioButton housing;
+	
+	private ButtonGroup chooseMetricBG;
+	private JRadioButton complexF;
+	private JRadioButton numberF;
+	private JRadioButton stringF;
+
+
+	//Lists
+	private ArrayList<JCheckBox> checkboxes;
+	ArrayList<JCheckBox> metricsCB;
+	private ArrayList<DistanceMetric> metrics;
+	private ArrayList<JRadioButton> datasetRadioButtons;
+	private ArrayList<JRadioButton> metricsRadioButtons;
+	private List<GeneralExample> gExamples;
+	private GeneralExample general;
+	private ArrayList<Feature> allFeatures;
+	private List<BaseFeature> manualFeature = new ArrayList<BaseFeature>();
+	
+	
+	private ArrayList<Feature> given = new ArrayList<Feature>(); 
+	private ArrayList<String> list = new ArrayList<String>();
+	private JList<String> feature_jList;
+	private JList<Feature> selectedFeatures_jList;
+	private DefaultListModel<String> feature_defaultListModel;
+	private DefaultListModel<Feature> selectedFeatures;
+
+
+
+	//Strings
+	private String[] featureNames;
+	private String selectedFeature;
+	private String selectedFeature_;
+	private String examples = "";
+	String soccerFilename = "tabulated_data_test.csv";
+	String separator = ",";
+
+	//Textfields
+	private JTextField predictionFeature;
+
+
+	public ProblemView(Problem problem){
+		super("Import dataset");
+
+		this.problem = problem;
+		container = new JPanel(new GridLayout(3, 2));
+		selectedFeaturesPanel = new JPanel();
+		allFeaturesPanel = new JPanel();
+		chooseDatasetPanel = new JPanel();
+		chooseMetricsPanel = (new JPanel());
+		metricsPanel = new JPanel();
+
+		predict = new JButton("Predict");
+		addFeature = new JButton("Add Feature");
+		exit = new JButton("Exit");
+		checkboxes = new ArrayList<JCheckBox>();
+		metricsCB = new ArrayList<JCheckBox>();
+		metrics = new ArrayList<DistanceMetric>();
+		allFeatures = new ArrayList<Feature>();
+		gExamples = new ArrayList<GeneralExample>();
+		datasetRadioButtons = new ArrayList<JRadioButton>();
+		metricsRadioButtons = new ArrayList<JRadioButton>();
+		chooseDatasetBG = new ButtonGroup();
+		chooseMetricBG = new ButtonGroup();
+
+		datasetRadioButtons();
+		String message = "Choose the dataset you would like to work with";
+		Object[] params = {message, chooseDatasetPanel};
+		int setup = JOptionPane.showConfirmDialog(this, params, "Import", JOptionPane.OK_OPTION);
+
+		
+		
+		//Exits program if "No" is selected
+		if(setup == 0){
+			for(JRadioButton b : datasetRadioButtons) {
+				if(b.isSelected()) {
+					System.out.println("Selected: " + b.getText() + setup);
+					
+					container.add(exit);
+					
+					
+					if(b.equals(manual)) {
+						container.add(addFeature);
+						
+						
+						
+					}else {
+						allFeaturesPanel.add(new JLabel("Features:"));
+						createCheckboxes();
+						metricsPanel.add(new JLabel("Metrics:"));
+						createMetrics();
+						
+						container.add(predict);
+						
+					}
+				}
+			}
+		}else{
+			System.exit(0);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		
+		allFeaturesPanel.setLayout(new BoxLayout(allFeaturesPanel, BoxLayout.Y_AXIS));
+		metricsPanel.setLayout(new BoxLayout(metricsPanel, BoxLayout.Y_AXIS));
+		container.add(allFeaturesPanel);
+		container.add(metricsPanel);
+		
+		this.add(container);
+		setup(this);
+	}
+
+	void setup(JFrame frame){
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//        frame.setTitle(title);
+		frame.setSize(500,500);
+		frame.setLocationRelativeTo(null);
+		//frame.pack();
+		frame.setVisible(true);
+	}
+
+	/**
+	 *Creates checkboxes based on the given features in the ArrayList allFeatures
+	 * 
+	 */
+	private void createCheckboxes(){
+
+		for(String s: featureNames){
+			if(s.length() > 0){
+				checkboxes.add(new JCheckBox(s));
+			}
+			
+			
+		}
+
+
+		for(JCheckBox c: checkboxes){
+			allFeaturesPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+
+
+
+	/**
+	 *Creates checkboxes based on the given metrics in the ArrayList metrics
+	 * 
+	 */
+	private void createMetrics(){
+
+		//metrics.add(new StringMetric());
+
+		for(DistanceMetric d: metrics){
+
+			metricsCB.add(new JCheckBox(d.toString()));
+
+		}
+
+
+		for(JCheckBox c: metricsCB){
+			metricsPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+
+
+	/**
+	 *Creates the radioButtons for the initial dataset import
+	 * 
+	 */
+
+
+	private void datasetRadioButtons() {
+		housing = new JRadioButton("housing");
+		soccer = new JRadioButton("soccer");
+		stocks = new JRadioButton("stocks");
+		manual = new JRadioButton("manual");
+
+		datasetRadioButtons.add(housing);
+		housing.setSelected(true);
+		datasetRadioButtons.add(soccer);
+		datasetRadioButtons.add(stocks);
+		datasetRadioButtons.add(manual);
+
+		for(JRadioButton c: datasetRadioButtons){
+
+			chooseDatasetBG.add(c);
+			chooseDatasetPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+	
+	public void metricsRadioButtons() {
+		complexF = new JRadioButton("Complex");
+		numberF = new JRadioButton("Number");
+		stringF = new JRadioButton("String");
+		
+
+		metricsRadioButtons.add(complexF);
+		numberF.setSelected(true);
+		metricsRadioButtons.add(numberF);
+		metricsRadioButtons.add(stringF);
+		
+
+		for(JRadioButton c: metricsRadioButtons){
+
+			chooseMetricBG.add(c);
+			chooseMetricsPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+		
+		
+	}
+	
+	public void manualAddFeature(int i) {
+		if(i == 0) {
+				for(JRadioButton b : metricsRadioButtons) {
+					if(b.isSelected()) {
+						 
+					}
+			
+		}
+		}
+		
+		
+	}
+	
+	
+	
+	/**
+	 *creates prediction based on inputs given
+	 */
+	public void showPrediction(){
+		//predictionFeature.setText(problem.getFeatureToPredict().toString());
+		String test = JOptionPane.showInputDialog(this,"Leave the feature you want to predict alone. I.e don't change the default text", examples);
+
+		ArrayList<String> lst = new ArrayList<String>();
+		Scanner input = new Scanner(test);
+
+		String s = input.nextLine();
+
+
+		for(String i : s.split(" ")){
+			lst.add(i);
+		}
+		input.close();
+
+
+		for(Feature f: given){
+			for(String a : lst){
+				if(a.equals(f)){
+					//					problem.setFeatureToPredict(f);			//finds the unchanged value and maps it to prediction
+
+				}
+			}
+
+		}
+
+
+		//ToDo: add values to features
+		for(int i = 0; i < lst.size(); i++){
+			//given.indexOf(i).
+		}
+
+
+	}
+
+	/**
+	 *
+	 * @param features
+	 */
+	public void showFeatures(DefaultListModel<String> features){
+		feature_defaultListModel = features;
+		feature_jList = new JList<String>(feature_defaultListModel);
+		feature_jList.addListSelectionListener(
+				listSelectionEvent -> {
+					selectedFeature = feature_jList.getSelectedValue();
+				}
+				);
+		feature_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		allFeaturesPanel.add(feature_jList);
+	}
+
+	/**
+	 *
+	 * @param features a trimmed down list of features to use to set up examples
+	 */
+	public void showSelection(DefaultListModel<Feature> features){
+		selectedFeatures = features;
+		selectedFeatures_jList = new JList<Feature>(selectedFeatures);
+		selectedFeatures_jList.addListSelectionListener(
+				listSelectionEvent->{
+					selectedFeature_ = feature_jList.getSelectedValue();
+				}
+				);
+		selectedFeaturesPanel.add(selectedFeatures_jList);
+	}
+	/*   
+    public String getTrainingExampleNumber(){
+    	return trainingExampleNo.getText();
+    }
+	 */
+	/**
+	 *
+	 * @return the currently selected feature from the list that shows all the features
+	 */
+
+	public String getSelectedItem(){
+
+
+		//creates a string out of the selected checkboxes
+		for(JCheckBox c : checkboxes) {
+
+			if(c.isSelected()) {
+
+				System.out.print("this: "+ c.getText() + "\n");
+				//return c.getText();
+				examples +=  c.getText() + " ";
+				
+			}
+
+		}
+
+		/*
+
+		Scanner input = new Scanner(examples);
+
+		String s = input.nextLine();
+
+
+		for(String i : s.split(" ")){
+			list.add(i);
+		}
+		input.close();
+
+		for(String str: list){
+			given.add(problem.createFeature(str));
+
+		}
+
+		 */
+		//	predict.setVisible(true);
+		//	container.add(sp);
+		return "";
+
+	}
+
+	/**
+	 *
+	 * @return the feature from the list with features to be used to set up examples
+	 */
+	public Feature getSelectedFeature(){
+		return selectedFeatures_jList.getSelectedValue();
+	}
+
+	public JList getFeatures(){
+		return selectedFeatures_jList;
+	}
+
+	/**
+	 *
+	 * @param listener
+	 */
+	void _add(ActionListener listener){predict.addActionListener(listener);}
+	void _exit(ActionListener listener){exit.addActionListener(listener);}
+	void _addFeature(ActionListener listener){addFeature.addActionListener(listener);}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+		
+
+		//Set the training set based on radio button selected
+		if(e.getSource() == housing){
+
+		}else if(e.getSource() == stocks){
+
+		}else if(e.getSource() == manual){
+				System.out.println("Manual Mode selected\n");
+		}else if(e.getSource() == soccer){
+			//gExamples = Extractor.getExamples(soccerFilename, separator);
+			//System.out.println(Extractor.getFeatureNames(soccerFilename));
+			//bFeature = gExamples.get(0).getFeatures();
+			
+			featureNames = Extractor.getFeatureNames(soccerFilename).split(",");
+			for(String s : featureNames){
+				if(s.length() > 0){
+				System.out.println(s);
+			}
+			}
+			
+		}
+		
+		
+		
+		if(e.getSource() == complexF) {
+			
+			
+		}else if(e.getSource() == numberF) {
+			
+			
+		}else if(e.getSource() == stringF) {
+			
+		}
+
+
+
+	}
+
+	public JPanel getChooseMetricsPanel() {
+		return chooseMetricsPanel;
+	}
+
+
+
+}

@@ -1,0 +1,17 @@
+<AddressBook>
+	<BuddyInfo>
+		<name>1234</name>
+		<address>56</address>
+		<phone>789</phone>
+	</BuddyInfo>
+	<BuddyInfo>
+		<name>Arc</name>
+		<address>def</address>
+		<phone>1</phone>
+	</BuddyInfo>
+	<BuddyInfo>
+		<name>123</name>
+		<address>456</address>
+		<phone>789</phone>
+	</BuddyInfo>
+</AddressBook>

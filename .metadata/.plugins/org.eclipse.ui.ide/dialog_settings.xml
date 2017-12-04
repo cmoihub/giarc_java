@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/Users/CraigBook/Programming/arc_java/SYSC4005"/>
+		<item value="/Users/CraigBook/Downloads/lab7"/>
 		<item value="/Users/CraigBook/Downloads/lab6/movies"/>
 		<item value="/Users/CraigBook/Downloads/lab6/lab6"/>
 		<item value="/Users/CraigBook/OneDrive/YEAR4/Fall2017/SYSC3110/project-les-brownies"/>

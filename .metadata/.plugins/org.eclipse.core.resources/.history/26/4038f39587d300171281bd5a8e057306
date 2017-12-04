@@ -1,0 +1,27 @@
+/DistanceFunctionsTest.class
+/KNNControllerTest.class
+/KNNDisplayTest.class
+/KNNTest.class
+/SumOfDistancesTest.class
+/SumOfDistances.class
+/DistanceMetricTest.class
+<<<<<<< HEAD
+/AllTests.class
+/AgeEnumTest.class
+=======
+/ProblemTest.class
+>>>>>>> ce8f2b45240391618e7a7816e6a795745b6ab1f6
+<<<<<<< HEAD
+/ExampleTest.class
+=======
+/PredictorTest.class
+>>>>>>> 1fe9cedbe125d5ceedc042b4bb6bbc0d3cf0f39b
+/NumberFeature.class
+<<<<<<< HEAD
+/MetricEvaluatorTest.class
+=======
+/StringFeatureTest.class
+/MetricEvaluatorTest.class
+/ExtractorTest.class
+>>>>>>> refs/heads/master
+/ProblemTests.class

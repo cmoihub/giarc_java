@@ -1,0 +1,693 @@
+package gui;
+
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
+import Problem.DistanceMetric;
+import Problem.Extractor;
+import Problem.GeneralPredictor;
+import Problem.Problem;
+import Problem.Example;
+
+
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.Feature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+public class ProblemView extends JFrame implements ItemListener{
+
+	GeneralPredictor predictor = new GeneralPredictor();
+
+
+	//Panels
+	private JPanel container;
+	private JPanel allFeaturesPanel;
+	private JPanel metricsPanel;
+	private JPanel selectedFeaturesPanel;
+	private JPanel chooseDatasetPanel;
+	private JPanel chooseMetricsPanel;
+
+	//Buttons
+
+	//private JButton ok;
+	private JButton addFeature;
+	private JButton predict;
+	private JButton prediction;
+
+	private JButton exit;
+
+	//RadioButtons
+
+	private ButtonGroup chooseFeatureBG;
+
+
+	private ButtonGroup chooseDatasetBG;
+	private JRadioButton stocks;
+	private JRadioButton manual;
+	private JRadioButton soccer;
+	private JRadioButton housing;
+
+	private ButtonGroup chooseMetricBG;
+	private JRadioButton complexF;
+	private JRadioButton numberF;
+	private JRadioButton stringF;
+
+	JTextArea housingOutput = new JTextArea();
+	//Lists
+	private ArrayList<JCheckBox> checkboxes;
+	ArrayList<JCheckBox> metricsCB;
+	private ArrayList<DistanceMetric> metrics;
+	private ArrayList<JRadioButton> datasetRadioButtons;
+	private ArrayList<JRadioButton> metricsRadioButtons;
+	private List<Example> gExamples;
+	private ArrayList<Feature> allFeatures;
+	private List<BaseFeature> manualFeature = new ArrayList<BaseFeature>();
+
+	
+	private HashMap<String,Feature> testingExample = new HashMap<String, Feature>();
+	private HashMap<String,Feature> trainingExamples = new HashMap<String, Feature>();
+	private HashMap<String,ComplexFeature> complexTrainingExamples = new HashMap<String, ComplexFeature>();
+	private HashMap<String,ComplexFeature> complexTestingExamples = new HashMap<String, ComplexFeature>();
+
+	private JList<String> feature_jList;
+	private JList<Feature> selectedFeatures_jList;
+	private DefaultListModel<Feature> selectedFeatures;
+	
+	//Housing Prices GUI
+	private JButton predictHousingBtn;
+
+
+
+
+	//Strings
+	private String[] featureNames;
+	//private String selectedFeature;
+	private String examples = "";
+	String soccerFilename = "tabulated_data_test.csv";
+	String separator = ",";
+	String output = "";
+	private String[] featureTypes = {"Complex","Number","String"};
+
+	private JTextArea trainingExamplesTF;
+
+	public ProblemView(Problem problem){
+		super("Import dataset");
+
+		container = new JPanel(new GridLayout(3, 2));
+		selectedFeaturesPanel = new JPanel();
+		allFeaturesPanel = new JPanel();
+		chooseDatasetPanel = new JPanel();
+		chooseMetricsPanel = (new JPanel());
+		metricsPanel = new JPanel();
+
+		predict = new JButton("Predict");
+		predictHousingBtn = new JButton("Predict");
+		prediction = new JButton("Add Test");
+		addFeature = new JButton("Add Feature");
+		exit = new JButton("Exit");
+		checkboxes = new ArrayList<JCheckBox>();
+		metricsCB = new ArrayList<JCheckBox>();
+		metrics = new ArrayList<DistanceMetric>();
+		allFeatures = new ArrayList<Feature>();
+		gExamples = new ArrayList<Example>();
+		datasetRadioButtons = new ArrayList<JRadioButton>();
+		metricsRadioButtons = new ArrayList<JRadioButton>();
+		chooseDatasetBG = new ButtonGroup();
+		chooseMetricBG = new ButtonGroup();
+		chooseFeatureBG = new ButtonGroup();
+
+		trainingExamplesTF = new JTextArea();
+
+		datasetRadioButtons();
+		String message = "Choose the dataset you would like to work with";
+		Object[] params = {message, chooseDatasetPanel};
+		int setup = JOptionPane.showConfirmDialog(this, params, "Import", JOptionPane.OK_OPTION);
+
+
+
+		//Exits program if "No" is selected
+		if(setup == 0){
+			for(JRadioButton b : datasetRadioButtons) {
+				if(b.isSelected()) {
+					System.out.println("Selected: " + b.getText() + setup);
+
+					container.add(exit);
+
+
+					if(b.equals(manual)) {
+
+						createManualGui();
+
+					}else if(b.equals(this.housing)) {
+
+						this.createHousingGui();
+						
+					}else if(b.equals(soccer)){
+						createSoccerGui();
+
+					}
+				}
+			}
+		}else{
+			System.exit(0);
+		}
+
+
+
+
+
+
+
+
+
+
+
+		allFeaturesPanel.setLayout(new BoxLayout(allFeaturesPanel, BoxLayout.Y_AXIS));
+		metricsPanel.setLayout(new BoxLayout(metricsPanel, BoxLayout.Y_AXIS));
+		container.add(allFeaturesPanel);
+		container.add(metricsPanel);
+
+		this.add(container);
+		setup(this);
+	}
+
+	void setup(JFrame frame){
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//        frame.setTitle(title);
+		frame.setSize(500,500);
+		frame.setLocationRelativeTo(null);
+		//frame.pack();
+		frame.setVisible(true);
+	}
+	
+	
+	
+	/**
+	 * Create Soccer game gui
+	 */
+	
+	public void createSoccerGui() {
+		
+		container.add(predict);
+		container.add(housingOutput);
+		housingOutput.setEditable(false);
+		//createCheckboxes();
+	}
+	
+	
+	
+	/**
+	 * Create manual input gui
+	 */
+	
+	public void createManualGui() {
+		
+		metricsRadioButtons();
+		container.add(addFeature);
+		metricsPanel.add(new JLabel("Output:"));
+		metricsPanel.add(trainingExamplesTF);
+		trainingExamplesTF.setEditable(false);
+
+		container.add(prediction);
+	}
+	
+	
+	
+	
+	
+	/**
+	 * Create housing prices gui
+	 */
+	
+	public void createHousingGui() {
+		
+		container.add(predictHousingBtn);
+		container.add(housingOutput);
+		housingOutput.setEditable(false);
+		this.setTitle("Predict Housing Prices");
+		this.invalidate();
+		this.validate();
+	}
+	
+	public Example getTestUserInput(Example e) {
+		//function to copy a feature, and just loop it through for all features.
+		Example x = new Example();
+		for(BaseFeature f: e.getFeatures()) {
+			this.setFeatureFromInput(f, "");
+			x.addFeature(f);
+		}
+	
+		return x;
+	}
+	
+	public void setFeatureFromInput(BaseFeature f, String s) {
+		String temp;
+		if(f instanceof ComplexFeature) {
+			for(BaseFeature child : ((ComplexFeature) f).getFeatures()) {
+				
+				this.setFeatureFromInput(child, s+f.getName()+"'s ");
+			}
+		}else{
+			
+			String output = (s+f.getName());
+			String userInput = JOptionPane.showInputDialog("Please enter "+output);
+			temp = housingOutput.getText() + f.getName() + ": " + userInput + "\n" ;
+			housingOutput.setText(temp);
+			if(f instanceof NumberFeature) {
+				//get user input, parse it and see if it can be represented as a double, else set f as null
+				try {
+				double d = Double.parseDouble(userInput);
+				((NumberFeature) f).setValue(d);
+				}catch(Exception e) {
+					System.out.println("Please enter a double value.");
+				}
+			}else if(f instanceof StringFeature) {
+				((StringFeature) f).setValue(userInput);
+			}
+		}
+	}
+	
+	public JButton getPredictHousingBtn() {
+		return this.predictHousingBtn;
+	}
+	
+
+
+	/**
+	 *Creates checkboxes based on the given features in the ArrayList allFeatures
+	 * 
+	 */
+	private void createCheckboxes(){
+
+		for(String s: getFeatureNames()){
+			if(s.length() > 0){
+				checkboxes.add(new JCheckBox(s));
+			}
+
+
+		}
+
+
+		for(JCheckBox c: checkboxes){
+			allFeaturesPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+
+
+
+	/**
+	 *Creates checkboxes based on the given metrics in the ArrayList metrics
+	 * 
+	 */
+	private void createMetrics(){
+
+
+
+		for(JRadioButton d: metricsRadioButtons){
+
+			metricsCB.add(new JCheckBox(d.getText()));
+
+		}
+
+
+		for(JCheckBox c: metricsCB){
+			chooseMetricBG.add(c);
+			metricsPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+
+
+	/**
+	 *Creates the radioButtons for the initial dataset import
+	 * 
+	 */
+
+
+	private void datasetRadioButtons() {
+		housing = new JRadioButton("housing");
+		soccer = new JRadioButton("soccer");
+		stocks = new JRadioButton("stocks");
+		manual = new JRadioButton("manual");
+
+		datasetRadioButtons.add(housing);
+		housing.setSelected(true);
+		datasetRadioButtons.add(soccer);
+		datasetRadioButtons.add(stocks);
+		datasetRadioButtons.add(manual);
+
+		for(JRadioButton c: datasetRadioButtons){
+
+			chooseDatasetBG.add(c);
+			chooseDatasetPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+	}
+
+
+	public void metricsRadioButtons() {
+		complexF = new JRadioButton("Complex");
+		numberF = new JRadioButton("Number");
+		stringF = new JRadioButton("String");
+
+
+		metricsRadioButtons.add(complexF);
+		numberF.setSelected(true);
+		metricsRadioButtons.add(numberF);
+		metricsRadioButtons.add(stringF);
+
+
+		for(JRadioButton c: metricsRadioButtons){
+
+			chooseMetricBG.add(c);
+			chooseMetricsPanel.add(c);
+			c.setMnemonic(KeyEvent.VK_C); 
+			c.addItemListener(this);
+		}
+
+
+	}
+
+	public void manualAddFeature(int i) {
+		if(i == 0) {
+			for(JRadioButton b : metricsRadioButtons) {
+				if(b.isSelected()) {
+					if(b.equals(stringF)) {
+						String key = getUserInput("Type the name of the feature");
+						String value = getUserInput("Type the value of the feature");
+						output += (key + "--> " + value + "\n");
+						trainingExamples.put(key, new StringFeature(value));
+
+						trainingExamplesTF.setText(output);
+
+					}else if(b.equals(numberF)) {
+
+						String key = getUserInput("Type the name of the feature");
+						String value = getUserInput("Type the value of the feature");
+						output += (key + "--> " + value + "\n");
+						trainingExamples.put(key, new NumberFeature(Double.parseDouble(value)));
+						trainingExamplesTF.setText(output);
+
+					}else if(b.equals(complexF)){
+
+						ComplexFeature cf = new ComplexFeature();
+						handleComplex(cf);
+						complexTrainingExamples.put("complex", cf);
+
+						output+= cf.toString();
+						trainingExamplesTF.setText(output);
+					}
+				}
+
+			}
+		}else if(i == 100){
+			System.out.println("adding test");
+			for(JRadioButton b : metricsRadioButtons) {
+				if(b.isSelected()) {
+					if(b.equals(stringF)) {
+						String key = getUserInput("Type the name of the feature");
+						String value = getUserInput("Type the value of the feature");
+						output += ("testing: " + key + "--> " + value + "\n");
+						testingExample.put(key, new StringFeature(value));
+
+						trainingExamplesTF.setText(output);
+
+					}else if(b.equals(numberF)) {
+
+						String key = getUserInput("Type the name of the feature");
+						String value = getUserInput("Type the value of the feature");
+						output += ("testing: " + key + "--> " + value + "\n");
+						testingExample.put(key, new NumberFeature(Double.parseDouble(value)));
+						trainingExamplesTF.setText(output);
+
+					}else if(b.equals(complexF)){
+
+						ComplexFeature cf = new ComplexFeature();
+						handleComplex(cf);
+						complexTestingExamples.put("complex", cf);
+
+						output+= "Testing: " + cf.toString();
+						trainingExamplesTF.setText(output);
+					}
+				}
+
+			}
+			
+			ArrayList<BaseFeature> list = new ArrayList<>();
+			list.addAll(trainingExamples.values());
+			list.addAll(complexTrainingExamples.values());
+			Example ex = new Example();
+			for(BaseFeature f: list){
+				ex.addFeature(f);
+				
+			}
+			
+			showPrediction(ex);
+			
+		}
+		System.out.println("\nTraining examples :" + trainingExamples);
+		System.out.println("complexTraining examples :" +complexTrainingExamples);
+		System.out.println("Testing examples :" + testingExample);
+		System.out.println("complexTesting examples :" + complexTestingExamples);
+	}
+
+
+
+
+
+	public ComplexFeature handleComplex(ComplexFeature f) {
+
+		Object selected = JOptionPane.showInputDialog(null, "Please select a feature type.", "Selection", JOptionPane.DEFAULT_OPTION, null, this.featureTypes, "0");
+		if(selected!=null) {
+			String selectedString = selected.toString();
+			if(selectedString.equals(this.featureTypes[0])) {
+				ComplexFeature complexChild = this.handleComplex(new ComplexFeature()); 
+				f.addFeature(complexChild);
+			}else if(selectedString.equals(this.featureTypes[1])) {
+				String d = getUserInput( "Enter double value");
+
+				NumberFeature numChild = new NumberFeature(Double.parseDouble(d));
+				f.addFeature(numChild);
+			}else{
+				String d = getUserInput("Enter String value");
+
+				StringFeature numChild = new StringFeature(d);
+				f.addFeature(numChild);
+
+
+			}
+		}
+		return f;
+	}
+
+
+
+
+	/**
+	 *creates prediction based on inputs given
+	 */
+	public void showPrediction(Example t1){
+
+		ArrayList<BaseFeature> list = new ArrayList<>();
+		list.addAll(trainingExamples.values());
+		list.addAll(complexTrainingExamples.values());
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		Example ex = new Example();
+		for(BaseFeature b: list){
+			ex.addFeature(b);
+
+		}
+
+		train.add(ex);
+
+		predictor.setNearestNeighbours(1, train, t1);
+
+		predictor.setPrediction();
+		Object o = predictor.getPrediction();
+		if(o instanceof String){
+			trainingExamplesTF.setText((String)o);
+			System.out.println("prediction " + (String)o);
+		}else{
+			trainingExamplesTF.setText(String.valueOf(o));
+			System.out.println("prediction " + (Double)o);
+		}
+	}
+
+	
+	
+	 
+	/**
+	 *
+	 * @return the currently selected feature from the list that shows all the features
+	 */
+
+	public Example getSelectedItem(Example e){
+
+		Example x = new Example();
+		for(BaseFeature f: e.getFeatures()) {
+			this.setFeatureFromInput(f, "");
+			x.addFeature(f);
+		}
+	
+		
+		//creates a string out of the selected checkboxes
+		for(JCheckBox c : checkboxes) {
+
+			if(c.isSelected()) {
+
+				System.out.print("this: "+ c.getText() + "\n");
+				examples +=  c.getText() + " ";
+
+
+			}
+
+		}
+
+		
+		return x;
+
+	}
+
+	/**
+	 *
+	 * @return the feature from the list with features to be used to set up examples
+	 */
+	public Feature getSelectedFeature(){
+		return selectedFeatures_jList.getSelectedValue();
+	}
+
+	public JList getFeatures(){
+		return selectedFeatures_jList;
+	}
+	
+	
+	
+	
+	/**
+	 *Creates a prompt to get user input
+	 * @return User input as a string
+	 */
+	public String getUserInput(String input){
+		
+		return JOptionPane.showInputDialog(this, input, JOptionPane.OK_OPTION);
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/**
+	 *
+	 * @param listener
+	 */
+	void _add(ActionListener listener){predict.addActionListener(listener);}
+	void _exit(ActionListener listener){exit.addActionListener(listener);}
+	void _addFeature(ActionListener listener){addFeature.addActionListener(listener);}
+	void _prediction(ActionListener listener){prediction.addActionListener(listener);}
+	void addPredictHousingListener(ActionListener listener){predictHousingBtn.addActionListener(listener);}
+	
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO Auto-generated method stub
+
+
+		//Set the training set based on radio button selected
+		if(e.getSource() == housing){
+
+		}else if(e.getSource() == stocks){
+
+		}else if(e.getSource() == manual){
+			System.out.println("Manual Mode selected\n");
+		}else if(e.getSource() == soccer){
+			//gExamples = Extractor.getExamples(soccerFilename, separator);
+			//System.out.println(Extractor.getFeatureNames(soccerFilename));
+			//bFeature = gExamples.get(0).getFeatures();
+
+			setFeatureNames(Extractor.getFeatureNames(soccerFilename).split(","));
+			for(String s : getFeatureNames()){
+				if(s.length() > 0){
+					System.out.println(s);
+				}
+			}
+
+		}
+
+
+
+		if(e.getSource() == complexF) {
+			System.out.println("Complex feature selected");
+
+		}else if(e.getSource() == numberF) {
+			System.out.println("Number feature selected");
+
+		}else if(e.getSource() == stringF) {
+			System.out.println("String feature selected");
+
+		}
+
+
+
+	}
+
+	public JPanel getChooseMetricsPanel() {
+		return chooseMetricsPanel;
+	}
+
+	public void outputPredictionValue(Object prediction2) {
+		JOptionPane.showMessageDialog(this,prediction2.toString());
+	}
+
+	public String[] getFeatureNames() {
+		return featureNames;
+	}
+
+	public void setFeatureNames(String[] featureNames) {
+		this.featureNames = featureNames;
+	}
+
+
+
+}

@@ -1,0 +1,24 @@
+package helper;
+
+/**
+ * Solely for printing
+ * @author CraigBook
+ *
+ */
+public class print {
+	public static void println(String s){
+		System.out.println(s);
+	}
+	
+	public static void println (Object s){
+		System.out.println(s);
+	}
+	
+	public static void prints(String s){
+		System.out.println(s);
+	}
+	
+	public static void prints (Object s){
+		System.out.println(s);
+	}
+}

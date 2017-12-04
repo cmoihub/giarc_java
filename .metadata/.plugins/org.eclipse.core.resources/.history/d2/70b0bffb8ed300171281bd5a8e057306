@@ -1,0 +1,84 @@
+package problemTests;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.GeneralExample;
+import Problem.KNN;
+import feature.BaseFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+public class KNNTest {
+
+	List<BaseFeature> features;
+	List<BaseFeature> features1;
+	List<BaseFeature> featuresTest; 
+	
+	GeneralExample train0;
+	GeneralExample train1;
+	
+	GeneralExample testExample;
+	
+	List<GeneralExample> trainingExamples;
+	KNN knn;
+	@Before
+	public void setUp() throws Exception {
+		features = new ArrayList<BaseFeature>();
+		features1 = new ArrayList<BaseFeature>();
+		featuresTest = new ArrayList<BaseFeature>();
+		
+		train0 = new GeneralExample(features1);
+		train1 =  new GeneralExample(features);
+		
+		testExample =  new GeneralExample(featuresTest);
+		
+		trainingExamples = new ArrayList<>();
+		knn = new KNN();
+	}
+
+	@Test
+	public void test() {
+	
+		features.add(new NumberFeature(1.9));features.add(new NumberFeature(-167));
+		features.add(new NumberFeature(63.8));features.add(null);
+		features.add(new NumberFeature(39.1));features.add(new StringFeature("kick"));
+		
+		featuresTest.add(new NumberFeature(5));featuresTest.add(new NumberFeature(-200));
+		featuresTest.add(new NumberFeature(70));featuresTest.add(null);
+		featuresTest.add(new NumberFeature(86));featuresTest.add(new StringFeature("kick"));
+		
+		features1.add(new NumberFeature(1.8));features1.add(new NumberFeature(-177));
+		features1.add(new NumberFeature(63));features1.add(null);
+		features1.add(new NumberFeature(38.1));features1.add(new StringFeature("kick"));
+			
+		trainingExamples.add(train1);trainingExamples.add(train0);
+		
+		List<GeneralExample> nearestN = knn.getNearestNeighbours(1, trainingExamples, testExample);
+		
+		for(GeneralExample e: nearestN) {
+			for(BaseFeature f: e.getFeatures()) {
+				if(f instanceof StringFeature){
+					assertNotNull(((StringFeature)f).getValue()+" ");
+				}
+					
+				else if(f instanceof NumberFeature){
+					assertNotNull(((NumberFeature)f).getValue()+" ");
+				}
+					
+				else{
+					assertNotNull(f);
+				}
+					
+			}
+//			System.out.println();
+	
+		}
+	}
+
+}

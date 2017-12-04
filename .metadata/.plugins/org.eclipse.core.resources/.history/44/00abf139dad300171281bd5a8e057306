@@ -1,0 +1,59 @@
+package problemTests;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.Extractor;
+
+import Problem.Example;
+
+
+/**
+ * 
+ * @author CraigBook
+ *
+ */
+public class ExtractorTest {
+
+	String filename;
+	String separator;
+	@Before
+	public void setUp() throws Exception {
+		filename = "tabulated_data_test.csv";
+		separator = ",";
+	}
+
+	@Test
+	public void testExamples() {
+		List<Example> lines = Extractor.getExamples("housing_prices", separator);
+		for (Example e : lines){
+			assertEquals(e.toString(),"");
+		}
+	}
+	
+	@Test
+	public void testExampleSize() {
+		List<Example> lines = Extractor.getExamples(filename, separator);
+		assertEquals(lines.size(), 13);
+	}
+	
+	@Test
+	public void testExampleFeatureSize() {
+		List<Example> examples = Extractor.getExamples(filename, separator);
+		for (Example e : examples){
+			assertEquals(e.getFeatures().size(), 4);
+		}
+	}
+	
+	@Test
+	public void testExampleFeatureFirst() {
+		List<Example> examples = Extractor.getExamples(filename, separator);
+		for (Example e : examples){
+			assertEquals(e.getFeatures().get(3).toString(), "Kick");
+		}
+	}
+}
