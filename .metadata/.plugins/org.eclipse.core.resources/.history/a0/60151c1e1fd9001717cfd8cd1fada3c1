@@ -1,0 +1,17 @@
+package helper;
+
+/**
+ * useful functions
+ * @author CraigBook
+ *
+ */
+public class Helper {
+	/**
+	 * 
+	 * @param s
+	 * @return true if the string is empty
+	 */
+	public static Boolean notEmptyString(String s){
+		return s != null && s.length() > 0; 
+	}
+}

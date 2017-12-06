@@ -1,0 +1,193 @@
+package extractor;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import helper.Helper;
+import helper.print;
+
+public class ExtractorFeatureNames {
+	/**
+	 * this parses the feature list and returns the items in a string format
+	 * specifically the feature names
+	 * @return feature names as a tree, differentiating between complex and simple features
+	 */
+	public static Set<Tree<String>> getFeatures(List<String> featureList){
+		String firstLine = featureList.remove(0);
+		List <String> others = featureList;
+		List<String[]> otherFeatures = new ArrayList<>();
+		for (String featureGroup : others){
+			otherFeatures.add(featureGroup.split(","));
+		}
+		String [] features = firstLine.split(",");
+		
+		
+		List<Tree <String>> firstFeatures = new ArrayList<>();
+		String temp;
+		List<Integer> positions = new ArrayList<>();
+		
+//		Set up first complex and simple features
+		for (int i = 0; i < features.length; i++){
+			temp = features[i];
+			Tree <String> tree = new Tree<String>(temp);
+			setupTreeComplexity(tree, features, i+1);
+			
+			if (tree.isComplex()){
+				positions.add(i);
+			}
+			firstFeatures.add(tree);	
+		}
+		
+//		Duplicate feature values
+		for(int i = 0; i < firstFeatures.size(); i++){
+			if (notEmptyString(firstFeatures.get(i).toString())){				
+				continue;
+			} else {
+				int j = i-1;
+				firstFeatures.set(i, firstFeatures.get(j));
+			}
+		}
+		
+//		Set up child features
+		for (int i = 0 ; i < otherFeatures.size(); i++){
+			String [] featureGroup = otherFeatures.get(i);
+			for (int j = 0; j<featureGroup.length; j++ ){
+				if (notEmptyString(featureGroup[j])){
+					temp = featureGroup[j];
+					Node<String> tree = new Node<String>(temp);
+					setupTreeComplexity(tree, features, j+1);
+					firstFeatures.get(j).root.children.add(tree);
+				}
+			}
+		}
+		
+		Set <Tree<String>> uniqueFeatures = new HashSet<>(firstFeatures);
+		for (Tree<String> feature : uniqueFeatures){
+			print.println(feature);
+		}
+		print.println(uniqueFeatures.size());
+		return uniqueFeatures;
+	}
+	
+	/**
+	 * if a feature has no neighbours it is simple
+	 * 
+	 * @param currentFeature
+	 * @param arrayOfFeatures
+	 * @param nextFeaturePosition
+	 */
+	private static void setupTreeComplexity(Tree <String> currentFeature, String [] arrayOfFeatures, int nextFeaturePosition){
+		/**
+		 * prevents array out of bounds exception
+		 */
+		if ((nextFeaturePosition) == arrayOfFeatures.length){
+			currentFeature.setComplex(false);
+		}
+		/**
+		 * check if there's an empty spot beside the feature
+		 */
+		else if (notEmptyString(arrayOfFeatures[nextFeaturePosition])){
+			currentFeature.setComplex(false);
+		} else {
+			currentFeature.setComplex(true);
+		}
+	}
+	
+	private static void setupTreeComplexity(Node <String> currentFeature, String [] arrayOfFeatures, int nextFeaturePosition){
+		/**
+		 * prevents array out of bounds exception
+		 */
+		if ((nextFeaturePosition) == arrayOfFeatures.length){
+			currentFeature.setComplex(false);
+
+		}
+		/**
+		 * check if there's an empty spot beside the feature
+		 */
+		else if (Helper.notEmptyString(arrayOfFeatures[nextFeaturePosition])){
+			currentFeature.setComplex(false);
+//			System.out.println(currentFeature);
+		} else {
+			currentFeature.setComplex(true);
+		}
+	}
+	
+	private static class Tree<T>{
+		private Node<T> root;
+		private boolean complex;
+		private boolean number;
+		private boolean string;
+		public Tree (T rootData){
+			root = new Node<T>();
+			root.name = rootData;
+			root.children = new ArrayList<Node<T>>();
+		}
+		
+		public String toString(){
+			return root.toString();
+		}
+		
+		public boolean isComplex() {
+			return complex;
+		}
+
+		public boolean isString(){
+			return string;
+		}
+		public boolean isNumber(){
+			return string;
+		}
+		
+		public void setComplex(boolean complex) {
+			this.complex = complex;
+		}
+		public void setString(boolean string) {
+			this.string = string;
+		}
+		public void setNumber(boolean number) {
+			this.number = number;
+		}
+		
+	}
+	
+	private static class Node<T>{
+		private T name;
+		private Node<T> parent;
+		private List<Node<T>> children;
+		private boolean complex;
+		
+		public Node(){
+			
+		}
+		public Node(T data) {
+			this.name = data;
+		}
+		public boolean isComplex() {
+			return complex;
+		}
+
+		public void setComplex(boolean complex) {
+			this.complex = complex;
+		}
+		
+		
+		public String toString() {
+			String s = "";
+			s+=(String) name;
+			if (children!=null){
+				for (Node<T> child : children){
+					s+="child:" + (String) child.name;
+				}
+			}
+			return s;
+		}
+		public Node<T> getParent() {
+			return parent;
+		}
+		public void setParent(Node<T> parent) {
+			this.parent = parent;
+		}
+	}
+}

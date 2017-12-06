@@ -1,0 +1,22 @@
+1512402118483	Rename local variable 'line'
+1512403118500	Rename field 'data'
+1512409915905	Rename type 'extractorSoccer'
+1512409924121	Rename type 'extractorHousing'
+1512411036048	Move type 'Tree' to new file
+1512411046847	Move type 'Node' to new file
+1512411084086	Move compilation units
+1512411200221	Encapsulate field 'root'
+1512411207611	Encapsulate field 'children'
+1512411533154	Rename method 'parse'
+1512411614794	Move compilation unit
+1512412348941	Delete element
+1512412371789	Delete element
+1512412388784	Move file
+1512412457335	Rename resource 'UML Class Diagrams'
+1512412619840	Move folder
+1512412627975	Delete element
+1512412631381	Move file
+1512412633859	Delete element
+1512413442381	Rename package '_new'
+1512413467967	Copy files
+1512527103117	Move compilation unit

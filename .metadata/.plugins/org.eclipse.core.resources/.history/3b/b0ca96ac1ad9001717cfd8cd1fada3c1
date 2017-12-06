@@ -1,0 +1,391 @@
+package Problem;
+
+//http://www.java67.com/2015/08/how-to-load-data-from-csv-file-in-java.html
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import feature.*;
+
+import helper.print;
+
+
+
+/**
+ * Author: Craig Isesele
+ *
+ * This class is used to extract data from files with content separated by some value e.g. .csv and .txt files
+ */
+public class Extractor {
+	static List<String> featureList;
+	static String currentLine = "";
+	static Set<Tree<String>> featureNames;
+	/**
+	 * 
+	 * @param filename
+	 * @param separator
+	 * @return generated examples
+	 */
+
+	public static List<Example> getExamples(String filename, String separator){
+		List<Example> examples = new ArrayList<>();
+		featureList = new ArrayList<>();
+
+		Path pathToFile = Paths.get(filename);
+		try (BufferedReader br = Files.newBufferedReader(pathToFile,
+				StandardCharsets.US_ASCII)) {
+			String line = setUp(br, featureList, currentLine);
+			while(line!=null){
+				String [] attributes = line.split(separator);
+
+				Example example = createExample(attributes);
+
+
+				examples.add(example);
+
+				line = br.readLine();
+			}
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return examples;
+	}
+
+	/**
+	 * 
+	 * @param br
+	 * @param featureList
+	 * @param currentLine
+	 * @return
+	 * @throws IOException
+	 * 
+	 * this returns the line to start from in the csv file
+	 */
+	private static String setUp(BufferedReader br, List<String> featureList, String currentLine) throws IOException{
+		int validLineNo = 1;
+		while (validLineNo != 0){
+			currentLine = br.readLine();
+			
+			featureList.add(currentLine);
+			if (currentLine.matches(".*\\d+.*")){
+				validLineNo = 0;
+			}
+		}
+		featureList.remove(featureList.size()-1);
+		featureNames = getFeatures(featureList);
+		return currentLine;
+	}
+	
+	/**
+	 * this parses the feature list and returns the items in a string format
+	 * specifically the feature names
+	 * @return feature names as a tree, differentiating between complex and simple features
+	 */
+	private static Set<Tree<String>> getFeatures(List<String> featureList){
+		String firstLine = featureList.remove(0);
+		List <String> others = featureList;
+		List<String[]> otherFeatures = new ArrayList<>();
+		for (String featureGroup : others){
+			otherFeatures.add(featureGroup.split(","));
+		}
+		String [] features = firstLine.split(",");
+		
+		
+		List<Tree <String>> firstFeatures = new ArrayList<>();
+		String temp;
+		List<Integer> positions = new ArrayList<>();
+		
+//		Set up first complex and simple features
+		for (int i = 0; i < features.length; i++){
+			temp = features[i];
+			Tree <String> tree = new Tree<String>(temp);
+			setupTreeComplexity(tree, features, i+1);
+			
+			if (tree.isComplex()){
+				positions.add(i);
+			}
+			firstFeatures.add(tree);	
+		}
+		
+//		Duplicate feature values
+		for(int i = 0; i < firstFeatures.size(); i++){
+			if (notEmptyString(firstFeatures.get(i).toString())){				
+				continue;
+			} else {
+				int j = i-1;
+				firstFeatures.set(i, firstFeatures.get(j));
+			}
+		}
+		
+//		Set up child features
+		for (int i = 0 ; i < otherFeatures.size(); i++){
+			String [] featureGroup = otherFeatures.get(i);
+			for (int j = 0; j<featureGroup.length; j++ ){
+				if (notEmptyString(featureGroup[j])){
+					temp = featureGroup[j];
+					Node<String> tree = new Node<String>(temp);
+					setupTreeComplexity(tree, features, j+1);
+					firstFeatures.get(j).root.children.add(tree);
+				}
+			}
+		}
+		
+		Set <Tree<String>> uniqueFeatures = new HashSet<>(firstFeatures);
+		for (Tree<String> feature : uniqueFeatures){
+			print.println(feature);
+		}
+		print.println(uniqueFeatures.size());
+		return uniqueFeatures;
+	}
+	
+	/**
+	 * if a feature has no neighbours it is simple
+	 * 
+	 * @param currentFeature
+	 * @param arrayOfFeatures
+	 * @param nextFeaturePosition
+	 */
+	private static void setupTreeComplexity(Tree <String> currentFeature, String [] arrayOfFeatures, int nextFeaturePosition){
+		/**
+		 * prevents array out of bounds exception
+		 */
+		if ((nextFeaturePosition) == arrayOfFeatures.length){
+			currentFeature.setComplex(false);
+		}
+		/**
+		 * check if there's an empty spot beside the feature
+		 */
+		else if (notEmptyString(arrayOfFeatures[nextFeaturePosition])){
+			currentFeature.setComplex(false);
+		} else {
+			currentFeature.setComplex(true);
+		}
+	}
+	
+	private static void setupTreeComplexity(Node <String> currentFeature, String [] arrayOfFeatures, int nextFeaturePosition){
+		/**
+		 * prevents array out of bounds exception
+		 */
+		if ((nextFeaturePosition) == arrayOfFeatures.length){
+			currentFeature.setComplex(false);
+
+		}
+		/**
+		 * check if there's an empty spot beside the feature
+		 */
+		else if (notEmptyString(arrayOfFeatures[nextFeaturePosition])){
+			currentFeature.setComplex(false);
+//			System.out.println(currentFeature);
+		} else {
+			currentFeature.setComplex(true);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return true if the string is empty
+	 */
+	private static Boolean notEmptyString(String s){
+		return s != null && s.length() > 0; 
+	}
+	
+	/**
+	 * 
+	 * @param br reader
+	 * @param validLineNo line number to start from
+	 * @return line to start from
+	 * @throws IOException
+	 */
+	private static String skip(BufferedReader br, int validLineNo) throws IOException{
+		while (validLineNo != 1){
+			br.readLine();
+			validLineNo--;
+		}
+		return br.readLine();
+	}
+
+	
+	/**
+	 * 
+	 * @param rawFeatures array of features
+	 * @return example based on metadata
+	 */
+	public static Example createExample(String[] rawFeatures){
+		Example dynamic = new Example();
+		List<BaseFeature> bases = new ArrayList<>();
+		for (Tree<String> feature : featureNames){
+			
+//			print.println(feature.isComplex());
+////			BaseFeature f = new BaseFeature;
+//			if(feature.isComplex()){
+//				BaseFeature f = new ComplexFeature(feature.root.name);
+//			} else {
+//				if(feature.isString()){
+//					BaseFeature f = new StringFeature(feature.root.name);
+//				} else if (feature.isNumber()){
+//					BaseFeature f = new NumberFeature(feature.root.name);
+//				}
+//				
+//			}
+		}
+//		print.println(featureNames.size());
+		
+		BaseFeature ball_dist = new NumberFeature((Double) parse(rawFeatures[0]), "Distance");
+		BaseFeature ball_dir = new NumberFeature((Double) parse(rawFeatures[1]), "Direction");
+
+		ComplexFeature ball = new ComplexFeature("Ball");
+		ball.addFeature(ball_dir);
+		ball.addFeature(ball_dist);
+		
+		BaseFeature goal_dist = new NumberFeature((Double) parse(rawFeatures[2]), "Distance");
+		BaseFeature goal_dir = new NumberFeature((Double) parse(rawFeatures[3]), "Direction");
+		ComplexFeature goal = new ComplexFeature("Goal");
+		goal.addFeature(goal_dir);
+		goal.addFeature(goal_dist);
+		
+		BaseFeature fct_dist = new NumberFeature((Double) parse(rawFeatures[4]), "Distance");
+		BaseFeature fct_dir = new NumberFeature((Double) parse(rawFeatures[5]), "Direction");
+		ComplexFeature fct = new ComplexFeature("FCT");
+		fct.addFeature(fct_dir);
+		fct.addFeature(fct_dist);
+		
+		BaseFeature fcb_dist = new NumberFeature((Double) parse(rawFeatures[6]), "Distance");
+		BaseFeature fcb_dir = new NumberFeature((Double) parse(rawFeatures[7]), "Direction");
+		ComplexFeature fcb= new ComplexFeature("FCB");
+		fcb.addFeature(fcb_dir);
+		fcb.addFeature(fcb_dist);
+		
+		ComplexFeature flags = new ComplexFeature("Flags");
+		flags.addFeature(fcb);
+		flags.addFeature(fct);
+		
+		StringFeature action = new StringFeature((String)parse(rawFeatures[8]), "Action");
+		
+		List<BaseFeature> features = Stream.of(ball, goal, flags, action).collect(Collectors.toCollection(ArrayList::new));
+		
+		Example e = new Example();
+		e.setFeatures(features);
+		
+		return e;
+	}
+
+	/**
+	 * 
+	 * @param s
+	 * @return string as a double
+	 */
+	private static Object parse(String s){
+		/**
+		 * check if s is an empty string 
+		 */
+		if (notEmptyString(s)) {
+	       try {
+	          return Double.parseDouble(s);
+	       } catch(Exception e) {
+	          return s;   // or some value to mark this field is wrong. or make a function validates field first ...
+	       }
+	   }
+	   else return -0.0;
+	}
+/**
+ * 
+ * @param filename
+ * @return
+ */
+	public static String getFeatureNames(String filename) {
+		String line = "";
+		Path pathToFile = Paths.get(filename);
+		try (BufferedReader br = Files.newBufferedReader(pathToFile,
+				StandardCharsets.US_ASCII)) {
+			line = skip(br,1);
+		}catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return line;
+	}
+
+	private static class Tree<T>{
+		private Node<T> root;
+		private boolean complex;
+		private boolean number;
+		private boolean string;
+		public Tree (T rootData){
+			root = new Node<T>();
+			root.name = rootData;
+			root.children = new ArrayList<Node<T>>();
+		}
+		
+		public String toString(){
+			return root.toString();
+		}
+		
+		public boolean isComplex() {
+			return complex;
+		}
+
+		public boolean isString(){
+			return string;
+		}
+		public boolean isNumber(){
+			return string;
+		}
+		
+		public void setComplex(boolean complex) {
+			this.complex = complex;
+		}
+		public void setString(boolean string) {
+			this.string = string;
+		}
+		public void setNumber(boolean number) {
+			this.number = number;
+		}
+		
+	}
+	
+	private static class Node<T>{
+		private T name;
+		private Node<T> parent;
+		private List<Node<T>> children;
+		private boolean complex;
+		
+		public Node(){
+			
+		}
+		public Node(T data) {
+			this.name = data;
+		}
+		public boolean isComplex() {
+			return complex;
+		}
+
+		public void setComplex(boolean complex) {
+			this.complex = complex;
+		}
+		
+		
+		public String toString() {
+			String s = "";
+			s+=(String) name;
+			if (children!=null){
+				for (Node<T> child : children){
+					s+="child:" + (String) child.name;
+				}
+			}
+			return s;
+		}
+		public Node<T> getParent() {
+			return parent;
+		}
+		public void setParent(Node<T> parent) {
+			this.parent = parent;
+		}
+	}
+}

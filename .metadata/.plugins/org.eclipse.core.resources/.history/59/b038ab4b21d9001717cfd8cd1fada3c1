@@ -1,0 +1,23 @@
+package extractor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import Problem.Example;
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+import helper.Helper;
+
+public class ExtractorHousing {
+
+	public static Example createExample(String[] rawFeatures){
+		
+		Example e = new Example();
+		
+		return e;
+	}
+}

@@ -1,0 +1,34 @@
+package extractor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import Problem.Example;
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+import helper.Helper;
+
+public class ExtractorHousing {
+
+	public static Example createExample(String[] rawFeatures){
+		BaseFeature coordinates = new ComplexFeature("Coordinates");
+		BaseFeature latitude = new NumberFeature ((double) Helper.returnStringOrDouble(rawFeatures[0]));
+		BaseFeature longitude = new NumberFeature ((double) Helper.returnStringOrDouble(rawFeatures[1]));
+		((ComplexFeature) coordinates).addFeature(latitude);
+		((ComplexFeature) coordinates).addFeature(longitude);
+		
+		BaseFeature sqft = new NumberFeature((double) Helper.returnStringOrDouble(rawFeatures[2]));
+		BaseFeature age = new StringFeature((String) Helper.returnStringOrDouble(rawFeatures[3]));
+		BaseFeature price = new NumberFeature((double) Helper.returnStringOrDouble(rawFeatures[4]));
+		
+		List<BaseFeature> features = Stream.of(coordinates, sqft, age, price).collect(Collectors.toCollection(ArrayList::new));
+		
+		Example e = new Example();
+		
+		return e;
+	}
+}

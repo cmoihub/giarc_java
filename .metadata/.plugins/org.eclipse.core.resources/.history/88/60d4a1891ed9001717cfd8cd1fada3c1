@@ -1,0 +1,43 @@
+package extractor;
+
+import java.util.List;
+
+
+class Node<T>{
+	T name;
+	private Node<T> parent;
+	List<Node<T>> children;
+	private boolean complex;
+	
+	public Node(){
+		
+	}
+	public Node(T data) {
+		this.name = data;
+	}
+	public boolean isComplex() {
+		return complex;
+	}
+
+	public void setComplex(boolean complex) {
+		this.complex = complex;
+	}
+	
+	
+	public String toString() {
+		String s = "";
+		s+=(String) name;
+		if (children!=null){
+			for (Node<T> child : children){
+				s+="child:" + (String) child.name;
+			}
+		}
+		return s;
+	}
+	public Node<T> getParent() {
+		return parent;
+	}
+	public void setParent(Node<T> parent) {
+		this.parent = parent;
+	}
+}

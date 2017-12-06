@@ -1,0 +1,55 @@
+package extractor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import Problem.Example;
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+public class ExtractorHousing {
+
+	public static void createExamples(){
+		BaseFeature ball_dist = new NumberFeature((Double) parse(rawFeatures[0]), "Distance");
+		BaseFeature ball_dir = new NumberFeature((Double) parse(rawFeatures[1]), "Direction");
+
+		ComplexFeature ball = new ComplexFeature("Ball");
+		ball.addFeature(ball_dir);
+		ball.addFeature(ball_dist);
+		
+		BaseFeature goal_dist = new NumberFeature((Double) parse(rawFeatures[2]), "Distance");
+		BaseFeature goal_dir = new NumberFeature((Double) parse(rawFeatures[3]), "Direction");
+		ComplexFeature goal = new ComplexFeature("Goal");
+		goal.addFeature(goal_dir);
+		goal.addFeature(goal_dist);
+		
+		BaseFeature fct_dist = new NumberFeature((Double) parse(rawFeatures[4]), "Distance");
+		BaseFeature fct_dir = new NumberFeature((Double) parse(rawFeatures[5]), "Direction");
+		ComplexFeature fct = new ComplexFeature("FCT");
+		fct.addFeature(fct_dir);
+		fct.addFeature(fct_dist);
+		
+		BaseFeature fcb_dist = new NumberFeature((Double) parse(rawFeatures[6]), "Distance");
+		BaseFeature fcb_dir = new NumberFeature((Double) parse(rawFeatures[7]), "Direction");
+		ComplexFeature fcb= new ComplexFeature("FCB");
+		fcb.addFeature(fcb_dir);
+		fcb.addFeature(fcb_dist);
+		
+		ComplexFeature flags = new ComplexFeature("Flags");
+		flags.addFeature(fcb);
+		flags.addFeature(fct);
+		
+		StringFeature action = new StringFeature((String)parse(rawFeatures[8]), "Action");
+		
+		List<BaseFeature> features = Stream.of(ball, goal, flags, action).collect(Collectors.toCollection(ArrayList::new));
+		
+		Example e = new Example();
+		e.setFeatures(features);
+		
+		return e;
+	}
+}

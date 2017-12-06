@@ -1,0 +1,36 @@
+package helper;
+
+/**
+ * useful functions
+ * @author CraigBook
+ *
+ */
+public class Helper {
+	/**
+	 * 
+	 * @param s
+	 * @return true if the string is empty
+	 */
+	public static Boolean notEmptyString(String s){
+		return s != null && s.length() > 0; 
+	}
+	
+	/**
+	 * 
+	 * @param s
+	 * @return string as a double
+	 */
+	private static Object parse(String s){
+		/**
+		 * check if s is an empty string 
+		 */
+		if (Helper.notEmptyString(s)) {
+	       try {
+	          return Double.parseDouble(s);
+	       } catch(Exception e) {
+	          return s;   // or some value to mark this field is wrong. or make a function validates field first ...
+	       }
+	   }
+	   else return -0.0;
+	}
+}

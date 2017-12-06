@@ -1,0 +1,162 @@
+package extractor;
+
+//http://www.java67.com/2015/08/how-to-load-data-from-csv-file-in-java.html
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import Problem.Example;
+import feature.*;
+import helper.*;
+
+/**
+ * Author: Craig Isesele
+ *
+ * This class is used to extract data from files with content separated by some value e.g. .csv and .txt files
+ */
+public class Extractor {
+	static List<String> featureList;
+	static String currentLine = "";
+	static Set<Tree<String>> featureNames;
+	/**
+	 * 
+	 * @param filename
+	 * @param separator
+	 * @return generated examples
+	 */
+
+	public static List<Example> getExamples(String filename, String separator){
+		List<Example> examples = new ArrayList<>();
+		featureList = new ArrayList<>();
+
+		Path pathToFile = Paths.get(filename);
+		try (BufferedReader br = Files.newBufferedReader(pathToFile,
+				StandardCharsets.US_ASCII)) {
+			String line = setUp(br, featureList, currentLine);
+			while(line!=null){
+				String [] attributes = line.split(separator);
+
+				Example example = ExtractorSoccer.createExample(attributes);
+
+
+				examples.add(example);
+
+				line = br.readLine();
+			}
+		} catch(IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return examples;
+	}
+
+	/**
+	 * 
+	 * @param br
+	 * @param featureList
+	 * @param currentLine
+	 * @return
+	 * @throws IOException
+	 * 
+	 * this returns the line to start from in the csv file
+	 */
+	private static String setUp(BufferedReader br, List<String> featureList, String currentLine) throws IOException{
+		int validLineNo = 1;
+		while (validLineNo != 0){
+			currentLine = br.readLine();
+			
+			featureList.add(currentLine);
+			if (currentLine.matches(".*\\d+.*")){
+				validLineNo = 0;
+			}
+		}
+		featureList.remove(featureList.size()-1);
+		featureNames = ExtractorFeatureNames.getFeatures(featureList);
+		return currentLine;
+	}
+	
+	/**
+	 * 
+	 * @param br reader
+	 * @param validLineNo line number to start from
+	 * @return line to start from
+	 * @throws IOException
+	 */
+	private static String skip(BufferedReader br, int validLineNo) throws IOException{
+		while (validLineNo != 1){
+			br.readLine();
+			validLineNo--;
+		}
+		return br.readLine();
+	}
+
+	
+	/**
+	 * 
+	 * @param rawFeatures array of features
+	 * @return example based on metadata
+	 */
+	public static Example createExample(String[] rawFeatures){
+		BaseFeature ball_dist = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[0]), "Distance");
+		BaseFeature ball_dir = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[1]), "Direction");
+
+		ComplexFeature ball = new ComplexFeature("Ball");
+		ball.addFeature(ball_dir);
+		ball.addFeature(ball_dist);
+		
+		BaseFeature goal_dist = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[2]), "Distance");
+		BaseFeature goal_dir = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[3]), "Direction");
+		ComplexFeature goal = new ComplexFeature("Goal");
+		goal.addFeature(goal_dir);
+		goal.addFeature(goal_dist);
+		
+		BaseFeature fct_dist = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[4]), "Distance");
+		BaseFeature fct_dir = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[5]), "Direction");
+		ComplexFeature fct = new ComplexFeature("FCT");
+		fct.addFeature(fct_dir);
+		fct.addFeature(fct_dist);
+		
+		BaseFeature fcb_dist = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[6]), "Distance");
+		BaseFeature fcb_dir = new NumberFeature((Double) Helper.returnStringOrDouble(rawFeatures[7]), "Direction");
+		ComplexFeature fcb= new ComplexFeature("FCB");
+		fcb.addFeature(fcb_dir);
+		fcb.addFeature(fcb_dist);
+		
+		ComplexFeature flags = new ComplexFeature("Flags");
+		flags.addFeature(fcb);
+		flags.addFeature(fct);
+		
+		StringFeature action = new StringFeature((String)Helper.returnStringOrDouble(rawFeatures[8]), "Action");
+		
+		List<BaseFeature> features = Stream.of(ball, goal, flags, action).collect(Collectors.toCollection(ArrayList::new));
+		
+		Example e = new Example();
+		e.setFeatures(features);
+		
+		return e;
+	}
+	
+	/**
+	 * 
+	 * @param filename
+	 * @return
+	 */
+	public static String getFeatureNames(String filename) {
+		String line = "";
+		Path pathToFile = Paths.get(filename);
+		try (BufferedReader br = Files.newBufferedReader(pathToFile,
+				StandardCharsets.US_ASCII)) {
+			line = skip(br,1);
+		}catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return line;
+	}
+
+}

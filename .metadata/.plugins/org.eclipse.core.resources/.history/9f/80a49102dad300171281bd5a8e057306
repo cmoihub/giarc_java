@@ -1,7 +1,0 @@
-package helper;
-
-public class print {
-	public static void print(String s){
-		System.out.println(s);
-	}
-}

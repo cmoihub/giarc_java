@@ -1,0 +1,41 @@
+package helper;
+
+import java.util.ArrayList;
+
+public class Tree<T>{
+	Node<T> root;
+	private boolean complex;
+	private boolean number;
+	private boolean string;
+	public Tree (T rootData){
+		root = new Node<T>();
+		root.name = rootData;
+		root.children = new ArrayList<Node<T>>();
+	}
+	
+	public String toString(){
+		return root.toString();
+	}
+	
+	public boolean isComplex() {
+		return complex;
+	}
+
+	public boolean isString(){
+		return string;
+	}
+	public boolean isNumber(){
+		return string;
+	}
+	
+	public void setComplex(boolean complex) {
+		this.complex = complex;
+	}
+	public void setString(boolean string) {
+		this.string = string;
+	}
+	public void setNumber(boolean number) {
+		this.number = number;
+	}
+	
+}

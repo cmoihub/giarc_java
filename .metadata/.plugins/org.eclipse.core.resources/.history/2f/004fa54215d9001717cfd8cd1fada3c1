@@ -1,0 +1,51 @@
+
+package feature;
+
+import Problem.DistanceMetric;
+
+/**
+ * 
+ * @author Issa
+ *
+ */
+
+public class StringFeature extends Feature{
+	private String str;
+//	private String name;
+	
+	public StringFeature(String str) {
+		super();
+		this.metric = new DistanceMetric.StringMetric();
+		this.str = str;
+	}
+	
+	public StringFeature(String str, String name) {
+		this(str);
+		this.name = name;
+	}
+	
+	public StringFeature() {
+		super();
+		
+	}
+	
+	public String getValue() {
+		return this.str;
+	}
+	
+	public void setValue(String str) {
+		this.str = str;
+	}
+	
+	public String toString(){
+		return getValue();
+	}
+//	public String getName() {
+//		return this.name;
+//	}
+	
+//	public static void main(String[] args) {
+//		StringFeature sf = new StringFeature("new","Age");
+//		System.out.println(sf.getName());
+//	}
+}

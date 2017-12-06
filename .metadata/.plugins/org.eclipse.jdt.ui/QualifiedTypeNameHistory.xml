@@ -57,4 +57,7 @@
 <fullyQualifiedTypeName name="javax.xml.parsers.SAXParser"/>
 <fullyQualifiedTypeName name="org.xml.sax.helpers.DefaultHandler"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="extractor.ExtractorFeatureNames"/>
+<fullyQualifiedTypeName name="helper.Helper"/>
+<fullyQualifiedTypeName name="extractor.ExtractorSoccer"/>
 </qualifiedTypeNameHistroy>
