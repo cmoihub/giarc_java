@@ -1,0 +1,306 @@
+package Problem;
+import java.util.*;
+
+import feature.*;
+/**
+ * 
+ * @author Issa
+ *
+ */
+public class Example {
+
+	private List<BaseFeature> features;
+	
+	public Example() {
+		this.features = new ArrayList<BaseFeature>();
+	}
+
+	public Example(List<BaseFeature> features) {
+		this.features = features;
+	}
+	
+	public void setFeatures(List<BaseFeature> features) {
+		this.features = features;
+		
+	}
+	
+	public List<BaseFeature> getFeatures(){
+		return this.features;
+	}
+	
+	public void addFeature(BaseFeature f) {
+		this.features.add(f);
+	}
+	
+	public String toString(){
+		String s = "";
+		for (BaseFeature f : features) {
+			s+=f.toString();
+		}
+		return s;
+	}
+	
+	/**
+	 * 
+	 * @return the example in xml format
+	 */
+	public String toXML(){
+		String s = "\t<Example>\n";
+		for (BaseFeature f : features) {
+			String opening = "\t\t";
+			s+=opening;
+			s+=f.toXML();
+		}
+		return s+="\n\t</Example>";
+	}
+	
+	/**
+	 * 
+	 * @return the example in xml format
+	 */
+	public String toXML(String type){
+		String s = "\t<Example" + " type =" + ">\n";
+		for (BaseFeature f : features) {
+			String opening = "\t\t";
+			s+=opening;
+			s+=f.toXML();
+		}
+		return s+="\n\t</Example>";
+	}
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	public void traverse(Example e) {
+		for(BaseFeature f: e.getFeatures()) {
+			this.traverseHelper(f,"");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param f
+	 * @param s
+	 */
+	public void traverseHelper(BaseFeature f,String s) {
+		if(f instanceof ComplexFeature) {
+			for(BaseFeature child : ((ComplexFeature) f).getFeatures()) {
+				this.traverseHelper(child, s+f.getName()+"'s ");
+				}
+		}else {
+			System.out.print(s+f.getName()+": ");
+			if(f instanceof NumberFeature)
+				System.out.println(((NumberFeature) f).getValue());
+			else if(f instanceof StringFeature)
+				System.out.println(((StringFeature) f).getValue());
+		}
+	}
+	
+	public Example getCopy(Example e) {
+		Example copy = new Example();
+		for(BaseFeature f: e.getFeatures()) {
+			BaseFeature temp = this.copyHelper(f);
+			copy.addFeature(temp);
+		}
+		return copy;
+	}
+	
+	public BaseFeature copyHelper(BaseFeature bf) {
+		if(bf instanceof ComplexFeature) {
+			
+		}else {
+			if(bf instanceof NumberFeature) {
+				double x = new Double((Double) ((NumberFeature) bf).getValue());
+				String name = new String(bf.getName());
+				return new NumberFeature(x,bf.getName());
+			}else if(bf instanceof StringFeature) {
+				String value = new String(((StringFeature) bf).getValue());
+				String name = new String(bf.getName());
+				return new StringFeature(value,name);
+			}
+
+		}
+		
+		return null;
+	}
+	
+	public Example copyExample(Example e) {
+		Example copy = new Example();
+		for(BaseFeature bf: e.getFeatures()) {
+			BaseFeature tempF = e.copyFeature(bf);
+			copy.addFeature(tempF);
+			
+		}
+		return copy;
+	}
+	
+	public BaseFeature copyFeature(BaseFeature bf) {
+		if(bf instanceof ComplexFeature) {
+			ComplexFeature cf = new ComplexFeature(String.valueOf(bf.getName()));
+			for(BaseFeature temp: ((ComplexFeature) bf).getFeatures()) {
+				cf.addFeature(copyFeature(temp));
+			}
+			return cf;
+
+		}else {
+			if(bf instanceof NumberFeature) {
+				String name = String.valueOf(bf.getName());
+				return new NumberFeature(0,name);
+			}else if(bf instanceof StringFeature) {
+				String name = String.valueOf(bf.getName());
+				return new StringFeature("",name);
+			}
+
+		}
+		return null;
+	}
+//	
+	public static void main(String[] args) {
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		NumberFeature n1x = new NumberFeature(1,"x");
+		NumberFeature n1y = new NumberFeature(3,"y");
+		ComplexFeature cf1 = new ComplexFeature("Point"); cf1.addFeature(n1x);cf1.addFeature(n1y);
+
+		NumberFeature n2x = new NumberFeature(8,"x");
+		NumberFeature n2y = new NumberFeature(8,"y");
+		
+		Example e1 = new Example(); e1.addFeature(cf1);e1.addFeature(n1x);e1.addFeature(n1y);
+		Example e2 = e1.copyExample(e1);
+		
+		train.add(e1);
+//		e1 = new Example(e2.getFeatures());
+		train.add(e2);
+		for(Example e : train) {
+			e.traverse(e);
+		}
+		
+		
+	}
+//	
+//	public void traverseHelper(BaseFeature f,String s) {
+//		if(f instanceof NumberFeature||f instanceof StringFeature) {
+//			if(s.length()>=1) {
+//				System.out.println(s+f.getName()+": ");
+//				if(f instanceof NumberFeature)
+//					System.out.print(((NumberFeature) f).getValue());
+//				else if(f instanceof StringFeature)
+//					System.out.print(((StringFeature) f).getValue());
+//		}else if(f instanceof ComplexFeature) {
+//			for(BaseFeature child : ((ComplexFeature) f).getFeatures()) {
+//				this.traverseHelper(child, s+f.getName()+"'s ");
+//				}
+//			}
+//		}
+//	}
+//		
+//	public static void main(String[] args) {
+//		ArrayList<GeneralFeature> features = new ArrayList<GeneralFeature>();
+//		
+//		features.add(new NumberFeature(1.9));features.add(new NumberFeature(-167));
+//		features.add(new NumberFeature(63.8));features.add(null);
+//		features.add(new NumberFeature(39.1));features.add(new StringFeature("kick"));
+//
+//		GeneralExample e1 = new GeneralExample(features);
+//		features = new ArrayList<GeneralFeature>();
+//		for(GeneralFeature f: e1.getFeatures()) {
+//			if(f instanceof StringFeature)
+//				System.out.println(((StringFeature)f).getValue());
+//			else if(f instanceof NumberFeature)
+//				System.out.println(((NumberFeature)f).getValue());
+//			
+//			else
+//				System.out.println(f);
+//		}
+//		
+//	}
+	
+//	public static void main(String[] args) {
+//	
+//		/*
+//		 * housing prices example
+//		 */
+//		
+//		ComplexFeature coord = new ComplexFeature("Coordinates");
+//		NumberFeature lat = new NumberFeature(12,"Lat");
+//		NumberFeature lon = new NumberFeature(25,"lon");
+//		coord.addFeature(lat);coord.addFeature(lon);
+//		NumberFeature sqft = new NumberFeature(1200,"Square Feet");
+//		StringFeature age = new StringFeature("new","Age");
+//		NumberFeature price = new NumberFeature(500000,"Price");
+//		
+//		
+//		Example e = new Example();
+//		e.addFeature(coord);e.addFeature(sqft);e.addFeature(age);
+//		e.addFeature(price);
+//		
+//		/*
+//		 * soccer example
+//		 */
+////		Example s =new Example();
+////		
+////		ComplexFeature ball = new ComplexFeature("Ball");
+////		NumberFeature ballDist = new NumberFeature(41.4,"Distance");
+////		NumberFeature ballDir = new NumberFeature(2,"Direction");
+////		ball.addFeature(ballDist);	ball.addFeature(ballDir);
+////
+////		ComplexFeature goal = new ComplexFeature("Goal");
+////		NumberFeature goalDist = new NumberFeature(41.4,"Distance");
+////		NumberFeature goalDir = new NumberFeature(2,"Direction");
+////		
+////		ComplexFeature flags = new ComplexFeature("Flags");
+////		StringFeature action = new StringFeature("Turn","Action");
+////		
+////		s.addFeature(ball);
+////		s.addFeature(goal);
+////		s.addFeature(flags);
+////		s.addFeature(action);
+////		
+//		
+//		//Tuple #1 (TRAINING ROW 1)
+//		Example t1 = new Example();
+//		//ball
+//		ComplexFeature b1 = new ComplexFeature("Ball");
+//			NumberFeature disb1 = new NumberFeature(1.9,"Distance");
+//			NumberFeature dirb1 = new NumberFeature(-167,"Direction");
+//		b1.addFeature(disb1);b1.addFeature(dirb1);
+//		
+//		//goal
+//		ComplexFeature g1 = new ComplexFeature("Goal");
+//			NumberFeature disg1 = new NumberFeature(63.8,"Distance");
+//			NumberFeature dirg1 = new NumberFeature(31,"Direction");
+//		g1.addFeature(disg1);g1.addFeature(dirg1);
+//		
+//		//Flags
+//		ComplexFeature f1 = new ComplexFeature("Flags");
+//			//fct
+//			ComplexFeature fct1 = new ComplexFeature("FCT");
+//				NumberFeature dft1 = new NumberFeature(39.1,"Distance");
+//				NumberFeature drft1 = new NumberFeature(-41,"Direction");
+//			fct1.addFeature(dft1);fct1.addFeature(drft1);
+//			//fcb
+//			ComplexFeature fcb1 = new ComplexFeature("FCB");
+//				NumberFeature dfb1 = new NumberFeature(59.1,"Distance");
+//				NumberFeature drfb1 = new NumberFeature(-51,"Direction");
+//			fcb1.addFeature(dfb1);fcb1.addFeature(drfb1);
+//		
+//		f1.addFeature(fct1);f1.addFeature(fcb1);
+//			
+//		
+//		//Action
+//		StringFeature a1 = new StringFeature("Kick","Action");
+//		//Compose Example
+//		t1.addFeature(b1);t1.addFeature(g1);t1.addFeature(f1);t1.addFeature(a1);
+//		
+////		for(BaseFeature b: e.getFeatures()) {
+////			System.out.println(b.getName());
+////		}
+////		e.traverse(e);
+//		t1.traverse(t1);
+//	
+//	}
+	
+	//that gives us the structure of it. Now what?
+	
+}

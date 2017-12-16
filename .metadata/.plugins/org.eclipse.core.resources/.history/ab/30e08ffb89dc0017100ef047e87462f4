@@ -1,0 +1,257 @@
+package gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import Problem.*;
+import extractor.Extractor;
+import extractor.ExtractorSoccer;
+import feature.BaseFeature;
+import feature.Feature;
+import feature.NumberFeature;
+import fileManagement.Exporter;
+import fileManagement.Loader;
+
+/**
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman, IssaHassan
+ */
+public class ProblemController {
+	
+	//Used to decide if the example being retrieved through user input will have the output/target value or not
+	public static final boolean WITH_OUTPUT_VALUE = true;
+	public static final boolean WITHOUT_OUTPUT_VALUE = false;
+
+	private ArrayList<Example> elist = new ArrayList<Example>();
+	private ProblemModel problemModel;
+	private ProblemSimple problem;
+	private ProblemView view;
+	
+	public ProblemController(ProblemSimple problem, ProblemView display) {
+		this.problem = problem;
+		view = display;
+		problemModel = new ProblemModel(1,new ArrayList<Example>());
+	}
+
+
+	/**
+	 * sets up listeners
+	 */
+	public void setup(){
+		view._add(new _addActionListener());
+		view._exit(new _exitActionListener());
+		view._addFeature(new _addFeatureActionListener());
+		view._addTest(new _addTestActionListener());
+		view._addTrain(new _addTrainListener());
+		view.addPredictHousingListener(new _addHousingActionListener());
+		view._backBtn(new _backBtnActionListener());
+		view._addPredictManualListener(new _addManualPredictionActionListener());
+		view._addError(new _addCalculateErrorListener());
+		view._exportBtnListener( new _exportBtnListener());
+		view._importBtnListener( new _importBtnListener());
+	}
+
+	/**
+	 * This is an action listener for the add button
+	 * 
+	 * @author CraigBook, DamanSingh
+	 *	
+	 */
+	private class _addActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("importing soccer model");
+			problemModel = new ProblemModel(1, Extractor.getExamples(view.getSoccerFilename(), view.getSeparator()));
+			view.getSoccerProb().setTrainingExamples(problemModel.getTrainingExamples());		//creates a problem from the problem model for XML export
+			
+			
+			System.out.println("Soccer model imported");
+			Example soccerStructure = ProblemModel.soccerExampleStructure();
+			System.out.println("Creating test inputs");
+			Example test = view.getTestUserInput(soccerStructure,WITHOUT_OUTPUT_VALUE);		
+			ArrayList<BaseFeature> testList = (ArrayList<BaseFeature>) test.getFeatures();
+			testList.remove(testList.size()-1);
+			view.getSoccerProb().setTestExample(test);
+			System.out.println("Getting prediction");
+			Object prediction = problemModel.getPrediction(new Example(testList));
+			view.outputPredictionValue(prediction);
+			
+		}
+	}
+	
+	/**
+	 * listener for manual prediction button
+	 *  @author issahassan
+	 */
+	private class _addManualPredictionActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Example givenStructure = problemModel.getExampleStructure();
+			Example test = view.getTestUserInput(givenStructure,WITHOUT_OUTPUT_VALUE);
+			ArrayList<BaseFeature> testList = (ArrayList<BaseFeature>) test.getFeatures();
+			view.getManualProb().setTestExample(test);
+			testList.remove(testList.size()-1);
+			Object prediction = problemModel.getPrediction(new Example(testList));
+			view.outputPredictionValue(prediction);		
+		}
+			
+	}
+	
+	/**
+	 * listener for housing prediction button
+	 * @author issahassan
+	 */
+	
+	private class _addHousingActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+				problemModel = ProblemModel.generateHousingModel();
+				view.getHousingProb().setTrainingExamples(problemModel.getTrainingExamples());		//create a problem from the problem model for XML export	
+				Example housingStructure = ProblemModel.housingExampleStructure();
+				Example test = view.getTestUserInput(housingStructure,WITHOUT_OUTPUT_VALUE);		
+				ArrayList<BaseFeature> testList = (ArrayList<BaseFeature>) test.getFeatures();
+				testList.remove(testList.size()-1);
+				view.getHousingProb().setTestExample(test);
+				Object prediction = problemModel.getPrediction(new Example(testList));
+				view.outputPredictionValue(prediction);
+//				elist.add(new Example(testList));
+//				for(Example ex: elist) {
+//					ex.traverse(ex);
+//				}
+//
+//				System.out.println("-------------------------------------");
+
+		}
+	}
+//Distance Direction
+	/**
+	 * listener for add feature button in manual gui
+	 * @author CraigBook, DamanSingh
+	 *
+	 */
+	private class _addFeatureActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			BaseFeature bf = view.callManualGui();
+			problemModel.getExampleStructure().addFeature(bf);
+			
+		}
+	}
+	
+	/**
+	 * listener for adding training example in manual gui
+	 */
+	private class _addTrainListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			Example struct = problemModel.getExampleStructure();
+			view.setGUIOutput("-----------------START TRAINING--------------------\n");
+			System.out.println("-----------------START TRAINING--------------------");
+			Example train = view.getTestUserInput(struct.copyExample(struct), WITH_OUTPUT_VALUE);
+			problemModel.addTrainingExample(train);
+			
+			train.traverse(train);
+			view.setGUIOutput("-----------------END TRAINING--------------------\n");
+			System.out.println("-----------------END TRAINING--------------------");
+		}
+	}
+	
+	/**
+	 * listener for global exit button
+	 */
+	private class _exitActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * listener for global back button
+	 */
+	private class _backBtnActionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			view.importGUI();
+		}
+		
+	}
+	
+	
+	
+	/**
+	 * listener for exportManual button
+	 */
+	private class _exportBtnListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+		
+			
+			String s = view.getUserInput("Name the exported file");
+			
+			s += ".xml";
+			Exporter.exportXML(s, view.getExportProb());
+			view.setGUIOutput("saving the problem to " + s);
+		}
+		
+	}
+	
+
+	/**
+	 * listener for import button
+	 */
+	private class _importBtnListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+		
+			
+			String s = view.getUserInput("Type in the name of the import file");
+			ProblemSimple p= Loader.loadFromXML(s);
+			view.setManualProb(p);
+			view.setGUIOutput("importing file: " + s);
+			problemModel.setExampleStructure(p.getTrainingExamples().get(0));
+			for(Example ex: p.getTrainingExamples()) {
+				problemModel.addTrainingExample(ex);
+			}
+		}
+		
+	}	
+	/**
+	 * listener for adding test feature in manual gui
+	 */
+	private class _addTestActionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Example struct = problemModel.getExampleStructure();
+			Example test = view.getTestUserInput(struct.copyExample(struct), WITH_OUTPUT_VALUE);
+			problemModel.addTestExample(test);
+		}
+	}
+		
+		/*
+		 * Calculate the error for a given problemModel
+		 */
+		private class _addCalculateErrorListener implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+//				System.out.println("------------------TEST_EXAMPLES-------------------");
+
+				problemModel.showTestExamples();
+				Double error = problemModel.getError();
+				view.outputPredictionValue(error);
+//				System.out.println("------------------TEST_EXAMPLES-------------------");
+
+			}
+		
+		}
+
+}
+    
+    
+

@@ -1,0 +1,164 @@
+package Problem;
+import java.util.*;
+
+import feature.*;
+/**
+ * 
+ * @author Issa
+ *
+ */
+public class Example {
+
+	private List<BaseFeature> features;
+	
+	public Example() {
+		this.features = new ArrayList<BaseFeature>();
+	}
+
+	public Example(List<BaseFeature> features) {
+		this.features = features;
+	}
+	
+	public void setFeatures(List<BaseFeature> features) {
+		this.features = features;
+		
+	}
+	
+	public List<BaseFeature> getFeatures(){
+		return this.features;
+	}
+	
+	public void addFeature(BaseFeature f) {
+		this.features.add(f);
+	}
+	
+	public String toString(){
+		String s = "";
+		for (BaseFeature f : features) {
+			s+=f.toString();
+		}
+		return s;
+	}
+	
+	/**
+	 * 
+	 * @return the example in xml format
+	 */
+	public String toXML(){
+		String s = "\t<Example>\n";
+		for (BaseFeature f : features) {
+			String opening = "\t\t";
+			s+=opening;
+			s+=f.toXML();
+		}
+		return s+="\n\t</Example>";
+	}
+	
+	/**
+	 * 
+	 * @param e
+	 */
+	public void traverse(Example e) {
+		for(BaseFeature f: e.getFeatures()) {
+			this.traverseHelper(f,"");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param f
+	 * @param s
+	 */
+	public void traverseHelper(BaseFeature f,String s) {
+		if(f instanceof ComplexFeature) {
+			for(BaseFeature child : ((ComplexFeature) f).getFeatures()) {
+				this.traverseHelper(child, s+f.getName()+"'s ");
+				}
+		}else {
+			System.out.print(s+f.getName()+": ");
+			if(f instanceof NumberFeature)
+				System.out.println(((NumberFeature) f).getValue());
+			else if(f instanceof StringFeature)
+				System.out.println(((StringFeature) f).getValue());
+		}
+	}
+	
+	public Example getCopy(Example e) {
+		Example copy = new Example();
+		for(BaseFeature f: e.getFeatures()) {
+			BaseFeature temp = this.copyHelper(f);
+			copy.addFeature(temp);
+		}
+		return copy;
+	}
+	
+	public BaseFeature copyHelper(BaseFeature bf) {
+		if(bf instanceof ComplexFeature) {
+			
+		}else {
+			if(bf instanceof NumberFeature) {
+				double x = new Double((Double) ((NumberFeature) bf).getValue());
+				String name = new String(bf.getName());
+				return new NumberFeature(x,bf.getName());
+			}else if(bf instanceof StringFeature) {
+				String value = new String(((StringFeature) bf).getValue());
+				String name = new String(bf.getName());
+				return new StringFeature(value,name);
+			}
+
+		}
+		
+		return null;
+	}
+	
+	public Example copyExample(Example e) {
+		Example copy = new Example();
+		for(BaseFeature bf: e.getFeatures()) {
+			BaseFeature tempF = e.copyFeature(bf);
+			copy.addFeature(tempF);
+			
+		}
+		return copy;
+	}
+	
+	public BaseFeature copyFeature(BaseFeature bf) {
+		if(bf instanceof ComplexFeature) {
+			ComplexFeature cf = new ComplexFeature(String.valueOf(bf.getName()));
+			for(BaseFeature temp: ((ComplexFeature) bf).getFeatures()) {
+				cf.addFeature(copyFeature(temp));
+			}
+			return cf;
+
+		}else {
+			if(bf instanceof NumberFeature) {
+				String name = String.valueOf(bf.getName());
+				return new NumberFeature(0,name);
+			}else if(bf instanceof StringFeature) {
+				String name = String.valueOf(bf.getName());
+				return new StringFeature("",name);
+			}
+
+		}
+		return null;
+	}
+
+	public static void main(String[] args) {
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		NumberFeature n1x = new NumberFeature(1,"x");
+		NumberFeature n1y = new NumberFeature(3,"y");
+		ComplexFeature cf1 = new ComplexFeature("Point"); cf1.addFeature(n1x);cf1.addFeature(n1y);
+
+		NumberFeature n2x = new NumberFeature(8,"x");
+		NumberFeature n2y = new NumberFeature(8,"y");
+		
+		Example e1 = new Example(); e1.addFeature(cf1);e1.addFeature(n1x);e1.addFeature(n1y);
+		Example e2 = e1.copyExample(e1);
+		
+		train.add(e1);
+		train.add(e2);
+		for(Example e : train) {
+			e.traverse(e);
+		}		
+	}
+}

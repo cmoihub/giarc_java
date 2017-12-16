@@ -62,6 +62,33 @@
 		<item value="600" key="width"/>
 		<item value="400" key="height"/>
 	</section>
+	<section name="javadoc">
+		<item value="private" key="access"/>
+		<item value="false" key="noindex"/>
+		<item value="/Users/CraigBook/OneDrive/YEAR4/Fall2017/SYSC3110/project-les-brownies/javadoc.xml" key="antpath"/>
+		<item value="false" key="nodeprecatedlist"/>
+		<item value="true" key="use"/>
+		<item value="true" key="author"/>
+		<item value="false" key="nodeprecated"/>
+		<item value="false" key="nonavbar"/>
+		<item value="" key="docletpath"/>
+		<item value="/Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/bin/javadoc" key="javadoc_command_history"/>
+		<item value="1.8" key="source"/>
+		<item value="true" key="version"/>
+		<item value="" key="docletname"/>
+		<item value="true" key="splitindex"/>
+		<item value="true" key="fromStandard"/>
+		<item value="false" key="notree"/>
+		<item value="/Users/CraigBook/OneDrive/YEAR4/Fall2017/SYSC3110/project-les-brownies/doc" key="destdir"/>
+		<item value="false" key="openinbrowser"/>
+		<section name="projects">
+			<section name="git_project-les-brownies">
+				<item value="/Users/CraigBook/OneDrive/YEAR4/Fall2017/SYSC3110/project-les-brownies/javadoc.xml" key="antpath"/>
+				<item value="/Users/CraigBook/OneDrive/YEAR4/Fall2017/SYSC3110/project-les-brownies/doc" key="destdir"/>
+				<item value="" key="href"/>
+			</section>
+		</section>
+	</section>
 	<section name="SourceActionDialog.methods">
 		<item value="false" key="SynchronizedModifier"/>
 		<item value="false" key="Comments"/>
@@ -101,6 +128,8 @@
 		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="git_project-les-brownies/project-les-brownies.jar"/>
+			<item value="/Users/CraigBook/Documents/project-les-brownies.jar"/>
 			<item value="lab8/LAB8.jar"/>
 			<item value="/Users/CraigBook/Programming/arc_java/run_knn1.jar"/>
 			<item value="/Users/CraigBook/Programming/arc_java/lab7.jar"/>

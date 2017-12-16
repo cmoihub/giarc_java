@@ -1,0 +1,101 @@
+package fileManagementTests;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import Problem.Example;
+import Problem.Problem;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+import fileManagement.Exporter;
+import fileManagement.Loader;
+
+public class fileMgmtTest {
+	Problem p;
+	@Before
+	public void setUp() throws Exception {
+		p = new Problem();
+		p.setTrainingExamples(testExamples());
+		p.setTestExample(testExample());
+	}
+
+	@Test
+	public void test() {
+		Exporter.exportXML("_data/problem.xml", p);
+		Problem p_ = Loader.loadFromXML("_data/problem.xml");
+		Exporter.exportXML("_data/problem2.xml", p_);
+		
+		assertEquals(p.toXML(), p_.toXML());
+	}
+	
+	public static Example testExample(){
+		Example t1 = new Example();
+		
+		ComplexFeature coordinates = new ComplexFeature("coordinates");
+		
+			ComplexFeature e = new ComplexFeature("test");
+				StringFeature s = new StringFeature("test1", "s");
+				StringFeature s1 = new StringFeature("test2", "s1");
+				e.addFeature(s);e.addFeature(s1);
+			NumberFeature lng = new NumberFeature(20, "longitude");
+		coordinates.addFeature(e);coordinates.addFeature(lng);
+		
+		NumberFeature sqft = new NumberFeature(1000, "square-feet");
+		StringFeature age = new StringFeature("new", "age");
+		NumberFeature price = new NumberFeature();
+		price.setName("price");
+		
+		t1.addFeature(coordinates);t1.addFeature(sqft);t1.addFeature(age);t1.addFeature(price);
+		return t1;
+	}
+	
+	public static ArrayList<Example> testExamples(){
+		Example t1 = new Example();
+		ComplexFeature coordinates1 = new ComplexFeature("coordinates");
+			NumberFeature lat1 = new NumberFeature(30, "latitude");
+			NumberFeature lng1 = new NumberFeature(100, "longitude");
+		coordinates1.addFeature(lat1);coordinates1.addFeature(lng1);
+		
+		NumberFeature sqft1 = new NumberFeature(800, "square-feet");
+		StringFeature age1 = new StringFeature("new", "age");
+		NumberFeature price1 = new NumberFeature(400000, "price");
+		price1.setName("price");
+		
+		t1.addFeature(coordinates1);t1.addFeature(sqft1);t1.addFeature(age1);t1.addFeature(price1);
+		
+		Example t2 = new Example();
+		ComplexFeature coordinates2 = new ComplexFeature("coordinates");
+			NumberFeature lat2 = new NumberFeature(10, "latitude");
+			NumberFeature lng2 = new NumberFeature(50, "longitude");
+		coordinates2.addFeature(lat2);coordinates2.addFeature(lng2);
+		
+		NumberFeature sqft2 = new NumberFeature(1000, "square-feet");
+		StringFeature age2 = new StringFeature("old", "age");
+		NumberFeature price2 = new NumberFeature(300000, "price");
+		price2.setName("price");
+		
+		t2.addFeature(coordinates2);t2.addFeature(sqft2);t2.addFeature(age2);t2.addFeature(price2);
+		
+		Example t3 = new Example();
+		ComplexFeature coordinates3 = new ComplexFeature("coordinates");
+			NumberFeature lat3 = new NumberFeature(12, "latitude");
+			NumberFeature lng3 = new NumberFeature(25, "longitude");
+		coordinates3.addFeature(lat3);coordinates3.addFeature(lng3);
+		
+		NumberFeature sqft3 = new NumberFeature(1200, "square-feet");
+		StringFeature age3 = new StringFeature("new", "age");
+		NumberFeature price3 = new NumberFeature(500000, "price");
+		price3.setName("price");
+		
+		t3.addFeature(coordinates3);t3.addFeature(sqft3);t3.addFeature(age3);t3.addFeature(price3);
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		train.add(t1);train.add(t2);train.add(t3);
+		return train;
+	}
+}

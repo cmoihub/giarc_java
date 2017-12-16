@@ -1,0 +1,255 @@
+package Problem;
+import java.util.*;
+
+import Problem.DistanceMetric.ComplexMetric;
+import Problem.DistanceMetric.DoubleMetric;
+import Problem.DistanceMetric.StringMetric;
+
+import extractor.*;
+import feature.*;
+public class ProblemModel {
+
+	//Value of k nearest neighbours 
+	private int numNeighbours;
+	private List<Example> trainingExamples;
+	private GeneralPredictor predictor;
+	private Example examplestructure;
+	private List<Example> testExamples;
+
+	/**
+	 * 
+	 * @param numNeighbours
+	 * @param trainingExamples
+	 */
+	public ProblemModel(int numNeighbours, List<Example> trainingExamples) {
+		this.numNeighbours = numNeighbours;
+		this.trainingExamples = trainingExamples;
+		this.predictor = new GeneralPredictor();
+		this.examplestructure = new Example();
+		this.testExamples = new ArrayList<Example>();
+	}
+	
+	public void showTrainingExamples() {
+		System.out.println(trainingExamples.size());
+		for(Example e : this.trainingExamples) {
+			e.traverse(e);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param test
+	 * @return
+	 */
+	public Object getPrediction(Example test) {
+		return this.predictor.getPrediction(this.numNeighbours, this.trainingExamples, test);
+	}
+	
+	public void addTrainingExample(Example e) {
+		this.trainingExamples.add(e);
+	}
+	
+	public void setExampleStructure(Example e) {
+		examplestructure = e;
+	}
+	
+	public Example getExampleStructure() {
+		return this.examplestructure;
+	}
+	
+	public void addTestExample(Example e) {
+		this.testExamples.add(e);
+	}
+	
+	public void setTestExamples(ArrayList<Example> elist) {
+		this.testExamples = elist;
+	}
+	
+	public double getError() {
+		double error = 0;
+
+		for(Example e :this.testExamples) {
+			ArrayList<BaseFeature> fList = new ArrayList<BaseFeature>(e.getFeatures());
+			BaseFeature bf =fList.remove(fList.size()-1);
+			
+			Object prediction = this.getPrediction(new Example(fList));
+			ArrayList<BaseFeature> temp = (ArrayList<BaseFeature>) e.getFeatures();
+			DistanceMetric distMetric;
+
+//			System.out.println(prediction.toString());
+					
+			if(prediction instanceof Double) {
+				NumberFeature nf = (NumberFeature) bf;
+				double d = (double) nf.getValue();
+				System.out.println("Double values: "+d+" "+prediction.toString());
+				distMetric = new DoubleMetric();
+				error+= distMetric.calculateDistance(d, prediction);
+				System.out.println("Entered Double");
+
+			}else if(prediction instanceof String) {
+				StringFeature sf = (StringFeature) temp.get(temp.size()-1);
+				String s = (String)sf.getValue();
+				distMetric = new StringMetric();
+				error+= distMetric.calculateDistance(s, prediction);
+				System.out.println("Entered String");
+
+			}else if(prediction instanceof ComplexFeature) {
+				ComplexFeature cf = (ComplexFeature) temp.get(temp.size()-1);
+				distMetric = new ComplexMetric();
+				error+=distMetric.calculateDistance(cf, prediction);
+				System.out.println("Entered Complex");
+
+			}
+			System.out.println("Error value: "+error);
+		}
+		return error;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Example housingExampleStructure() {
+		//tuple 3
+		Example t3 = new Example();
+		ComplexFeature coord1 = new ComplexFeature("Coordinates");
+			NumberFeature lat1 = new NumberFeature(0,"Lat");
+			NumberFeature lon1 = new NumberFeature(0,"Lon");
+		coord1.addFeature(lat1);coord1.addFeature(lon1);
+		NumberFeature sqft1 = new NumberFeature(0,"Square Feet");
+		StringFeature age1 = new StringFeature("new","Age");
+		NumberFeature price1 = new NumberFeature(0,"Price");
+		t3.addFeature(coord1);t3.addFeature(sqft1);t3.addFeature(age1);
+		t3.addFeature(price1);
+		
+		return t3;
+	}
+
+	/**
+	 * 
+	 * @param i
+	 */
+	public static Example housingExampleStructure(int i){
+		String[] housing = new String[]{"0","0","0","age","0"};
+		
+		return ExtractorHousing.createExample(housing);
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static Example soccerExampleStructure() {
+		String[] soccer = new String[]{"0","0","0","0","0","0","0","0","kick"};
+		
+		return ExtractorSoccer.createExample(soccer);
+		
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static ProblemModel generateHousingModel() {
+		//tuple 3
+		Example t3 = new Example();
+		ComplexFeature coord1 = new ComplexFeature("Coordinates");
+			NumberFeature lat1 = new NumberFeature(12,"Lat");
+			NumberFeature lon1 = new NumberFeature(25,"Lon");
+		coord1.addFeature(lat1);coord1.addFeature(lon1);
+		NumberFeature sqft1 = new NumberFeature(1200,"Square Feet");
+		StringFeature age1 = new StringFeature("new","Age");
+		NumberFeature price1 = new NumberFeature(500000,"Price");
+		t3.addFeature(coord1);t3.addFeature(sqft1);t3.addFeature(age1);
+		t3.addFeature(price1);
+		
+		//tuple 4 
+		Example t4 = new Example();
+		ComplexFeature coord2 = new ComplexFeature("Coordinates");
+			NumberFeature lat2 = new NumberFeature(10,"Lat");
+			NumberFeature lon2 = new NumberFeature(50,"Lon");
+		coord2.addFeature(lat2);coord2.addFeature(lon2);
+		NumberFeature sqft2 = new NumberFeature(1000,"Square Feet");
+		StringFeature age2 = new StringFeature("old","Age");
+		NumberFeature price2 = new NumberFeature(300000,"Price");
+		t4.addFeature(coord2);t4.addFeature(sqft2);t4.addFeature(age2);
+		t4.addFeature(price2);
+
+		//tuple 5
+		Example t5 = new Example();
+		ComplexFeature coord3 = new ComplexFeature("Coordinates");
+			NumberFeature lat3 = new NumberFeature(30,"Lat");
+			NumberFeature lon3 = new NumberFeature(100,"Lon");
+		coord3.addFeature(lat3);coord3.addFeature(lon3);
+		NumberFeature sqft3 = new NumberFeature(800,"Square Feet");
+		StringFeature age3 = new StringFeature("new","Age");
+		NumberFeature price3 = new NumberFeature(400000,"Price");
+		t5.addFeature(coord3);t5.addFeature(sqft3);t5.addFeature(age3);
+		t5.addFeature(price3);
+		
+		ArrayList<Example> trainingExamples = new ArrayList<Example>();
+		trainingExamples.add(t3);trainingExamples.add(t4);
+		trainingExamples.add(t5);
+		
+
+		
+		int k = 1;
+		
+
+		return new ProblemModel(k,trainingExamples);
+	}
+	public List<Example> getTrainingExamples(){
+		return this.trainingExamples;
+	}
+	
+	/**
+	 * 
+	 * @return problem in xml format
+	 */
+	public String toXML(){
+		String s = "<Problem>";
+//		List<Example> trainingExamples = new ArrayList<>(getTrainingExamples());
+		for (Example e : trainingExamples) {
+			String opening = "\t\t" + "\n";
+			s+=opening;
+			s+=e.toXML();
+		}
+		for (Example e : testExamples) {
+			String opening = "\t\t" + "\n";
+			s+=opening;
+			s+=e.toXML();
+		}
+		return s+="\n</Problem>";
+	}
+	
+	public static void main(String[] args){
+		ProblemModel p = ProblemModel.generateHousingModel();
+		System.out.println(p);
+//		e
+	}
+	
+//	public static void main(String[] args) {
+//		ProblemModel p = ProblemModel.generateHousingModel();
+//		
+////		for(Example e :p.getTrainingExamples()) {
+////			for(BaseFeature f: e.getFeatures()) {
+////				System.out.println(f.getName());
+////			}
+////		}
+//		
+//		//testExample
+//		Example t = new Example();
+//		ComplexFeature coord = new ComplexFeature("Coordinates");
+//			NumberFeature lat = new NumberFeature(15,"Lat");
+//			NumberFeature lon = new NumberFeature(20,"Lon");
+//			coord.addFeature(lat);coord.addFeature(lon);
+//		NumberFeature sqft = new NumberFeature(800,"Square Feet");
+//		StringFeature age = new StringFeature("new","Age");
+//		NumberFeature price = null;
+//		t.addFeature(coord);t.addFeature(sqft);t.addFeature(age);
+//		t.addFeature(price);
+////		System.out.println(p.getPrediction(t));
+//	}
+	
+	
+}

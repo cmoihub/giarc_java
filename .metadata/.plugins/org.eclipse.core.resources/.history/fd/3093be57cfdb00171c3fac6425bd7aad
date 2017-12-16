@@ -1,0 +1,263 @@
+package Problem;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import feature.ComplexFeature;
+import feature.Feature;
+import feature.NumberFeature;
+import feature.StringFeature;
+/**
+ * 
+ * @author Issa
+ *
+ */
+
+public class GeneralPredictor {
+	private List<Example> nearestNeighbours;
+	private KNN knn;
+//	private GeneralFeature prediction;
+
+	private Object prediction;
+	
+	public GeneralPredictor() {
+		this.nearestNeighbours = new ArrayList<Example>();
+		this.knn = new KNN();
+		
+	}
+	
+	public Object getPrediction() {
+		
+		return this.prediction;
+	}
+	
+	public Object getPrediction(int k, List<Example> train, Example test) {
+		this.setNearestNeighbours(k, train, test);
+		this.setPrediction();
+		return this.prediction;
+	}
+	
+	public void setNearestNeighbours(int k, List<Example> train, Example test) {
+		if(train.isEmpty()) return;
+		this.nearestNeighbours = knn.getNearestNeighbours(k, train, test);
+	}
+
+	private String setStringPrediction(int outputIndex) {
+		HashMap<String,Integer> sMap = new HashMap<String,Integer>();
+		int max = 0;
+		String maxStr = new String();
+		for(Example e: this.nearestNeighbours) {
+			StringFeature f = (StringFeature) e.getFeatures().get(outputIndex);
+			String s = f.getValue();
+			int occurences = 1;
+			
+			if(sMap.containsKey(s)) 
+				occurences = sMap.get(s)+1;
+			sMap.put(s, occurences);
+			if(occurences>max) {
+				max = occurences; maxStr = s;
+			}
+		}
+		return maxStr;
+		
+	}
+
+	private double setDoublePrediction(int outputIndex) {		
+		double sum = 0;
+		for(Example e: this.nearestNeighbours) {
+			NumberFeature f = (NumberFeature) e.getFeatures().get(outputIndex);
+			sum+=(Double)f.getValue();
+		}
+		return sum/this.nearestNeighbours.size();
+	}
+	
+	public void setPrediction() {
+	
+		Example e = this.nearestNeighbours.get(0);
+		int exampleSize = e.getFeatures().size()-1;
+		Feature f = (Feature) e.getFeatures().get(exampleSize);
+		
+		if(f instanceof NumberFeature)
+			this.prediction = (Double)setDoublePrediction(exampleSize);
+		else
+			this.prediction = (String) setStringPrediction(exampleSize);
+	}
+	
+	public static GeneralPredictor housingExamples() {
+		
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		GeneralPredictor predictor = new GeneralPredictor();
+		
+		//Tuple #1 (TRAINING ROW 1)
+		Example t1 = new Example();
+		//ball
+		ComplexFeature b1 = new ComplexFeature();
+			NumberFeature disb1 = new NumberFeature(1.9);
+			NumberFeature dirb1 = new NumberFeature(-167);
+		b1.addFeature(disb1);b1.addFeature(dirb1);
+		
+		//goal
+		ComplexFeature g1 = new ComplexFeature();
+			NumberFeature disg1 = new NumberFeature(63.8);
+			NumberFeature dirg1 = new NumberFeature(31);
+		g1.addFeature(disg1);g1.addFeature(dirg1);
+		
+		//Flags
+		ComplexFeature f1 = new ComplexFeature();
+			//fct
+			ComplexFeature fct1 = new ComplexFeature();
+				NumberFeature dft1 = new NumberFeature(39.1);
+				NumberFeature drft1 = new NumberFeature(-41);
+			fct1.addFeature(dft1);fct1.addFeature(drft1);
+			//fcb
+			ComplexFeature fcb1 = new ComplexFeature();
+				NumberFeature dfb1 = null;
+				NumberFeature drfb1 = null;
+			fcb1.addFeature(dfb1);fcb1.addFeature(drfb1);
+		
+		f1.addFeature(fct1);f1.addFeature(fcb1);
+			
+		
+		//Action
+		StringFeature a1 = new StringFeature("Kick");
+		//Compose Example
+		t1.addFeature(b1);t1.addFeature(g1);t1.addFeature(f1);t1.addFeature(a1);
+		
+		
+//		/*
+//		 * Tuple2
+//		 */
+//		GeneralExample t2 = new GeneralExample();
+//		//ball
+//		ComplexFeature b2 = new ComplexFeature();
+//			NumberFeature disb2 = new NumberFeature(1.9);
+//			NumberFeature dirb2 = new NumberFeature(-167);
+//		b2.addFeature(disb2);b2.addFeature(dirb2);
+//		
+//		//goal
+//		ComplexFeature g2 = new ComplexFeature();
+//			NumberFeature disg2 = new NumberFeature(63.8);
+//			NumberFeature dirg2 = new NumberFeature(31);
+//		g2.addFeature(disg2);g2.addFeature(dirg2);
+//		
+//		//Flags
+//		ComplexFeature f2 = new ComplexFeature();
+//			//fct
+//			ComplexFeature fct2 = new ComplexFeature();
+//				NumberFeature dft2 = new NumberFeature(39.1);
+//				NumberFeature drft2 = new NumberFeature(-41);
+//			fct2.addFeature(dft2);fct2.addFeature(drft2);
+//			//fcb
+//			ComplexFeature fcb2 = new ComplexFeature();
+//				NumberFeature dfb2 = null;
+//				NumberFeature drfb2 = null;
+//			fcb2.addFeature(dfb2);fcb2.addFeature(drfb2);
+//		
+//		f2.addFeature(fct2);f2.addFeature(fcb2);
+//
+//		//Action
+//		StringFeature a2 = new StringFeature("Kick");
+//		//Compose Example
+//		t2.addFeature(b2);t2.addFeature(g2);t2.addFeature(f2);t2.addFeature(a2);
+		
+		
+		/*
+		 * Tuple2
+		 */
+		Example t2 = new Example();
+		//ball
+		ComplexFeature b2 = new ComplexFeature();
+			NumberFeature disb2 = new NumberFeature(1900);
+			NumberFeature dirb2 = new NumberFeature(-16700);
+		b2.addFeature(disb2);b2.addFeature(dirb2);
+		
+		//goal
+		ComplexFeature g2 = new ComplexFeature();
+			NumberFeature disg2 = new NumberFeature(638);
+			NumberFeature dirg2 = new NumberFeature(3551);
+		g2.addFeature(disg2);g2.addFeature(dirg2);
+		
+		//Flags
+		ComplexFeature f2 = new ComplexFeature();
+			//fct
+			ComplexFeature fct2 = new ComplexFeature();
+				NumberFeature dft2 = new NumberFeature(55539.1);
+				NumberFeature drft2 = new NumberFeature(-45551);
+			fct2.addFeature(dft2);fct2.addFeature(drft2);
+			//fcb
+			ComplexFeature fcb2 = new ComplexFeature();
+				NumberFeature dfb2 = null;
+				NumberFeature drfb2 = null;
+			fcb2.addFeature(dfb2);fcb2.addFeature(drfb2);
+		
+		f2.addFeature(fct2);f2.addFeature(fcb2);
+
+		//Action
+		StringFeature a2 = new StringFeature("Kick");
+		//Compose Example
+		t2.addFeature(b2);t2.addFeature(g2);t2.addFeature(f2);t2.addFeature(a2);
+		
+		
+		
+		/*
+		 * Tuple3 (TRAINING ROW 15)
+		 */
+		Example t3 = new Example();
+		
+		//ball
+		ComplexFeature b3 = new ComplexFeature();
+		NumberFeature distB3 = new NumberFeature(41.4);
+		NumberFeature dirB3 = new NumberFeature(0);
+		b3.addFeature(distB3);b3.addFeature(dirB3);
+		
+		//goal
+		ComplexFeature g3 = new ComplexFeature();
+		NumberFeature distG3 = new NumberFeature(90.1);
+		NumberFeature dirG3 = new NumberFeature(18);
+		g3.addFeature(distG3);g3.addFeature(dirG3);
+		
+		//flags 
+		ComplexFeature f3 = new ComplexFeature();
+		
+		ComplexFeature fct3 = new ComplexFeature();
+		NumberFeature ft3Dist = new NumberFeature(65.1);
+//		NumberFeature ft3Dir = new NumberFeature(-27);
+		fct3.addFeature(ft3Dist);fct3.addFeature(ft3Dist);
+		
+		ComplexFeature fcb3 = new ComplexFeature();
+		NumberFeature fb3Dist = null;
+		NumberFeature fb3Dir = null;
+		fcb3.addFeature(fb3Dist);fcb3.addFeature(fb3Dir);
+		
+		f3.addFeature(fct3);f3.addFeature(fcb3);
+		
+		//action
+		StringFeature a3 = new StringFeature("Turn");
+		
+		//compose example
+		t3.addFeature(b3);t3.addFeature(g3);t3.addFeature(f3);
+		t3.addFeature(a3);
+
+		
+		/*
+		 * running predictor
+		 */
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		train.add(t2);train.add(t3);
+		
+//		predictor.setNearestNeighbours(1, train, t1);
+//		
+//		predictor.setPrediction();
+		Object o = predictor.getPrediction(1,train,t1);
+		if(o instanceof String)
+			System.out.println((String)o);
+		else
+			System.out.println((Double)o);
+	}
+
+
+}

@@ -1,0 +1,257 @@
+package fileManagement;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import Problem.Example;
+import Problem.Problem;
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+import helper.Helper;
+
+/**
+ * Used to load files
+ * @author CraigBook
+ *
+ */
+public class Loader {
+	/**
+	 * 
+	 * @param string
+	 * @return a problem based on an existing xml file
+	 */
+	public static Problem loadFromXML(String filename) {
+//		https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Problem problem = new Problem();
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(filename);
+			doc.getDocumentElement().normalize();
+			NodeList nList = doc.getElementsByTagName("Example");
+			for (int i = 0; i< nList.getLength(); i++){
+				Node node = nList.item(i);
+				Example example = createExample(node);
+				if(i == nList.getLength()-1){
+					problem.setTestExample(example);
+				} else {
+					problem.addTrainingExample(example);
+				}
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}		
+		return problem;
+	}
+	
+	/**
+	 * 
+	 * @param node current node
+	 * @return an example based on the node
+	 */
+	public static Example createExample(Node node){
+		Example example = new Example(); 
+		if(node.hasChildNodes()){
+			Node first = node.getFirstChild();
+			iterateNodes(first, example, false, null);
+		}
+		return example;
+	}
+
+	/**
+	 * iterate through the sub nodes of the example node
+	 * @param node
+	 * @param example
+	 * @param complex
+	 */
+	public static void iterateNodes(Node node, Example example, boolean complex, ComplexFeature f){
+		while(moreNodesAfter(node)){
+			if (validName(node)){
+//				check what type of feature this node is supposed to make
+				if(node.hasAttributes()){
+//					Format - <nodeName type="type">nodeValue</nodeName>
+					String nodeName = node.getNodeName();
+					String nodeValue = node.getTextContent();
+					String type = node.getAttributes().item(0).getNodeValue();
+					switch(type){
+					case "complex":
+						ComplexFeature prev = null;
+						if(f==null){
+							prev = new ComplexFeature(nodeName);
+							iterateNodes(node.getFirstChild(), example, true, prev);
+							example.addFeature(prev);
+						} else{
+							System.out.println("no complex");
+							prev = f;
+							ComplexFeature c = addComplexFeature(example, nodeName, prev);
+							iterateNodes(node.getFirstChild(), example, true, c);
+						}
+						
+//						example.addFeature(prev);
+						break;
+					case "number": addNumberFeature(example, nodeValue, nodeName, f);
+						break;
+					case "string": addStringFeature(example, nodeValue, nodeName, f);
+						break;
+					}	
+				}
+			}
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * 
+	 * @param example current example
+	 * @param nodeName name of current node
+	 * @param f parent complex feature
+	 * @return child complex feature
+	 */
+	public static ComplexFeature addComplexFeature(Example example, String nodeName, ComplexFeature f){
+	ComplexFeature c = new ComplexFeature(nodeName);
+	if(f==null){
+		example.addFeature(c);
+	}
+	else {
+		f.addFeature(c);
+	}
+	return c;
+}
+	
+	/**
+	 * add a number feature to the example
+	 * @param example current example
+	 * @param nodeValue current node's value
+	 * @param nodeName current node's name
+	 */
+	public static void addNumberFeature(Example example, String nodeValue, String nodeName, ComplexFeature f){
+		NumberFeature n = new NumberFeature((double) Helper.returnStringOrDouble(nodeValue), nodeName);
+		if(f==null){
+			example.addFeature(n);
+		}
+		else {
+			f.addFeature(n);
+		}
+	}
+	
+	/**
+	 * add a string feature to example
+	 * @param example
+	 * @param nodeValue
+	 * @param nodeName
+	 */
+	public static void addStringFeature(Example example, String nodeValue, String nodeName, ComplexFeature f){
+		StringFeature s = new StringFeature(nodeValue, nodeName);
+		if (f==null){
+			example.addFeature(s);
+		} else {
+			f.addFeature(s);
+			System.out.println("yippee");
+		}
+		
+	}
+	
+	/**
+	 * @param node current node
+	 * @return true if the current node has a valid name
+	 */
+	public static boolean validName(Node node){
+		return (node.getNodeName()!="#text");
+	}
+	
+	/**
+	 * @param node current node
+	 * @return true if there are more nodes after the current node
+	 */
+	public static boolean moreNodesAfter(Node node){
+		return (node.getNextSibling() != null);
+	}
+	
+	public static void main(String args[]){
+		Problem p = new Problem();
+		p.setTrainingExamples(testExamples());
+		p.setTestExample(testExample());
+		
+		Exporter.exportXML("_data/problem.xml", p);
+		Problem p_ = Loader.loadFromXML("_data/problem.xml");
+		Exporter.exportXML("_data/problem2.xml", p_);
+	}
+	
+	public static Example testExample(){
+		Example t1 = new Example();
+		
+		ComplexFeature coordinates = new ComplexFeature("coordinates");
+		
+			ComplexFeature e = new ComplexFeature("test");
+				StringFeature s = new StringFeature("test1", "s");
+				StringFeature s1 = new StringFeature("test2", "s1");
+				e.addFeature(s);e.addFeature(s1);
+			NumberFeature lng = new NumberFeature(20, "longitude");
+		coordinates.addFeature(e);coordinates.addFeature(lng);
+		
+		NumberFeature sqft = new NumberFeature(1000, "square-feet");
+		StringFeature age = new StringFeature("new", "age");
+		NumberFeature price = new NumberFeature();
+		price.setName("price");
+		
+		t1.addFeature(coordinates);t1.addFeature(sqft);t1.addFeature(age);t1.addFeature(price);
+		return t1;
+	}
+	
+	public static ArrayList<Example> testExamples(){
+		Example t1 = new Example();
+		ComplexFeature coordinates1 = new ComplexFeature("coordinates");
+			NumberFeature lat1 = new NumberFeature(30, "latitude");
+			NumberFeature lng1 = new NumberFeature(100, "longitude");
+		coordinates1.addFeature(lat1);coordinates1.addFeature(lng1);
+		
+		NumberFeature sqft1 = new NumberFeature(800, "square-feet");
+		StringFeature age1 = new StringFeature("new", "age");
+		NumberFeature price1 = new NumberFeature(400000, "price");
+		price1.setName("price");
+		
+		t1.addFeature(coordinates1);t1.addFeature(sqft1);t1.addFeature(age1);t1.addFeature(price1);
+		
+		Example t2 = new Example();
+		ComplexFeature coordinates2 = new ComplexFeature("coordinates");
+			NumberFeature lat2 = new NumberFeature(10, "latitude");
+			NumberFeature lng2 = new NumberFeature(50, "longitude");
+		coordinates2.addFeature(lat2);coordinates2.addFeature(lng2);
+		
+		NumberFeature sqft2 = new NumberFeature(1000, "square-feet");
+		StringFeature age2 = new StringFeature("old", "age");
+		NumberFeature price2 = new NumberFeature(300000, "price");
+		price2.setName("price");
+		
+		t2.addFeature(coordinates2);t2.addFeature(sqft2);t2.addFeature(age2);t2.addFeature(price2);
+		
+		Example t3 = new Example();
+		ComplexFeature coordinates3 = new ComplexFeature("coordinates");
+			NumberFeature lat3 = new NumberFeature(12, "latitude");
+			NumberFeature lng3 = new NumberFeature(25, "longitude");
+		coordinates3.addFeature(lat3);coordinates3.addFeature(lng3);
+		
+		NumberFeature sqft3 = new NumberFeature(1200, "square-feet");
+		StringFeature age3 = new StringFeature("new", "age");
+		NumberFeature price3 = new NumberFeature(500000, "price");
+		price3.setName("price");
+		
+		t3.addFeature(coordinates3);t3.addFeature(sqft3);t3.addFeature(age3);t3.addFeature(price3);
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		train.add(t1);train.add(t2);train.add(t3);
+		return train;
+	}
+}

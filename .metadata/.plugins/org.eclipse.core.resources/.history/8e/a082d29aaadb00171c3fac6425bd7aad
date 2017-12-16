@@ -1,0 +1,26 @@
+package feature;
+
+//import java.util.ArrayList;
+
+import Problem.DistanceMetric;
+/**
+ * 
+ * @author Issa
+ *
+ */
+public abstract class BaseFeature {
+	protected String name;
+	public abstract boolean isComplex();
+	public abstract DistanceMetric getMetric();
+
+	public String getName() {
+		return this.name;
+	}
+//	public ArrayList<BaseFeature> getFeatures();
+	public String toXML(){
+		return null;
+	}
+	public String toXMLComplex(){
+		return null;
+	}
+}

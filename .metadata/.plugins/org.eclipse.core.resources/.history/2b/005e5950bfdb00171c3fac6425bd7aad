@@ -1,0 +1,43 @@
+package feature;
+
+import Problem.DistanceMetric;
+
+/**
+ * Used to instantiate features based on numbers
+ *
+ * for example a salary or budget feature
+ *
+ * @author Issa
+ *
+ */
+
+public class NumberFeature extends Feature{
+		private double number;
+//		private String name;
+		
+		public NumberFeature(double number) {
+			super.metric = new DistanceMetric.DoubleMetric(); 
+			this.number = number;
+//			super.add(this);
+		}
+		
+		public NumberFeature(double number, String name) {
+			this(number);
+			super.name = name;
+		}
+		public NumberFeature() {
+			this.number = 0;
+		}
+
+		public Object getValue() {
+			return (double)this.number;
+		}
+		
+		public void setValue(double d) {
+			this.number = d;
+		}
+		
+		public String toString(){
+			return "" + number;
+		}
+}

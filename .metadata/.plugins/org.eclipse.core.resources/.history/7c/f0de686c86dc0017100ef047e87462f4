@@ -1,0 +1,65 @@
+package problemTests;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import Problem.*;
+import feature.Feature;
+
+/**
+ * 
+ * @author issahassan
+ *
+ */
+
+public class ProblemTest {
+//	private static final int SIZE_TRAINING_SET = 3;
+//	
+//	private Problem p;
+//	
+//	private ArrayList<Example> trainingExamples;
+//	//Examples
+//	private Example e1;
+//	private Example e2;
+//	private Example e3;
+//	
+//	//Test Features
+////	private Feature f1;
+////	private Feature f2;
+//
+//	@BeforeClass
+//	public static void setUpBeforeClass() throws Exception {
+//	
+//	}
+//
+//	@AfterClass
+//	public static void tearDownAfterClass() throws Exception {
+//	}
+//
+//	@Before
+//	public void setUp() throws Exception {	
+//		p = new Problem();
+////		f1 = null;
+////		f2 = null;	
+//		p.addTrainingExamples(trainingExamples);
+//
+//	}
+//	
+////	@Test
+////	public void testAddMultipleTrainingExamples() {
+////		trainingExamples.add(e1);trainingExamples.add(e2);trainingExamples.add(e3);
+////		assertEquals(SIZE_TRAINING_SET,p.getTrainingSize());
+////	}
+//
+//	@Test
+//	public void testSetExamples() {
+//		assertTrue(true);
+//
+//	}
+}

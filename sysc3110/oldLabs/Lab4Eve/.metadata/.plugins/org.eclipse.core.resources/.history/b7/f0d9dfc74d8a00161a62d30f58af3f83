@@ -1,6 +1,0 @@
-import java.util.EventObject;
-
-public class CourseEvent extends EventObject
-{
-
-}

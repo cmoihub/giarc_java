@@ -1,0 +1,26 @@
+package directory;
+
+import feature.BaseFeature;
+import feature.Feature;
+
+public class FeatureChecker {
+	public static Object[] values(BaseFeature f){
+		Object [] a = new Object[2];
+		String name_ = f.getName();
+		if(name_ == "" || name_ == null){
+			name_ = "simple_feature";
+		}
+		a [0] = name_;
+		if (f instanceof Feature){
+			Object value_ = ((Feature) f).getValue();
+			if (value_ == null){
+				value_ = "empty";
+			}
+			a [1] = value_;
+			return a;
+		}
+		
+		return a;
+//		return null
+	}
+}

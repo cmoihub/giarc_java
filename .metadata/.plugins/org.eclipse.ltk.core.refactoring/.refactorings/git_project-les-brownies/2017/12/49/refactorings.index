@@ -20,3 +20,21 @@
 1512413442381	Rename package '_new'
 1512413467967	Copy files
 1512527103117	Move compilation unit
+1512683972763	Rename local variable 'file'
+1512693779588	Delete element
+1512693817447	Rename package 'xml'
+1512703658524	Encapsulate field 'trainingExamples'
+1512704409193	Rename package 'directory'
+1512739044670	Rename method 'moreNodes'
+1512739683342	Rename method 'createExamples'
+1512755948309	Move compilation unit
+1512782971325	Delete element
+1512785045688	Rename field 'featureToPredict_'
+1512785556112	Delete element
+1512785606721	Move compilation unit
+1512785642671	Move compilation unit
+1512785657574	Rename type 'Problem'
+1512786004306	Delete element
+1512786244137	Delete element
+1512786377803	Rename type 'GeneralPredictor'
+1512786979392	Delete element

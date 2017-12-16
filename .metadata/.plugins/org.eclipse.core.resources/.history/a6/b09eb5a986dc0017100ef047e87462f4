@@ -1,0 +1,109 @@
+/Age_.class
+/Coordinates.class
+/Latitude.class
+/Longitude.class
+/Price.class
+/Problem.class
+/ProblemController$_addActionListener.class
+/ProblemController$_predictActionListener.class
+/ProblemController$_trainingExampleNoActionListener.class
+/ProblemController.class
+/ProblemView.class
+/Property.class
+/SquareFeet.class
+/Example.class
+/ExampleView.class
+/AgeMetric.class
+/CoordinatesMetric.class
+/DistanceMetric.class
+/LatitudeMetric.class
+/LongitudeMetric.class
+/PriceMetric.class
+/SquareFeetMetric.class
+/Main.class
+/Feature.class
+<<<<<<< HEAD
+/problemView.class
+=======
+<<<<<<< HEAD
+/Price$Open.class
+=======
+/DoubleMetric.class
+/EnumMetric.class
+/EuclideanMetric.class
+/DistanceMetric$DoubleMetric.class
+/DistanceMetric$EuclideanMetric.class
+/DistanceMetric$AgeMetric.class
+/Feature$Age_.class
+/Feature$Coordinates.class
+/Feature$Latitude.class
+/Feature$Longitude.class
+/Feature$Price.class
+/Feature$SquareFeet.class
+/Age.class
+/Problem$Age.class
+<<<<<<< HEAD
+/MetricEvaluator.class
+/Predictor.class
+=======
+/ProblemTest.class
+>>>>>>> ce8f2b45240391618e7a7816e6a795745b6ab1f6
+>>>>>>> branch 'master' of https://github.com/SYSC3110/project-les-brownies.git
+/Feature$High.class
+/Feature$Low.class
+/Feature$openPrice.class
+/Feature$Volume.class
+/Feature$closePrice.class
+/DistanceMetricTest.class
+<<<<<<< HEAD
+/DistanceMetric$IntegerMetric.class
+/PredictorTest.class
+=======
+/Feature$Open.class
+>>>>>>> origin/damanGUI
+/KNN.class
+/Command.class
+/HelpCommand.class
+/Parser.class
+/addDataPoint.class
+/complexFunction.class
+/exitCommand.class
+/test2Command.class
+/testCommand.class
+/Feature2.class
+/StandardFeature.class
+/GeneralFeature.class
+/GeneralFeature$NumberFeature.class
+/GeneralFeature$StringFeature.class
+<<<<<<< HEAD
+/DistanceMetric$StringMetric.class
+=======
+/StringFeature.class
+/DistanceMetric$StringMetric.class
+/NumberFeature.class
+<<<<<<< HEAD
+>>>>>>> a10b03282ab8bf649d7040fce121cce788c9e080
+=======
+/GeneralExample.class
+/BaseFeature.class
+/ComplexFeature.class
+/DistanceMetric$complexMetric.class
+/DistanceMetric$ComplexMetric.class
+<<<<<<< HEAD
+/DistanceMetric$ComplexMetric$StringMetric.class
+/GeneralPredictor.class
+=======
+>>>>>>> 1b5de2f140200a3da93c5f7006532c00f7f76f8b
+>>>>>>> branch 'master' of https://github.com/SYSC3110/project-les-brownies.git
+/ComplexMetric.class
+/StringMetric.class
+/ProblemController$_exitActionListener.class
+/Extractor.class
+/Line.class
+/Extractor$Line.class
+>>>>>>> refs/heads/master
+/GeneralProblem.class
+/Extractor$Tree$Node.class
+/Extractor$Tree.class
+/Extractor$Node.class
+/ProblemModel.class

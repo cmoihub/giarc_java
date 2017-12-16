@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.util.Random"/>
-<fullyQualifiedTypeName name="Assignment2.CMOILinkedList"/>
-<fullyQualifiedTypeName name="java.util.regex.Matcher"/>
-<fullyQualifiedTypeName name="Assignment2.Node"/>
-<fullyQualifiedTypeName name="Assignment2.TestListReferenceBased"/>
-<fullyQualifiedTypeName name="java.text.DecimalFormat"/>
-<fullyQualifiedTypeName name="java.util.Queue"/>
-<fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.util.Calendar"/>
-<fullyQualifiedTypeName name="java.io.FileWriter"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="javax.swing.JTable"/>
@@ -39,13 +27,11 @@
 <fullyQualifiedTypeName name="feature.ComplexFeature"/>
 <fullyQualifiedTypeName name="Problem.GeneralExample"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="feature.BaseFeature"/>
 <fullyQualifiedTypeName name="feature.NumberFeature"/>
 <fullyQualifiedTypeName name="feature.StringFeature"/>
 <fullyQualifiedTypeName name="Problem.KNN"/>
 <fullyQualifiedTypeName name="feature.GeneralFeature"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="helper.print"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.util.Collection"/>
@@ -56,8 +42,22 @@
 <fullyQualifiedTypeName name="javax.xml.parsers.SAXParserFactory"/>
 <fullyQualifiedTypeName name="javax.xml.parsers.SAXParser"/>
 <fullyQualifiedTypeName name="org.xml.sax.helpers.DefaultHandler"/>
-<fullyQualifiedTypeName name="java.io.File"/>
 <fullyQualifiedTypeName name="extractor.ExtractorFeatureNames"/>
-<fullyQualifiedTypeName name="helper.Helper"/>
 <fullyQualifiedTypeName name="extractor.ExtractorSoccer"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="feature.BaseFeature"/>
+<fullyQualifiedTypeName name="feature.Feature"/>
+<fullyQualifiedTypeName name="xml.FeatureChecker"/>
+<fullyQualifiedTypeName name="java.io.BufferedWriter"/>
+<fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilderFactory"/>
+<fullyQualifiedTypeName name="javax.xml.parsers.DocumentBuilder"/>
+<fullyQualifiedTypeName name="javax.xml.transform.TransformerFactory"/>
+<fullyQualifiedTypeName name="javax.xml.transform.Transformer"/>
+<fullyQualifiedTypeName name="javax.xml.transform.stream.StreamResult"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="javax.xml.transform.Result"/>
+<fullyQualifiedTypeName name="helper.Helper"/>
+<fullyQualifiedTypeName name="Problem.Problem"/>
+<fullyQualifiedTypeName name="Problem.ProblemModel"/>
 </qualifiedTypeNameHistroy>

@@ -5463,3 +5463,105 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.
 
 !ENTRY org.eclipse.core.net 1 0 2017-12-05 20:04:20.328
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2017-12-07 12:46:23.196 -----------------------------------------------
+eclipse.buildId=4.7.0.I20160915-0230
+java.version=1.8.0_92
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_CA
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2017-12-07 12:46:37.610
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jdt.ui 4 10001 2017-12-08 08:37:22.185
+!MESSAGE Internal Error
+!STACK 1
+Java Model Exception: Java Model Status [iterateNodes() [in Loader [in [Working copy] Loader.java [in fileManagement [in <project root> [in git_project-les-brownies]]]]] does not exist]
+	at org.eclipse.jdt.internal.core.JavaElement.newNotPresentException(JavaElement.java:556)
+	at org.eclipse.jdt.internal.core.JavaElement.openWhenClosed(JavaElement.java:590)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:316)
+	at org.eclipse.jdt.internal.core.JavaElement.getElementInfo(JavaElement.java:302)
+	at org.eclipse.jdt.internal.core.SourceRefElement.getSourceRange(SourceRefElement.java:218)
+	at org.eclipse.jdt.internal.core.Member.getJavadocRange(Member.java:291)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContentFromSource(JavadocContentAccess2.java:658)
+	at org.eclipse.jdt.internal.ui.text.javadoc.JavadocContentAccess2.getHTMLContent(JavadocContentAccess2.java:534)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo(JavadocHover.java:717)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.internalGetHoverInfo(JavadocHover.java:635)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavadocHover.getHoverInfo2(JavadocHover.java:627)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:164)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:86)
+	at org.eclipse.jface.text.TextViewerHoverManager$4.run(TextViewerHoverManager.java:165)
+!SUBENTRY 1 org.eclipse.jdt.core 4 969 2017-12-08 08:37:22.199
+!MESSAGE iterateNodes() [in Loader [in [Working copy] Loader.java [in fileManagement [in <project root> [in git_project-les-brownies]]]]] does not exist
+
+!ENTRY com.objectaid.uml @ java.util.ArrayList$Itr.checkForComodification(901) 4 0 2017-12-08 11:44:11.320
+!MESSAGE job com.objectaid.uml.model.manage.ResourceChangeCallable@67a2f039 failed
+!STACK 0
+java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:901)
+	at java.util.ArrayList$Itr.next(ArrayList.java:851)
+	at com.objectaid.uml.model.diagram.ConnectedElement.getConnections(ConnectedElement.java:97)
+	at com.objectaid.uml.model.diagram.ConnectedElement.getSourceConnections(ConnectedElement.java:110)
+	at com.objectaid.uml.cls.model.RealizationFactory.getRelationships(RealizationFactory.java:49)
+	at com.objectaid.uml.cls.model.RelationshipFactory.getAdditionalCandidates(RelationshipFactory.java:288)
+	at com.objectaid.uml.cls.model.RelationshipFactory.createRelationships(RelationshipFactory.java:132)
+	at com.objectaid.uml.cls.model.RelationshipFactory.createRelationships(RelationshipFactory.java:89)
+	at com.objectaid.uml.cls.model.ClassDiagramHandle.handleChange(ClassDiagramHandle.java:136)
+	at com.objectaid.uml.model.manage.LanguageElementChangeProcessor.processImpactedDiagrams(LanguageElementChangeProcessor.java:197)
+	at com.objectaid.uml.model.manage.LanguageElementChangeProcessor.resourceChanged(LanguageElementChangeProcessor.java:138)
+	at com.objectaid.uml.model.manage.ResourceChangeCallable.process(ResourceChangeCallable.java:128)
+	at com.objectaid.uml.model.manage.ResourceChangeCallable.visit(ResourceChangeCallable.java:88)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:64)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:75)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:48)
+	at com.objectaid.uml.model.manage.ResourceChangeVisitor.resourceChanged(ResourceChangeVisitor.java:48)
+	at com.objectaid.uml.model.manage.ResourceChangeCallable.call(ResourceChangeCallable.java:50)
+	at com.objectaid.uml.model.manage.ResourceChangeCallable.call(ResourceChangeCallable.java:27)
+	at com.objectaid.uml.util.CallableJob.run(CallableJob.java:48)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY com.objectaid.uml 4 0 2017-12-08 11:44:11.429
+!MESSAGE job com.objectaid.uml.model.manage.ResourceChangeCallable@67a2f039 failed
+!SESSION 2017-12-08 16:06:35.925 -----------------------------------------------
+eclipse.buildId=4.7.0.I20160915-0230
+java.version=1.8.0_92
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_CA
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2017-12-08 16:06:50.833
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2017-12-08 19:33:12.553 -----------------------------------------------
+eclipse.buildId=4.7.0.I20160915-0230
+java.version=1.8.0_92
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_CA
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/CraigBook/.eclipse_keyring
+
+!ENTRY org.eclipse.core.net 1 0 2017-12-08 19:33:27.804
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.recommenders.models.rcp 1 9 2017-12-08 20:34:14.070
+!MESSAGE The model index service was accessed either before it started or after it finished running.
+!STACK 0
+org.eclipse.recommenders.utils.Logs$LogTraceException
+	at org.eclipse.recommenders.utils.Logs$LogTraceException.newTrace(Logs.java:381)
+	at org.eclipse.recommenders.utils.Logs.log(Logs.java:134)
+	at org.eclipse.recommenders.utils.Logs.log(Logs.java:126)
+	at org.eclipse.recommenders.internal.models.rcp.EclipseModelIndex.suggest(EclipseModelIndex.java:212)
+	at org.eclipse.recommenders.models.SimpleModelProvider.acquireModel(SimpleModelProvider.java:70)
+	at org.eclipse.recommenders.models.PoolingModelProvider.access$0(PoolingModelProvider.java:1)
+	at org.eclipse.recommenders.models.PoolingModelProvider$ModelPoolFactoryMediator.makeObject(PoolingModelProvider.java:96)
+	at org.eclipse.recommenders.models.PoolingModelProvider$ModelPoolFactoryMediator.makeObject(PoolingModelProvider.java:1)
+	at org.apache.commons.pool.impl.GenericKeyedObjectPool.borrowObject(GenericKeyedObjectPool.java:1220)
+	at org.eclipse.recommenders.models.PoolingModelProvider.acquireModel(PoolingModelProvider.java:67)
+	at org.eclipse.recommenders.internal.calls.rcp.RcpCallModelProvider.acquireModel(RcpCallModelProvider.java:65)
+	at org.eclipse.recommenders.internal.calls.rcp.RcpCallModelProvider.acquireModel(RcpCallModelProvider.java:1)
+	at org.eclipse.recommenders.internal.models.rcp.PrefetchModelArchiveJob.run(PrefetchModelArchiveJob.java:43)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)

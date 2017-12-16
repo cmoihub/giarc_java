@@ -1,0 +1,370 @@
+package Problem;
+
+import javax.swing.*;
+import javax.xml.parsers.*;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
+import feature.BaseFeature;
+import feature.ComplexFeature;
+import feature.Feature;
+import feature.NumberFeature;
+import feature.StringFeature;
+import helper.Helper;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * This class represents a list of training examples and a test examples, 
+ * It is the main entity of the application which the gui or the console use to visually represent to users how the application works
+ * It governs user creation and modification of examples in the format specified by Professor Babak Esfandiari in the project document
+ *    
+ * 
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class Problem {
+	private List<Example> trainingExamples;
+	private Example testExample;
+	private List<BaseFeature> features;
+	private BaseFeature featureToPredict_ = null;
+	public DefaultListModel<String> feature_all_defaultListModel;
+	public DefaultListModel<Feature> feature_selected_defaultListModel;
+	private int trainingExampleNumber;
+	private Set<String> featureStringSet;
+
+	public Problem() {
+
+		features = new ArrayList<>();
+		setTrainingExamples(new ArrayList<Example>());
+		testExample = new Example();
+		feature_all_defaultListModel = new DefaultListModel<>();
+		feature_selected_defaultListModel = new DefaultListModel<>();
+		featureStringSet = new HashSet<String>();
+	}
+
+	/**
+	 * convert feature in string form to an actual feature
+	 *
+	 * @param feature
+	 */
+	public void addFeatures(String feature) {
+		switch (feature) {
+			default:
+				System.out.println("Todo: Implement complex feature");
+				break;
+		}
+	}
+
+	/**
+	 * get features associated with problem
+	 *
+	 * @return
+	 */
+	public List<BaseFeature> getFeatures() {
+		return this.features;
+	}
+
+	/**
+	 * get feature strings
+	 *
+	 * @return
+	 */
+	public Set<String> getFeatureStringSet() {
+		return this.featureStringSet;
+	}
+
+	/**
+	 * add feature f to the set of features and update the model
+	 *
+	 * @param f
+	 */
+	public void addFeature(Feature f) {
+		if (f == null)
+			return;
+		if (!features.contains(f) || feature_selected_defaultListModel.contains(f)) {
+			features.add(f);
+			feature_selected_defaultListModel.addElement(f);
+			
+		}
+	}
+
+	/**
+	 * add a new training example
+	 *
+	 * @param e
+	 */
+	public void addTrainingExample(Example e) {
+		this.getTrainingExamples().add(e);
+	}
+
+	/**
+	 * set the test example to a new value
+	 *
+	 * @param e
+	 */
+	public void setTestExample(Example e) {
+		this.testExample = e;
+	}
+
+	/**
+	 * add more training examples
+	 *
+	 * @param e
+	 */
+	public void addTrainingExamples(ArrayList<Example> e) {
+		this.getTrainingExamples().addAll(e);
+	}
+
+	/**
+	 * check how many training examples there are
+	 *
+	 * @return
+	 */
+	public int getTrainingSize() {
+		return this.getTrainingExamples().size();
+	}
+
+	
+	/**
+	 * set the feature to predict for the test example
+	 *
+	 * @param f
+	 */
+	public void setFeatureToPredict(BaseFeature f) {
+		setFeatureToPredict_(f);
+	}
+
+	/**
+	 * get feature to predict for test example
+	 *
+	 * @return
+	 */
+	public BaseFeature getFeatureToPredict() {
+		return featureToPredict_;
+	}
+
+	/**
+	 * setup training and test examples
+	 */
+	public void setExamples() {
+		for (Example example : getTrainingExamples()) {
+			example.setFeatures(features);
+		}
+		List<BaseFeature> copy = new ArrayList<>(features);
+		
+		for(BaseFeature f: copy) {
+			if(f.equals(featureToPredict_)){
+				copy.remove(getFeatureToPredict());
+			}
+			
+			
+		}
+		
+		testExample.setFeatures(copy);
+		System.out.println(testExample.getFeatures());
+	}
+
+	/**
+	 * update the number of training examples
+	 *
+	 * @param no
+	 */
+	public void setTrainingExampleNo(int no) {
+		trainingExampleNumber = no;
+	}
+	/**
+	 * 
+	 * @param num
+	 */
+	public void  createTrainingExamples(int num) {
+		for(int i = 0; i <num; i++ ) {
+			getTrainingExamples().add(new Example());
+		}
+
+		setExamples();
+
+	}
+
+	/**
+	 * 
+	 * @param feature
+	 * @return
+	 */
+	public Feature createFeature(String feature) {
+		switch (feature) {
+			default:
+				System.out.println("Todo: Implement complex feature");
+				return null;
+
+		}
+	}
+
+	public int numFeatures() {
+		return 0;
+//		return featureStrings.length;
+	}
+
+	public List<Example> getTrainingExamples() {
+		return trainingExamples;
+	}
+
+	public BaseFeature getFeatureToPredict_() {
+		return featureToPredict_;
+	}
+
+	public void setFeatureToPredict_(BaseFeature featureToPredict_) {
+		this.featureToPredict_ = featureToPredict_;
+	}
+	
+	/**
+	 * 
+	 * @return problem in xml format
+	 */
+	public String toXML(){
+		String s = "<Problem>";
+		List<Example> examples = new ArrayList<>(getTrainingExamples());
+		examples.add(testExample);
+		for (Example e : examples) {
+			String opening = "\t\t" + "\n";
+			s+=opening;
+			s+=e.toXML();
+		}
+		return s+="\n</Problem>";
+	}
+//	
+//	/**
+//	 * 
+//	 * @param filename
+//	 */
+//	public void exportCSV(String filename){
+////		https://stackoverflow.com/questions/21413978/convert-an-xml-file-to-csv-file-using-java
+//		File stylesheet;
+//		String xml = toXML();
+//		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//		DocumentBuilder builder;
+//		Document doc;
+//		try {
+//			builder = factory.newDocumentBuilder();
+//			doc = builder.parse(filename);
+//			filename = filename.substring(0, filename.length()-4);
+//			Result outputTarget = new StreamResult(new File(filename + ".csv"));
+//			System.out.println("saved the problem to " + filename);
+//		} catch (ParserConfigurationException | SAXException | IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+////		BufferedWriter out;
+////		try {
+////			out = new BufferedWriter (new FileWriter(filename));
+//////			out.write();
+////			out.close();
+////		} catch (IOException e1) {
+////			e1.printStackTrace();
+////		}
+//	}
+//
+//	/**
+//	 * export problem to an xml file
+//	 * 
+//	 * @param filename
+//	 */
+//	public void exportXML(String filename){
+//		System.out.println("saving the problem to " + filename);
+//		BufferedWriter out;
+//		try {
+//			out = new BufferedWriter (new FileWriter(filename));
+//			out.write(toXML());
+//			out.close();
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param string
+//	 * @return a problem based on an existing xml file
+//	 */
+//	public static Problem importXML(String filename) {
+////		https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+//		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+//		DocumentBuilder dBuilder;
+//		Problem problem = new Problem();
+//		try {
+//			dBuilder = dbFactory.newDocumentBuilder();
+//			Document doc = dBuilder.parse(filename);
+//			doc.getDocumentElement().normalize();
+//			NodeList nList = doc.getElementsByTagName("Example");
+//			for (int i = 0; i< nList.getLength(); i++){
+//				Node node = nList.item(i);
+//				Example example = new Example();
+//				/*
+//				 *Get sub nodes in the current example node 
+//				 */
+//				if(node.hasChildNodes()){
+////					iterate through the sub nodes of the example node
+//					Node first = node.getFirstChild();
+//					while(first.getNextSibling() != null){
+////						/**
+////						 * values
+////						 */
+////						System.out.println(first.getTextContent().replaceAll("\n", ","));
+////						verify the node name
+//						if (first.getNodeName() != "#text"){
+////							check what type of feature this node is supposed to make
+//							if(first.hasAttributes()){
+//								String nodeName = first.getNodeName();
+//								
+////								String elem = element.getElementsByTagName(nodeName).item(0).getTextContent();
+//								String type = first.getAttributes().item(0).getNodeValue();
+//								switch(type){
+//								case "complex":
+//									BaseFeature c = new ComplexFeature(nodeName);
+//									example.addFeature(c);
+//									break;
+//								case "number":
+//									NumberFeature n = new NumberFeature((double) Helper.returnStringOrDouble(first.getTextContent()), nodeName);
+//									example.addFeature(n);
+////									System.out.println(n);
+//									break;
+//								case "string":
+//									StringFeature s = new StringFeature(first.getTextContent(), nodeName);
+//									example.addFeature(s);
+////									System.out.println(f);
+//									break;
+//								}	
+//							}
+//						}
+//						first = first.getNextSibling();
+//					}
+//				}
+//				if(i == nList.getLength()-1){
+//					problem.setTestExample(example);
+//				} else {
+//					problem.addTrainingExample(example);
+//				}
+//			}
+//		} catch (ParserConfigurationException | SAXException | IOException e) {
+//			e.printStackTrace();
+//		}		
+//		return problem;
+//	}
+
+	public void setTrainingExamples(List<Example> trainingExamples) {
+		this.trainingExamples = trainingExamples;
+	}
+	
+	
+}

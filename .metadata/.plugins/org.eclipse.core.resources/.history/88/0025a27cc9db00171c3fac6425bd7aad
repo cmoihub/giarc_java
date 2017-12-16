@@ -1,0 +1,51 @@
+package feature;
+
+import Problem.DistanceMetric;
+import directory.FeatureChecker;
+
+//import java.util.*;
+/**
+ * This class concerns simple/leaf features
+ *
+ * @author Issa
+ *
+ */
+public abstract class Feature extends BaseFeature{
+
+	protected DistanceMetric metric;
+
+	public DistanceMetric getMetric() {
+		return this.metric;
+	}
+	
+	public boolean isComplex() {
+		return false;
+	}
+
+	public Object getValue() {
+		return null;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+
+	/**
+	 * 
+	 */
+	public String toXML(){
+		Object[] items = FeatureChecker.values(this);
+		String name_ = (String) items[0];
+		Object value_ = items[1];
+		String featureTag = "";
+		
+		featureTag += "\t\t<" + name_;
+		if(this instanceof NumberFeature){
+			featureTag += " type=\"number\">";
+		} else if (this instanceof StringFeature) {
+			featureTag += " type=\"string\">";
+		} 
+		featureTag += value_  + "</" + name_ + ">";
+		return "\n" + featureTag;
+	}
+}

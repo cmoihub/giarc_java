@@ -1,0 +1,23 @@
+package xml;
+
+import java.util.HashMap;
+
+import feature.BaseFeature;
+import feature.Feature;
+
+public class FeatureChecker {
+	public static Object[] values(BaseFeature f){
+		String name_ = f.getName();
+		if(name_ == "" || name_ == null){
+			name_ = "simple_feature";
+		}
+		if (f instanceof Feature){
+			Object value_ = ((Feature) f).getValue();
+			if (value_ == null){
+				value_ = "empty";
+			}
+		}
+		
+//		return null
+	}
+}

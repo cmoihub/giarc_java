@@ -1,0 +1,68 @@
+package fileManagement;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import Problem.Example;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+/**
+ * This class is used to save problem data 
+ * @author CraigBook
+ *
+ */
+public class Exporter {
+	
+	/**
+	 * export problem to a csv file
+	 * @param filename
+	 */
+	public static void exportCSV(String filename, Problem problem){
+//		https://stackoverflow.com/questions/21413978/convert-an-xml-file-to-csv-file-using-java
+		File stylesheet;
+		String xml = problem.toXML();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		Document doc;
+		try {
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(filename);
+			filename = filename.substring(0, filename.length()-4);
+			Result outputTarget = new StreamResult(new File(filename + ".csv"));
+			System.out.println("saved the problem to " + filename);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * export problem to an xml file
+	 * 
+	 * @param filename
+	 */
+	public static void exportXML(String filename, Problem problem){
+		System.out.println("saving the problem to " + filename);
+		BufferedWriter out;
+		try {
+			out = new BufferedWriter (new FileWriter(filename));
+			out.write(problem.toXML());
+			out.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+}

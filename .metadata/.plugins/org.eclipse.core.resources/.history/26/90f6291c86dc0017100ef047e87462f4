@@ -1,0 +1,115 @@
+package Problem;
+
+import feature.*;
+
+import java.util.*;
+
+/**
+ * This class represents a list of training examples and a test examples, 
+ * It has a simpler structure than the ProblemModel class and so therefore is used to generate the xml files for the exporter and loader 
+ *
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class Problem {
+	private List<Example> trainingExamples;
+	private Example testExample;
+	private List<BaseFeature> features;
+
+	public Problem() {
+		features = new ArrayList<>();
+		setTrainingExamples(new ArrayList<Example>());
+		testExample = new Example();
+	}
+
+	/**
+	 * get features associated with problem
+	 *
+	 * @return
+	 */
+	public List<BaseFeature> getFeatures() {
+		return this.features;
+	}
+
+	/**
+	 * add a new training example
+	 *
+	 * @param e
+	 */
+	public void addTrainingExample(Example e) {
+		this.getTrainingExamples().add(e);
+	}
+
+	/**
+	 * set the test example to a new value
+	 *
+	 * @param e
+	 */
+	public void setTestExample(Example e) {
+		this.testExample = e;
+	}
+
+//	
+//	/**
+//	 * set the feature to predict for the test example
+//	 *
+//	 * @param f
+//	 */
+//	public void setFeatureToPredict(BaseFeature f) {
+//		setFeatureToPredict_(f);
+//	}
+//
+//	/**
+//	 * get feature to predict for test example
+//	 *
+//	 * @return
+//	 */
+//	public BaseFeature getFeatureToPredict() {
+//		return featureToPredict;
+//	}
+
+//	/**
+//	 * setup training and test examples
+//	 */
+//	public void setExamples() {
+//		for (Example example : getTrainingExamples()) {
+//			example.setFeatures(features);
+//		}
+//		List<BaseFeature> copy = new ArrayList<>(features);
+//		
+//		for(BaseFeature f: copy) {
+//			if(f.equals(featureToPredict)){
+//				copy.remove(getFeatureToPredict());
+//			}
+//		}
+//		testExample.setFeatures(copy);
+//		System.out.println(testExample.getFeatures());
+//	}
+
+
+	public List<Example> getTrainingExamples() {
+		return trainingExamples;
+	}
+	
+	/**
+	 * 
+	 * @return problem in xml format
+	 */
+	public String toXML(){
+		String s = "<Problem>";
+		List<Example> examples = new ArrayList<>(getTrainingExamples());
+		examples.add(testExample);
+		for (Example e : examples) {
+			String opening = "\t\t" + "\n";
+			s+=opening;
+			s+=e.toXML();
+		}
+		return s+="\n</Problem>";
+	}
+
+	public void setTrainingExamples(List<Example> trainingExamples) {
+		this.trainingExamples = trainingExamples;
+	}
+	
+	
+}

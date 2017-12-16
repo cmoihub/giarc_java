@@ -1,0 +1,65 @@
+package feature;
+
+import Problem.DistanceMetric;
+
+//import java.util.*;
+/**
+ * This class concerns simple/leaf features
+ *
+ * @author Issa
+ *
+ */
+public abstract class Feature extends BaseFeature{
+
+	protected DistanceMetric metric;
+
+	public DistanceMetric getMetric() {
+		return this.metric;
+	}
+	
+	public boolean isComplex() {
+		return false;
+	}
+
+	public Object getValue() {
+		return null;
+	}
+	
+	public String toXML(){
+//		String s = "\t<feature>\n";
+//		String s_ = "\t</feature>";
+//		if()
+		String name_ = getName();
+		Object value_ = getValue();
+		if(name == "" || name == null){
+			name = "simple_feature";
+		}
+		String featureTag = "\t\t<" + name_ +">" + value_  + "</" + name_ + ">\n";
+		return "\n" + featureTag;
+	}
+	
+//	public static void main(String[] args) {
+//		GeneralFeature f1 = new NumberFeature(15);
+//		GeneralFeature f2 = new NumberFeature(8);
+//		GeneralFeature f3 = new StringFeature("Newer");
+//		f1.add(f2);
+//		System.out.print("Get Feature Value: ");
+//		if(f1 instanceof NumberFeature) {
+//			System.out.println(((NumberFeature)f1).getValue());
+//		}
+//		System.out.println(f1.isComplex());
+//		System.out.println();
+//		
+//		System.out.print("Get Feature Value: ");
+//		if(f3 instanceof StringFeature) {
+//			System.out.println(((StringFeature)f3).getValue());
+//		}
+//		System.out.println(f3.isComplex());
+//
+//		
+//			
+//		
+//	}
+	
+
+}

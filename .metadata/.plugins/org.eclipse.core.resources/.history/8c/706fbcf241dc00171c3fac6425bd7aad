@@ -1,0 +1,184 @@
+package fileManagement;
+
+import java.io.IOException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+
+import Problem.*;
+import feature.*;
+import helper.Helper;
+
+/**
+ * Used to load files
+ * @author CraigBook
+ */
+public class Loader {
+	/**
+	 * 
+	 * @param string
+	 * @return a problem based on an existing xml file
+	 */
+	public static Problem loadFromXML(String filename) {
+//		https://www.mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder;
+		Problem problem = new Problem();
+		try {
+			dBuilder = dbFactory.newDocumentBuilder();
+//			Convert the xml file to a format application understands
+//			in this case a document with nodes
+			Document doc = dBuilder.parse(filename);
+//			Format the document so it's easy to analyze
+			doc.getDocumentElement().normalize();
+//			Get all examples
+			NodeList nList = doc.getElementsByTagName("Example");
+			for (int i = 0; i< nList.getLength(); i++){
+				Node node = nList.item(i);
+				Example example = createExample(node);
+//				if you're at the end of the list then you're at the test example of the set of examples
+				if(i == nList.getLength()-1){
+					problem.setTestExample(example);
+				} else {
+					problem.addTrainingExample(example);
+				}
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}		
+		return problem;
+	}
+	
+	/**
+	 * 
+	 * @param node current node
+	 * @return an example based on the node
+	 */
+	public static Example createExample(Node node){
+		Example example = new Example(); 
+		if(node.hasChildNodes()){
+			Node first = node.getFirstChild();
+			iterateNodes(first, example, false, null);
+		}
+		return example;
+	}
+
+	/**
+	 * iterate through the sub nodes of the example node and update the current example
+	 * @param node current node
+	 * @param example example to update
+	 * @param complex true if you're traversing through complex nodes
+	 */
+	public static void iterateNodes(Node node, Example example, boolean complex, ComplexFeature f){
+		while(moreNodesAfter(node)){
+			if (validName(node)){
+//				check what type of feature this node is supposed to make
+				if(node.hasAttributes()){
+					setupFeatures(node, example, f);
+				}
+			}
+			node = node.getNextSibling();
+		}
+	}
+
+	/**
+	 * check what type of feature the current node is supposed to make, then update the example
+	 * @param node
+	 * @param example
+	 * @param f
+	 */
+	public static void setupFeatures(Node node, Example example, ComplexFeature f){
+//		Format - <nodeName type="type">nodeValue</nodeName>
+		String nodeName = node.getNodeName();
+		String nodeValue = node.getTextContent();
+		String type = node.getAttributes().item(0).getNodeValue();
+		switch(type){
+		case "complex":
+			ComplexFeature prev = null;
+			if(f==null){
+				prev = new ComplexFeature(nodeName);
+				iterateNodes(node.getFirstChild(), example, true, prev);
+				example.addFeature(prev);
+			} else{
+				prev = f;
+				ComplexFeature c = addComplexFeature(example, nodeName, prev);
+				iterateNodes(node.getFirstChild(), example, true, c);
+			}
+			break;
+		case "number": addNumberFeature(example, nodeValue, nodeName, f);
+			break;
+		case "string": addStringFeature(example, nodeValue, nodeName, f);
+			break;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param example current example
+	 * @param nodeName name of current node
+	 * @param f parent complex feature
+	 * @return child complex feature
+	 */
+	public static ComplexFeature addComplexFeature(Example example, String nodeName, ComplexFeature f){
+	ComplexFeature c = new ComplexFeature(nodeName);
+	if(f==null){
+		example.addFeature(c);
+	}
+	else {
+		f.addFeature(c);
+	}
+	return c;
+}
+	
+	/**
+	 * add a number feature to the example
+	 * @param example current example
+	 * @param nodeValue current node's value
+	 * @param nodeName current node's name
+	 */
+	public static void addNumberFeature(Example example, String nodeValue, String nodeName, ComplexFeature f){
+		NumberFeature n = new NumberFeature((double) Helper.returnStringOrDouble(nodeValue), nodeName);
+		if(f==null){
+			example.addFeature(n);
+		}
+		else {
+			f.addFeature(n);
+		}
+	}
+	
+	/**
+	 * add a string feature to example
+	 * @param example
+	 * @param nodeValue
+	 * @param nodeName
+	 */
+	public static void addStringFeature(Example example, String nodeValue, String nodeName, ComplexFeature f){
+		StringFeature s = new StringFeature(nodeValue, nodeName);
+		if (f==null){
+			example.addFeature(s);
+		} else {
+			f.addFeature(s);
+		}
+		
+	}
+	
+	/**
+	 * @param node current node
+	 * @return true if the current node has a valid name
+	 */
+	public static boolean validName(Node node){
+		return (node.getNodeName()!="#text");
+	}
+	
+	/**
+	 * @param node current node
+	 * @return true if there are more nodes after the current node
+	 */
+	public static boolean moreNodesAfter(Node node){
+		return (node.getNextSibling() != null);
+	}
+}

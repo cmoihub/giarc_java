@@ -1,0 +1,17 @@
+package xml;
+
+import java.util.HashMap;
+
+public class FeatureChecker {
+	public static HashMap<String, Object> values(BaseFeature f){
+		String name_ = f.getName();
+		Object value_ = f.getValue();
+		if(name_ == "" || name_ == null){
+			name_ = "simple_feature";
+		}
+		if (value_ == null){
+			value_ = "empty";
+		}
+//		return null
+	}
+}

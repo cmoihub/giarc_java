@@ -1,0 +1,148 @@
+package directory;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import Problem.Example;
+import Problem.Problem;
+import feature.ComplexFeature;
+import feature.NumberFeature;
+import feature.StringFeature;
+
+/**
+ * This class is used to save problem data 
+ * @author CraigBook
+ *
+ */
+public class Exporter {
+	
+	/**
+	 * export problem to a csv file
+	 * @param filename
+	 */
+	public static void exportCSV(String filename, Problem problem){
+//		https://stackoverflow.com/questions/21413978/convert-an-xml-file-to-csv-file-using-java
+		File stylesheet;
+		String xml = problem.toXML();
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder;
+		Document doc;
+		try {
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(filename);
+			filename = filename.substring(0, filename.length()-4);
+			Result outputTarget = new StreamResult(new File(filename + ".csv"));
+			System.out.println("saved the problem to " + filename);
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * export problem to an xml file
+	 * 
+	 * @param filename
+	 */
+	public static void exportXML(String filename, Problem problem){
+		System.out.println("saving the problem to " + filename);
+		BufferedWriter out;
+		try {
+			out = new BufferedWriter (new FileWriter(filename));
+			out.write(problem.toXML());
+			out.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	public static void main(String args[]){
+		Problem p = new Problem();
+		p.setTrainingExamples(testExamples());
+		p.setTestExample(testExample());
+		
+		Exporter.exportXML("_data/problem.xml", p);
+//		p.exportXML("_data/problem.xml");
+		Problem p_ = Problem.importXML("_data/problem.xml");	
+		p_.exportXML("_data/problem2.xml");
+	}
+	
+	public static Example testExample(){
+		Example t1 = new Example();
+		
+		ComplexFeature coordinates = new ComplexFeature("coordinates");
+		
+			ComplexFeature e = new ComplexFeature("test");
+				StringFeature s = new StringFeature("test1", "s");
+				StringFeature s1 = new StringFeature("test2", "s1");
+				e.addFeature(s);e.addFeature(s1);
+			
+//			NumberFeature lat = new NumberFeature(15, "latitude");
+			NumberFeature lng = new NumberFeature(20, "longitude");
+		coordinates.addFeature(e);coordinates.addFeature(lng);
+		
+		NumberFeature sqft = new NumberFeature(1000, "square-feet");
+		StringFeature age = new StringFeature("new", "age");
+		NumberFeature price = new NumberFeature();
+		price.setName("price");
+		
+		t1.addFeature(coordinates);t1.addFeature(sqft);t1.addFeature(age);t1.addFeature(price);
+		return t1;
+	}
+	
+	public static ArrayList<Example> testExamples(){
+		Example t1 = new Example();
+		ComplexFeature coordinates1 = new ComplexFeature("coordinates");
+			NumberFeature lat1 = new NumberFeature(30, "latitude");
+			NumberFeature lng1 = new NumberFeature(100, "longitude");
+		coordinates1.addFeature(lat1);coordinates1.addFeature(lng1);
+		
+		NumberFeature sqft1 = new NumberFeature(800, "square-feet");
+		StringFeature age1 = new StringFeature("new", "age");
+		NumberFeature price1 = new NumberFeature(400000, "price");
+		price1.setName("price");
+		
+		t1.addFeature(coordinates1);t1.addFeature(sqft1);t1.addFeature(age1);t1.addFeature(price1);
+		
+		Example t2 = new Example();
+		ComplexFeature coordinates2 = new ComplexFeature("coordinates");
+			NumberFeature lat2 = new NumberFeature(10, "latitude");
+			NumberFeature lng2 = new NumberFeature(50, "longitude");
+		coordinates2.addFeature(lat2);coordinates2.addFeature(lng2);
+		
+		NumberFeature sqft2 = new NumberFeature(1000, "square-feet");
+		StringFeature age2 = new StringFeature("old", "age");
+		NumberFeature price2 = new NumberFeature(300000, "price");
+		price2.setName("price");
+		
+		t2.addFeature(coordinates2);t2.addFeature(sqft2);t2.addFeature(age2);t2.addFeature(price2);
+		
+		Example t3 = new Example();
+		ComplexFeature coordinates3 = new ComplexFeature("coordinates");
+			NumberFeature lat3 = new NumberFeature(12, "latitude");
+			NumberFeature lng3 = new NumberFeature(25, "longitude");
+		coordinates3.addFeature(lat3);coordinates3.addFeature(lng3);
+		
+		NumberFeature sqft3 = new NumberFeature(1200, "square-feet");
+		StringFeature age3 = new StringFeature("new", "age");
+		NumberFeature price3 = new NumberFeature(500000, "price");
+		price3.setName("price");
+		
+		t3.addFeature(coordinates3);t3.addFeature(sqft3);t3.addFeature(age3);t3.addFeature(price3);
+		
+		ArrayList<Example> train = new ArrayList<Example>();
+		train.add(t1);train.add(t2);train.add(t3);
+		return train;
+	}
+}

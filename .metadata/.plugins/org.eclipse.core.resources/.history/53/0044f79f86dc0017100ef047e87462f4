@@ -1,0 +1,63 @@
+package fileManagement;
+
+import feature.*;
+
+import java.util.*;
+
+/**
+ * This class represents a list of training examples and a test examples, 
+ * It has a simpler structure than the ProblemModel class and so therefore is used to generate the xml files for the exporter and loader 
+ *
+ * Created by CraigBook on 2017-11-09.
+ * worked on by: Daman
+ */
+public class Problem {
+	private List<Example> trainingExamples;
+	private Example testExample;
+
+	public Problem() {
+		setTrainingExamples(new ArrayList<>());
+		testExample = new Example();
+	}
+
+	/**
+	 * add a new training example
+	 * @param e
+	 */
+	public void addTrainingExample(Example e) {
+		this.getTrainingExamples().add(e);
+	}
+
+	/**
+	 * set the test example to a new value
+	 *
+	 * @param e
+	 */
+	public void setTestExample(Example e) {
+		this.testExample = e;
+	}
+
+	public List<Example> getTrainingExamples() {
+		return trainingExamples;
+	}
+	
+	/**
+	 * 
+	 * @return problem in xml format
+	 */
+	public String toXML(){
+		String s = "<Problem>";
+		List<Example> examples = new ArrayList<>(getTrainingExamples());
+		examples.add(testExample);
+		for (Example e : examples) {
+			String opening = "\t\t" + "\n";
+			s+=opening;
+			s+=e.toXML();
+		}
+		return s+="\n</Problem>";
+	}
+
+	public void setTrainingExamples(List<Example> trainingExamples) {
+		this.trainingExamples = trainingExamples;
+	}
+}
